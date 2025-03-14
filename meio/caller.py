@@ -1,25 +1,35 @@
+python your_script.py --json 
+# Later, reinitialize it to "clear" previous arguments
+parser = argparse.ArgumentParser()
+
+
+
 
 import sys
 sys.path.append('D:\\Personal\\Code\\MEIO')
 import argparse
-from meio.optimization.dilop import DilopSafetyStock 
-from meio.optimization.heuristic import HeuristicSolver
+from meio.optimization.dilop import DiloptOpSafetyStock 
+from meio.optimization.heuristic import ImprovedHeuristicSolver
 from meio.optimization.solver import MathematicalSolver
+# Import the Benchmark class
+from meio.benchmark import Benchmark
 
-    
+
 # Parse arguments
 parser = argparse.ArgumentParser(description='Benchmark MEIO algorithms')
-parser.add_argument('--json', type=str, required=True, help='Path to network JSON file')
+parser.add_argument('--json', type=str, default='D:\\Personal\\Code\\MEIO\\meio\\config\\supply_chain_network.json')
 parser.add_argument('--iterations', type=int, default=3, help='Number of iterations')
 parser.add_argument('--output-dir', type=str, help='Output directory')
 args = parser.parse_args()
     
     # Set up algorithms to benchmark
     algorithms = [
-        ("DilopSafetyStock", lambda network: {"total_cost": 0, "result": DilopSafetyStock.calculate(network)}),
+        ("DiloptOpSafetyStock", lambda network: {"total_cost": 0, "result": DiloptOpSafetyStock.calculate(network)}),
         ("Original Heuristic", lambda network: HeuristicSolver.optimize(network)),
         ("Improved Heuristic", lambda network: ImprovedHeuristicSolver.optimize(network))
     ]
+    
+
     
     # Add solver if available
     if MathematicalSolver.is_available():
