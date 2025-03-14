@@ -280,6 +280,33 @@ def main():
     
     return 0
 
+# Run heuristic optimization with improved algorithm
+    heuristic_results = {'status': 'skipped', 'inventory_levels': {}, 'total_cost': 0}
+    if not args.no_heuristic:
+        try:
+            inflows = config.get('optimization', 'default_inflow')
+            logging.info(f"Optimizing with improved heuristic (inflows={inflows})...")
+            
+            # Use improved heuristic 
+            from meio.optimization.heuristic import ImprovedHeuristicSolver
+            heuristic_results = ImprovedHeuristicSolver.optimize(network, service_level, inflows)
+            
+            heuristic_opt_id = exporter.save_optimization_results(network, "Improved Heuristic", heuristic_results)
+            
+            logging.info(f"Improved Heuristic Results (Date {network.dates[0].strftime('%Y-%m-%d')}):")
+            for node_id in network.nodes:
+                for prod in network.nodes[node_id].products:
+                    inv = heuristic_results['inventory_levels'].get((node_id, prod, 0), 0)
+                    logging.info(f"{node_id} - {prod}: {inv:.2f}")
+            logging.info(f"Total Cost: {heuristic_results['total_cost']:.2f}")
+            
+            # Analyze stockouts and overstocks
+            heuristic_stockouts, heuristic_overstocks = analyze_stock_alerts(
+                network, heuristic_results['inventory_levels'], method="Improved Heuristic")
+            exporter.save_stock_alerts(heuristic_opt_id, heuristic_stockouts, heuristic_overstocks, "Improved Heuristic")
+        except Exception as e:
+            logging.error(f"Error in heuristic optimization: {str(e)}")
+
 if __name__ == "__main__":
     import os
     import sys
