@@ -3,7 +3,9 @@ Main entry point for the MEIO system.
 """
 import logging
 import argparse
+import os
 from datetime import datetime, timedelta
+from meio.utils.path_manager import paths
 from meio.config.settings import config
 from meio.io.json_loader import NetworkJsonLoader
 from meio.io.csv_exporter import CSVExporter
@@ -188,6 +190,7 @@ def main():
     
     # Initialize exporter
     exporter = CSVExporter()
+    logging.info(f"CSV Output directory: {exporter.output_dir} (exists: {os.path.exists(exporter.output_dir)})")
     
     # Run solver optimization if requested
     solver_results = {'status': 'skipped', 'inventory_levels': {}, 'total_cost': 0}
@@ -254,7 +257,7 @@ def main():
             logging.info("Generating network visualization...")
             NetworkVisualizer.visualize_network(
                 network, results_to_use['inventory_levels'], date_idx=0,
-                save_path=os.path.join(config.get('paths', 'output_dir'), 'network_visualization.png')
+                save_path=paths.get_visualization_path('network_visualization.png')
             )
             
             # Comparison chart if both methods were used
@@ -262,7 +265,7 @@ def main():
                 logging.info("Generating comparison chart...")
                 ChartVisualizer.plot_comparison_chart(
                     network, solver_results, heuristic_results,
-                    save_path=os.path.join(config.get('paths', 'output_dir'), 'comparison_chart.png')
+                    save_path=paths.get_visualization_path('comparison_chart.png')
                 )
             
             # Node metrics charts
@@ -270,13 +273,20 @@ def main():
             receptions = calculate_receptions(network, results_to_use['inventory_levels'])
             ChartVisualizer.plot_node_metrics(
                 network, results_to_use['inventory_levels'], receptions,
-                save_path=os.path.join(config.get('paths', 'output_dir'), 'node_metrics')
+                save_path=paths.get_visualization_path('node_metrics')
             )
         else:
             logging.warning("No valid optimization results available for visualization.")
             
     except Exception as e:
         logging.error(f"Error generating visualizations: {str(e)}")
+    
+    # Save network statistics to CSV
+    try:
+        logging.info("Saving network statistics to CSV...")
+        exporter.save_network_statistics(network)
+    except Exception as e:
+        logging.warning(f"Failed to save network statistics: {str(e)}")
     
     return 0
 
@@ -308,6 +318,5 @@ def main():
             logging.error(f"Error in heuristic optimization: {str(e)}")
 
 if __name__ == "__main__":
-    import os
     import sys
     sys.exit(main())

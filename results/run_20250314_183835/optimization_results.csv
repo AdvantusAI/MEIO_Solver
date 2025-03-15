@@ -1,0 +1,3 @@
+optimization_id,method,status,total_cost,run_timestamp
+SCIP Solver_2025-03-14_18-38-35,SCIP Solver,optimal,64642.97918085033,2025-03-14 18:38:35
+Heuristic_2025-03-14_18-38-35,Heuristic,heuristic,379416.7740955299,2025-03-14 18:38:35

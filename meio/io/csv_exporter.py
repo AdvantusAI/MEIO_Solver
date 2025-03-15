@@ -5,6 +5,7 @@ import os
 import csv
 import logging
 from datetime import datetime
+from meio.utils.path_manager import paths
 
 logger = logging.getLogger(__name__)
 
@@ -18,8 +19,12 @@ class CSVExporter:
         Args:
             output_dir (str, optional): Output directory. Uses config if None.
         """
-        from ..config.settings import config
-        self.output_dir = output_dir or config.get('paths', 'output_dir')
+        if output_dir:
+            self.output_dir = output_dir
+        else:
+            # Default to the optimization results directory from PathManager
+            self.output_dir = paths.OPTIMIZATION_RESULTS_DIR
+            
         os.makedirs(self.output_dir, exist_ok=True)
         logger.debug(f"CSV Exporter initialized with output directory: {self.output_dir}")
     
@@ -78,8 +83,10 @@ class CSVExporter:
             'run_timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
         
+        # Use standardized file paths for output
+        optimization_csv = 'optimization_results.csv'
         self.save_to_csv(
-            'optimization_results.csv', 
+            optimization_csv, 
             opt_data,
             ['optimization_id', 'method', 'status', 'total_cost', 'run_timestamp']
         )
@@ -96,9 +103,10 @@ class CSVExporter:
                     'date': network.dates[t].strftime('%Y-%m-%d'),
                     'inventory': inv
                 })
-                
+            
+            inventory_csv = 'inventory_levels.csv'
             self.save_to_csv(
-                'inventory_levels.csv', 
+                inventory_csv, 
                 inventory_data, 
                 ['optimization_id', 'node_id', 'product_id', 'date', 'inventory']
             )
@@ -166,3 +174,88 @@ class CSVExporter:
             logger.info(f"Saved {len(alert_data)} stock alerts to CSV for optimization {optimization_id}")
         else:
             logger.info(f"No stock alerts to save for optimization {optimization_id}")
+            
+    def save_network_statistics(self, network, optimization_id=None):
+        """
+        Save network statistics to CSV.
+        
+        Args:
+            network (MultiEchelonNetwork): The network to analyze.
+            optimization_id (str, optional): Optimization ID to associate with stats.
+        """
+        timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        stats_id = optimization_id or f"network_stats_{timestamp}"
+        
+        # Node statistics
+        node_stats = []
+        for node_id, node in network.nodes.items():
+            node_stats.append({
+                'stats_id': stats_id,
+                'node_id': node_id,
+                'node_type': node.node_type,
+                'num_products': len(node.products),
+                'num_suppliers': len(node.suppliers),
+                'num_customers': len(node.customers),
+                'total_capacity': getattr(node, 'capacity', None),
+                'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            })
+        
+        self.save_to_csv(
+            'node_statistics.csv',
+            node_stats,
+            ['stats_id', 'node_id', 'node_type', 'num_products', 'num_suppliers', 'num_customers', 'total_capacity', 'timestamp']
+        )
+        
+        # Product statistics
+        product_stats = []
+        for node_id, node in network.nodes.items():
+            for prod in node.products:
+                lead_time = getattr(node, 'lead_time', {}).get(prod, None) 
+                holding_cost = getattr(node, 'holding_cost', {}).get(prod, None)
+                
+                product_stats.append({
+                    'stats_id': stats_id,
+                    'node_id': node_id,
+                    'product_id': prod,
+                    'lead_time': lead_time,
+                    'holding_cost': holding_cost,
+                    'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                })
+        
+        self.save_to_csv(
+            'product_statistics.csv',
+            product_stats,
+            ['stats_id', 'node_id', 'product_id', 'lead_time', 'holding_cost', 'timestamp']
+        )
+        
+        # Demand statistics - if available
+        try:
+            demand_stats = []
+            for node_id, node in network.nodes.items():
+                if hasattr(node, 'demand'):
+                    for prod in node.products:
+                        for t in range(network.num_periods):
+                            demand_val = node.demand.get((prod, t), 0)
+                            if demand_val > 0:
+                                demand_stats.append({
+                                    'stats_id': stats_id,
+                                    'node_id': node_id,
+                                    'product_id': prod,
+                                    'period': t,
+                                    'date': network.dates[t].strftime('%Y-%m-%d'),
+                                    'demand': demand_val,
+                                    'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                                })
+            
+            if demand_stats:
+                self.save_to_csv(
+                    'demand_statistics.csv',
+                    demand_stats,
+                    ['stats_id', 'node_id', 'product_id', 'period', 'date', 'demand', 'timestamp']
+                )
+        except Exception as e:
+            logger.warning(f"Could not save demand statistics: {str(e)}")
+            
+        logger.info(f"Network statistics saved to CSV files in {self.output_dir}")
+        
+        return stats_id

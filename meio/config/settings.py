@@ -5,6 +5,13 @@ import os
 import logging
 import json
 from pathlib import Path
+from meio.utils.path_manager import paths
+
+# Legacy constants for backward compatibility
+RESULTS_DIR = paths.RESULTS_DIR
+VISUALIZATIONS_DIR = paths.VISUALIZATION_DIR
+DEFAULT_SERVICE_LEVEL = 0.95
+DEFAULT_INFLOW = 1000
 
 class Config:
     """Configuration class for MEIO system."""
@@ -19,18 +26,21 @@ class Config:
         # Default settings
         self.DEFAULT_CONFIG = {
             'paths': {
-                'data_dir': os.path.join(os.path.expanduser('~'), 'meio_data'),
-                'output_dir': os.path.join(os.path.expanduser('~'), 'meio_results'),
-                'log_dir': os.path.join(os.path.expanduser('~'), 'meio_logs'),
+                'data_dir': paths.DATA_DIR,
+                'output_dir': paths.RESULTS_DIR,
+                'log_dir': paths.LOG_DIR,
+                'optimization_dir': paths.OPTIMIZATION_RESULTS_DIR,
+                'benchmark_dir': paths.BENCHMARK_RESULTS_DIR,
+                'visualization_dir': paths.VISUALIZATION_DIR,
             },
             'logging': {
                 'level': 'INFO',
                 'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                'file': os.path.join(os.path.expanduser('~'), 'meio_logs', 'meio.log'),
+                'file': paths.get_log_path('meio.log'),
             },
             'optimization': {
-                'default_service_level': 0.95,
-                'default_inflow': 1000,
+                'default_service_level': DEFAULT_SERVICE_LEVEL,
+                'default_inflow': DEFAULT_INFLOW,
                 'solver_time_limit': 600,  # seconds
                 'solver_gap': 0.01,        # 1% gap
             },
@@ -88,9 +98,8 @@ class Config:
     
     def _ensure_directories(self):
         """Create necessary directories if they don't exist."""
-        for dir_key in ['data_dir', 'output_dir', 'log_dir']:
-            dir_path = self.config['paths'][dir_key]
-            os.makedirs(dir_path, exist_ok=True)
+        # No need to create directories here as they are handled by PathManager
+        pass
     
     def _setup_logging(self):
         """Configure logging based on settings."""

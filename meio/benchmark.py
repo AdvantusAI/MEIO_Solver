@@ -8,6 +8,7 @@ import os
 from datetime import datetime
 import matplotlib.pyplot as plt
 import numpy as np
+from meio.utils.path_manager import paths
 from meio.config.settings import config
 from meio.io.json_loader import NetworkJsonLoader
 from meio.optimization.dilop import DiloptOpSafetyStock
@@ -26,9 +27,11 @@ class Benchmark:
         Args:
             output_dir (str, optional): Output directory. Defaults to config value.
         """
-        self.output_dir = output_dir or config.get('paths', 'output_dir')
+        self.output_dir = output_dir or paths.BENCHMARK_RESULTS_DIR
         os.makedirs(self.output_dir, exist_ok=True)
         self.results = []
+        logger.info("Output folder:")
+        logger.info(self.output_dir)
     
     def run_benchmark(self, json_file, algorithms, iterations=3):
         """
@@ -96,6 +99,7 @@ class Benchmark:
     
     def _save_results(self, benchmark_id):
         """Save benchmark results to file."""
+        # Save as JSON (original format)
         output_file = os.path.join(self.output_dir, f"benchmark_{benchmark_id}.json")
         
         # Convert numpy values to Python native types for JSON serialization
@@ -111,7 +115,9 @@ class Benchmark:
         
         with open(output_file, 'w') as f:
             json.dump(results_for_json, f, indent=2)
-            
+        
+        print("Output directory:")
+        print(self.output_dir)
         logger.info(f"Benchmark results saved to {output_file}")
     
     def _generate_charts(self, benchmark_id):
