@@ -40,6 +40,20 @@ def parse_args():
                        choices=['heuristic', 'improved_heuristic', 'solver'],
                        help='Optimization method to use for sensitivity analysis')
     
+    # Branch selection options
+    parser.add_argument('--branch-selection', action='store_true', help='Run branch selection strategy analysis')
+    parser.add_argument('--num-branches', type=int, default=5, help='Number of branches to generate')
+    parser.add_argument('--branch-criteria', type=str, default='cost,service_level,robustness',
+                      help='Comma-separated list of criteria for branch evaluation')
+    parser.add_argument('--branch-weights', type=str, default='0.4,0.4,0.2',
+                      help='Comma-separated list of weights for each criterion')
+    parser.add_argument('--selection-criteria', type=str, default='balanced',
+                      choices=['balanced', 'cost_focused', 'service_focused', 'robust'],
+                      help='Strategy for selecting the best branch')
+    parser.add_argument('--branch-method', type=str, default='improved_heuristic',
+                      choices=['heuristic', 'improved_heuristic', 'solver'],
+                      help='Optimization method to use for branch generation')
+    
     return parser.parse_args()
 
 def calculate_receptions(network, inventory_levels):
@@ -225,6 +239,94 @@ def run_sensitivity_analysis(args, network):
         logging.debug(traceback.format_exc())
         return 1
 
+def run_branch_selection(args, network):
+    """
+    Run branch selection on the network.
+    
+    Args:
+        args: Command line arguments
+        network: The network to analyze
+        
+    Returns:
+        int: Return code (0 for success)
+    """
+    from meio.optimization.branch_selection import BranchManager
+    from meio.visualization.branch_viz import BranchVisualizer
+    
+    # Parse criteria and weights
+    criteria = args.branch_criteria.split(',')
+    
+    weights = {}
+    if args.branch_weights:
+        weight_values = [float(x) for x in args.branch_weights.split(',')]
+        if len(weight_values) == len(criteria):
+            weights = dict(zip(criteria, weight_values))
+        else:
+            logging.warning("Number of weights doesn't match number of criteria. Using default weights.")
+    
+    # Base parameters
+    base_params = {}
+    if args.service_level:
+        base_params['service_level'] = args.service_level
+    if args.inflows:
+        base_params['inflows'] = args.inflows
+    
+    logging.info(f"Running branch selection with {args.num_branches} branches using criteria: {criteria}")
+    
+    try:
+        # Initialize branch manager
+        branch_manager = BranchManager(output_dir=args.output_dir)
+        
+        # Run branch selection
+        results = branch_manager.run_branch_selection(
+            network,
+            num_branches=args.num_branches,
+            criteria=criteria,
+            weights=weights,
+            selection_criteria=args.selection_criteria,
+            method=args.branch_method
+        )
+        
+        # Create visualizations if not disabled
+        if not args.no_viz:
+            BranchVisualizer.visualize_branch_selection_summary(results)
+        
+        # Log selected branch information
+        selected_branch = results['selection_results']['selected_branch']
+        if selected_branch:
+            selected_data = results['branch_results']['branches'][selected_branch]
+            logging.info(f"\nSelected Branch: {selected_branch}")
+            logging.info(f"Selection Criteria: {args.selection_criteria}")
+            logging.info(f"Branch Parameters:")
+            for k, v in selected_data['params'].items():
+                logging.info(f"  {k}: {v}")
+            
+            logging.info(f"Selection Rationale: {results['selection_results']['rationale']}")
+            
+            # Implementation guidance
+            logging.info("\nImplementation Guidance:")
+            logging.info("To implement this inventory policy:")
+            logging.info(f"1. Apply the service level settings shown above")
+            
+            params = selected_data['params']
+            if 'lead_time_factor' in params:
+                logging.info(f"2. Add a {(params['lead_time_factor']-1)*100:.0f}% buffer to lead time estimates")
+            if 'inflows' in params:
+                logging.info(f"3. Set inflow levels to {params['inflows']:.2f}")
+            logging.info(f"4. Monitor performance and adjust if necessary")
+            
+            logging.info(f"\nBranch selection results saved to {results['output_dir']}")
+        else:
+            logging.warning("No valid branch could be selected")
+        
+        return 0
+        
+    except Exception as e:
+        logging.error(f"Error during branch selection: {str(e)}")
+        import traceback
+        logging.debug(traceback.format_exc())
+        return 1
+
 def main():
     """Main execution function."""
     # Parse arguments
@@ -277,6 +379,10 @@ def main():
     # If sensitivity analysis is requested, run it and exit
     if args.sensitivity:
         return run_sensitivity_analysis(args, network)
+    
+    # If branch selection is requested, run it and exit
+    if args.branch_selection:
+        return run_branch_selection(args, network)
     
     # Calculate safety stock
     service_level = config.get('optimization', 'default_service_level')

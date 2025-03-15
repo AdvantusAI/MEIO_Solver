@@ -24,6 +24,7 @@ class PathManager:
     BENCHMARK_RESULTS_DIR = os.path.join(RESULTS_DIR, 'benchmarks')
     VISUALIZATION_DIR = os.path.join(RESULTS_DIR, 'visualizations')
     SENSITIVITY_RESULTS_DIR = os.path.join(RESULTS_DIR, 'sensitivity')
+    BRANCH_SELECTION_DIR = os.path.join(RESULTS_DIR, 'branch_selection')
     
     # Ensure all directories exist
     @classmethod
@@ -36,7 +37,8 @@ class PathManager:
             cls.OPTIMIZATION_RESULTS_DIR,
             cls.BENCHMARK_RESULTS_DIR,
             cls.VISUALIZATION_DIR,
-            cls.SENSITIVITY_RESULTS_DIR
+            cls.SENSITIVITY_RESULTS_DIR,
+            cls.BRANCH_SELECTION_DIR
         ]
         
         for directory in directories:
@@ -73,6 +75,11 @@ class PathManager:
     def get_visualization_path(cls, filename):
         """Get path for a visualization file."""
         return cls.get_file_path(cls.VISUALIZATION_DIR, filename)
+    
+    @classmethod
+    def get_branch_selection_path(cls, filename):
+        """Get path for a branch selection file."""
+        return cls.get_file_path(cls.BRANCH_SELECTION_DIR, filename)
     
     @classmethod
     def get_log_path(cls, filename="meio.log"):
