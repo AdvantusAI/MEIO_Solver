@@ -1,0 +1,8 @@
+Sensitivity Analysis ID: sensitivity_20250315_094152
+Timestamp: 20250315_094152
+Method: improved_heuristic
+Base Parameters:
+  service_level: 0.95
+  inflows: 1000
+Parameter Ranges:
+  service_level: [0.9, 0.95, 0.98]

@@ -1,0 +1,30 @@
+=== SENSITIVITY ANALYSIS REPORT ===
+
+Generated on: 2025-03-15 09:43:17
+
+== BASELINE PARAMETERS ==
+service_level: 0.95
+inflows: 1000
+
+Baseline Cost: 366457.79225429177
+Baseline Status: heuristic
+
+== PARAMETER RANGES TESTED ==
+service_level: [0.9, 0.95, 0.98]
+
+== PARAMETER SENSITIVITIES ==
+
+service_level:
+  Average Elasticity: 0.0000
+  Sensitivity Level: LOW
+  Detailed Elasticity Metrics:
+    0.95 -> 0.9 (-5.3%): Cost change: 0.0%, Elasticity: -0.0000
+    0.95 -> 0.98 (3.2%): Cost change: 0.0%, Elasticity: 0.0000
+
+== RECOMMENDATIONS ==
+
+service_level (Low Sensitivity - 0.0000):
+  - This parameter has minimal impact on total cost
+  - Less frequent monitoring may be acceptable
+
+=== END OF REPORT ===

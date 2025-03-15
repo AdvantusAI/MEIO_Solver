@@ -181,7 +181,7 @@ def main():
     exporter = CSVExporter(run_dir)
     
     # Save parameters for reproducibility
-    with open(os.path.join(run_dir, "parameters.txt"), "w") as f:
+    with open(os.path.join(run_dir, "parameters.txt"), "w", encoding='utf-8') as f:
         f.write(f"Run timestamp: {timestamp}\n")
         f.write(f"JSON file: {args.json}\n")
         f.write(f"Start date: {start_date}\n")

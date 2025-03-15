@@ -1,0 +1,4 @@
+parameter,value,total_cost,status,run_id,stockout_count,overstock_count
+service_level,0.9,366457.79225429177,heuristic,service_level_0_9,88,0
+service_level,0.95,366457.79225429177,heuristic,service_level_0_95,88,0
+service_level,0.98,366457.79225429177,heuristic,service_level_0_98,88,0

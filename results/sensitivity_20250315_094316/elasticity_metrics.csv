@@ -1,0 +1,3 @@
+parameter,baseline_value,test_value,pct_change_param,baseline_cost,test_cost,pct_change_cost,elasticity,abs_elasticity
+service_level,0.95,0.9,-5.263157894736835,366457.79225429177,366457.79225429177,0.0,-0.0,0.0
+service_level,0.95,0.98,3.157894736842108,366457.79225429177,366457.79225429177,0.0,0.0,0.0

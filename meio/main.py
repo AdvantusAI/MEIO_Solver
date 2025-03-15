@@ -29,6 +29,17 @@ def parse_args():
     parser.add_argument('--no-solver', action='store_true', help='Skip mathematical solver')
     parser.add_argument('--no-heuristic', action='store_true', help='Skip heuristic solver')
     parser.add_argument('--no-viz', action='store_true', help='Skip visualizations')
+    
+    # Sensitivity analysis options
+    parser.add_argument('--sensitivity', action='store_true', help='Run sensitivity analysis')
+    parser.add_argument('--service-levels', type=str, help='Comma-separated list of service levels for sensitivity analysis')
+    parser.add_argument('--lead-time-factors', type=str, help='Comma-separated list of lead time factors for sensitivity analysis')
+    parser.add_argument('--demand-factors', type=str, help='Comma-separated list of demand factors for sensitivity analysis')
+    parser.add_argument('--inflow-levels', type=str, help='Comma-separated list of inflow levels for sensitivity analysis')
+    parser.add_argument('--sensitivity-method', type=str, default='improved_heuristic',
+                       choices=['heuristic', 'improved_heuristic', 'solver'],
+                       help='Optimization method to use for sensitivity analysis')
+    
     return parser.parse_args()
 
 def calculate_receptions(network, inventory_levels):
@@ -127,6 +138,93 @@ def analyze_stock_alerts(network, inventory_levels, method="Solver"):
     
     return stockouts, overstocks
 
+def run_sensitivity_analysis(args, network):
+    """
+    Run sensitivity analysis on the network.
+    
+    Args:
+        args: Command line arguments
+        network: The network to analyze
+        
+    Returns:
+        int: Return code (0 for success)
+    """
+    from meio.analysis.sensitivity import run_sensitivity_analysis
+    
+    # Parse sensitivity parameters
+    parameter_ranges = {}
+    
+    if args.service_levels:
+        parameter_ranges['service_level'] = [float(x) for x in args.service_levels.split(',')]
+    else:
+        # Default service levels to test
+        parameter_ranges['service_level'] = [0.90, 0.95, 0.98]
+    
+    if args.lead_time_factors:
+        parameter_ranges['lead_time_factor'] = [float(x) for x in args.lead_time_factors.split(',')]
+    
+    if args.demand_factors:
+        parameter_ranges['demand_factor'] = [float(x) for x in args.demand_factors.split(',')]
+    
+    if args.inflow_levels:
+        parameter_ranges['inflows'] = [float(x) for x in args.inflow_levels.split(',')]
+    
+    # Base parameters
+    base_params = {}
+    if args.service_level:
+        base_params['service_level'] = args.service_level
+    if args.inflows:
+        base_params['inflows'] = args.inflows
+    
+    logging.info(f"Running sensitivity analysis with parameters: {parameter_ranges}")
+    
+    try:
+        result = run_sensitivity_analysis(
+            network,
+            parameter_ranges,
+            base_params=base_params if base_params else None,
+            method=args.sensitivity_method,
+            output_dir=args.output_dir,
+            visualize=not args.no_viz
+        )
+        
+        logging.info(f"Sensitivity analysis complete")
+        logging.info(f"Results saved to {result['output_dir']}")
+        
+        # Print summary of key insights
+        if 'elasticity_metrics' in result and result['elasticity_metrics']:
+            param_sensitivity = {}
+            for metric in result['elasticity_metrics']:
+                param = metric['parameter']
+                elasticity = metric.get('abs_elasticity')
+                if elasticity is not None:
+                    if param not in param_sensitivity:
+                        param_sensitivity[param] = []
+                    param_sensitivity[param].append(elasticity)
+            
+            logging.info("Key insights from sensitivity analysis:")
+            for param, values in param_sensitivity.items():
+                avg_elasticity = sum(values) / len(values)
+                
+                if avg_elasticity > 1.0:
+                    sensitivity = "HIGH"
+                elif avg_elasticity > 0.5:
+                    sensitivity = "MEDIUM"
+                else:
+                    sensitivity = "LOW"
+                
+                logging.info(f"  {param}: {sensitivity} sensitivity (elasticity = {avg_elasticity:.4f})")
+            
+            logging.info(f"Detailed report available at: {result['report_path']}")
+        
+        return 0
+        
+    except Exception as e:
+        logging.error(f"Error during sensitivity analysis: {str(e)}")
+        import traceback
+        logging.debug(traceback.format_exc())
+        return 1
+
 def main():
     """Main execution function."""
     # Parse arguments
@@ -175,6 +273,10 @@ def main():
     except Exception as e:
         logging.error(f"Failed to load network: {str(e)}")
         return 1
+    
+    # If sensitivity analysis is requested, run it and exit
+    if args.sensitivity:
+        return run_sensitivity_analysis(args, network)
     
     # Calculate safety stock
     service_level = config.get('optimization', 'default_service_level')
@@ -289,33 +391,6 @@ def main():
         logging.warning(f"Failed to save network statistics: {str(e)}")
     
     return 0
-
-# Run heuristic optimization with improved algorithm
-    heuristic_results = {'status': 'skipped', 'inventory_levels': {}, 'total_cost': 0}
-    if not args.no_heuristic:
-        try:
-            inflows = config.get('optimization', 'default_inflow')
-            logging.info(f"Optimizing with improved heuristic (inflows={inflows})...")
-            
-            # Use improved heuristic 
-            from meio.optimization.heuristic import ImprovedHeuristicSolver
-            heuristic_results = ImprovedHeuristicSolver.optimize(network, service_level, inflows)
-            
-            heuristic_opt_id = exporter.save_optimization_results(network, "Improved Heuristic", heuristic_results)
-            
-            logging.info(f"Improved Heuristic Results (Date {network.dates[0].strftime('%Y-%m-%d')}):")
-            for node_id in network.nodes:
-                for prod in network.nodes[node_id].products:
-                    inv = heuristic_results['inventory_levels'].get((node_id, prod, 0), 0)
-                    logging.info(f"{node_id} - {prod}: {inv:.2f}")
-            logging.info(f"Total Cost: {heuristic_results['total_cost']:.2f}")
-            
-            # Analyze stockouts and overstocks
-            heuristic_stockouts, heuristic_overstocks = analyze_stock_alerts(
-                network, heuristic_results['inventory_levels'], method="Improved Heuristic")
-            exporter.save_stock_alerts(heuristic_opt_id, heuristic_stockouts, heuristic_overstocks, "Improved Heuristic")
-        except Exception as e:
-            logging.error(f"Error in heuristic optimization: {str(e)}")
 
 if __name__ == "__main__":
     import sys

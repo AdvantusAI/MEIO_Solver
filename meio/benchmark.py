@@ -113,7 +113,7 @@ class Benchmark:
                     result_copy[key] = float(value)
             results_for_json.append(result_copy)
         
-        with open(output_file, 'w') as f:
+        with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(results_for_json, f, indent=2)
         
         print("Output directory:")

@@ -23,6 +23,7 @@ class PathManager:
     OPTIMIZATION_RESULTS_DIR = os.path.join(RESULTS_DIR, 'optimization')
     BENCHMARK_RESULTS_DIR = os.path.join(RESULTS_DIR, 'benchmarks')
     VISUALIZATION_DIR = os.path.join(RESULTS_DIR, 'visualizations')
+    SENSITIVITY_RESULTS_DIR = os.path.join(RESULTS_DIR, 'sensitivity')
     
     # Ensure all directories exist
     @classmethod
@@ -34,7 +35,8 @@ class PathManager:
             cls.LOG_DIR,
             cls.OPTIMIZATION_RESULTS_DIR,
             cls.BENCHMARK_RESULTS_DIR,
-            cls.VISUALIZATION_DIR
+            cls.VISUALIZATION_DIR,
+            cls.SENSITIVITY_RESULTS_DIR
         ]
         
         for directory in directories:

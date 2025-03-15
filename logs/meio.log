@@ -1,0 +1,115 @@
+2025-03-14 19:14:40,547 - __main__ - INFO - Starting sensitivity analysis
+2025-03-14 19:14:40,547 - __main__ - INFO - Loading network from path/to/network.json
+2025-03-14 19:14:40,547 - meio.io.json_loader - ERROR - File not found: path/to/network.json
+2025-03-14 19:14:40,554 - __main__ - ERROR - Failed to load network: [Errno 2] No such file or directory: 'path/to/network.json'
+2025-03-14 19:20:05,902 - __main__ - INFO - Starting sensitivity analysis
+2025-03-14 19:20:05,903 - __main__ - INFO - Loading network from .\config\supply_chain_network.json
+2025-03-14 19:20:05,903 - meio.io.json_loader - INFO - Loaded JSON from .\config\supply_chain_network.json
+2025-03-14 19:20:05,903 - meio.models.network - INFO - Generated 12 planning periods from 2025-03-14 to 2026-02-07
+2025-03-14 19:20:05,903 - meio.io.json_loader - INFO - Network has 12 periods, with 7 nodes
+2025-03-14 19:20:05,904 - meio.models.network - INFO - Network validation passed
+2025-03-14 19:20:05,904 - __main__ - INFO - Loaded network with 7 nodes and 12 periods
+2025-03-14 19:20:05,904 - __main__ - INFO - Running sensitivity analysis with parameters: {'service_level': [0.9, 0.95, 0.98]}
+2025-03-14 19:20:05,905 - meio.analysis.sensitivity - INFO - Running baseline optimization with parameters: {'service_level': 0.95, 'inflows': 1000}
+2025-03-14 19:20:08,502 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.95
+2025-03-14 19:20:08,507 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-14 19:20:08,507 - meio.analysis.sensitivity - INFO - Running 3 sensitivity analysis iterations...
+2025-03-14 19:20:08,507 - meio.analysis.sensitivity - INFO - Analyzing sensitivity to service_level
+2025-03-14 19:20:08,507 - meio.analysis.sensitivity - INFO -   Testing service_level = 0.9 (1/3)
+2025-03-14 19:20:08,509 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.9
+2025-03-14 19:20:08,511 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-14 19:20:08,530 - meio.analysis.sensitivity - INFO -   Testing service_level = 0.95 (2/3)
+2025-03-14 19:20:08,532 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.95
+2025-03-14 19:20:08,533 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-14 19:20:08,537 - meio.analysis.sensitivity - INFO -   Testing service_level = 0.98 (3/3)
+2025-03-14 19:20:08,539 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.98
+2025-03-14 19:20:08,540 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-14 19:20:09,765 - __main__ - ERROR - Error during sensitivity analysis: 'charmap' codec can't encode character '\u2192' in position 9: character maps to <undefined>
+2025-03-14 19:22:00,246 - __main__ - INFO - Starting sensitivity analysis
+2025-03-14 19:22:00,246 - __main__ - INFO - Loading network from .\config\supply_chain_network.json
+2025-03-14 19:22:00,247 - meio.io.json_loader - INFO - Loaded JSON from .\config\supply_chain_network.json
+2025-03-14 19:22:00,247 - meio.models.network - INFO - Generated 12 planning periods from 2025-03-14 to 2026-02-07
+2025-03-14 19:22:00,247 - meio.io.json_loader - INFO - Network has 12 periods, with 7 nodes
+2025-03-14 19:22:00,247 - meio.models.network - INFO - Network validation passed
+2025-03-14 19:22:00,248 - __main__ - INFO - Loaded network with 7 nodes and 12 periods
+2025-03-14 19:22:00,248 - __main__ - INFO - Running sensitivity analysis with parameters: {'service_level': [0.9, 0.95, 0.98]}
+2025-03-14 19:22:00,248 - meio.analysis.sensitivity - INFO - Running baseline optimization with parameters: {'service_level': 0.95, 'inflows': 1000}
+2025-03-14 19:22:00,704 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.95
+2025-03-14 19:22:00,706 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-14 19:22:00,706 - meio.analysis.sensitivity - INFO - Running 3 sensitivity analysis iterations...
+2025-03-14 19:22:00,706 - meio.analysis.sensitivity - INFO - Analyzing sensitivity to service_level
+2025-03-14 19:22:00,706 - meio.analysis.sensitivity - INFO -   Testing service_level = 0.9 (1/3)
+2025-03-14 19:22:00,709 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.9
+2025-03-14 19:22:00,709 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-14 19:22:00,715 - meio.analysis.sensitivity - INFO -   Testing service_level = 0.95 (2/3)
+2025-03-14 19:22:00,717 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.95
+2025-03-14 19:22:00,718 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-14 19:22:00,722 - meio.analysis.sensitivity - INFO -   Testing service_level = 0.98 (3/3)
+2025-03-14 19:22:00,724 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.98
+2025-03-14 19:22:00,725 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-14 19:22:01,770 - meio.analysis.sensitivity - INFO - Sensitivity analysis completed in 1.52 seconds
+2025-03-14 19:22:01,770 - meio.analysis.sensitivity - INFO - Results saved to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\sensitivity_20250314_192200
+2025-03-14 19:22:01,771 - __main__ - INFO - Sensitivity analysis complete
+2025-03-14 19:22:01,771 - __main__ - INFO - Results saved to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\sensitivity_20250314_192200
+2025-03-14 19:22:01,771 - __main__ - INFO - Total execution time: 1.52 seconds
+2025-03-14 19:22:01,771 - __main__ - INFO - Key insights from sensitivity analysis:
+2025-03-14 19:22:01,771 - __main__ - INFO -   service_level: LOW sensitivity (elasticity = 0.0000)
+2025-03-14 19:22:01,772 - __main__ - INFO - Detailed report available at: D:\Personal\M8\MEIO_solver\MEIO_Solver\results\sensitivity_20250314_192200\sensitivity_report.txt
+2025-03-15 09:41:52,962 - __main__ - INFO - Starting sensitivity analysis
+2025-03-15 09:41:52,963 - __main__ - INFO - Loading network from .\config\supply_chain_network.json
+2025-03-15 09:41:52,963 - meio.io.json_loader - INFO - Loaded JSON from .\config\supply_chain_network.json
+2025-03-15 09:41:52,964 - meio.models.network - INFO - Generated 12 planning periods from 2025-03-15 to 2026-02-08
+2025-03-15 09:41:52,964 - meio.io.json_loader - INFO - Network has 12 periods, with 7 nodes
+2025-03-15 09:41:52,964 - meio.models.network - INFO - Network validation passed
+2025-03-15 09:41:52,964 - __main__ - INFO - Loaded network with 7 nodes and 12 periods
+2025-03-15 09:41:52,964 - __main__ - INFO - Running sensitivity analysis with parameters: {'service_level': [0.9, 0.95, 0.98]}
+2025-03-15 09:41:52,965 - meio.analysis.sensitivity - INFO - Running baseline optimization with parameters: {'service_level': 0.95, 'inflows': 1000}
+2025-03-15 09:41:55,532 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.95
+2025-03-15 09:41:55,535 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-15 09:41:55,535 - meio.analysis.sensitivity - INFO - Running 3 sensitivity analysis iterations...
+2025-03-15 09:41:55,535 - meio.analysis.sensitivity - INFO - Analyzing sensitivity to service_level
+2025-03-15 09:41:55,535 - meio.analysis.sensitivity - INFO -   Testing service_level = 0.9 (1/3)
+2025-03-15 09:41:55,537 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.9
+2025-03-15 09:41:55,538 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-15 09:41:55,549 - meio.analysis.sensitivity - INFO -   Testing service_level = 0.95 (2/3)
+2025-03-15 09:41:55,551 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.95
+2025-03-15 09:41:55,552 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-15 09:41:55,556 - meio.analysis.sensitivity - INFO -   Testing service_level = 0.98 (3/3)
+2025-03-15 09:41:55,559 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.98
+2025-03-15 09:41:55,560 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-15 09:41:56,895 - meio.analysis.sensitivity - INFO - Sensitivity analysis completed in 3.93 seconds
+2025-03-15 09:41:56,895 - meio.analysis.sensitivity - INFO - Results saved to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\sensitivity_20250315_094152
+2025-03-15 09:41:56,895 - __main__ - INFO - Sensitivity analysis complete
+2025-03-15 09:41:56,895 - __main__ - INFO - Results saved to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\sensitivity_20250315_094152
+2025-03-15 09:41:56,896 - __main__ - INFO - Total execution time: 3.93 seconds
+2025-03-15 09:41:56,896 - __main__ - INFO - Key insights from sensitivity analysis:
+2025-03-15 09:41:56,896 - __main__ - INFO -   service_level: LOW sensitivity (elasticity = 0.0000)
+2025-03-15 09:41:56,896 - __main__ - INFO - Detailed report available at: D:\Personal\M8\MEIO_solver\MEIO_Solver\results\sensitivity_20250315_094152\sensitivity_report.txt
+2025-03-15 09:43:16,726 - root - INFO - Loading network from .\config\supply_chain_network.json
+2025-03-15 09:43:16,727 - meio.io.json_loader - INFO - Loaded JSON from .\config\supply_chain_network.json
+2025-03-15 09:43:16,727 - meio.models.network - INFO - Generated 12 planning periods from 2025-03-15 to 2026-02-08
+2025-03-15 09:43:16,728 - meio.io.json_loader - INFO - Network has 12 periods, with 7 nodes
+2025-03-15 09:43:16,728 - meio.models.network - INFO - Network validation passed
+2025-03-15 09:43:16,728 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=4)
+2025-03-15 09:43:16,907 - root - INFO - Running sensitivity analysis with parameters: {'service_level': [0.9, 0.95, 0.98]}
+2025-03-15 09:43:16,908 - meio.analysis.sensitivity - INFO - Running baseline optimization with parameters: {'service_level': 0.95, 'inflows': 1000}
+2025-03-15 09:43:16,911 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.95
+2025-03-15 09:43:16,913 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-15 09:43:16,913 - meio.analysis.sensitivity - INFO - Running 3 sensitivity analysis iterations...
+2025-03-15 09:43:16,913 - meio.analysis.sensitivity - INFO - Analyzing sensitivity to service_level
+2025-03-15 09:43:16,914 - meio.analysis.sensitivity - INFO -   Testing service_level = 0.9 (1/3)
+2025-03-15 09:43:16,916 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.9
+2025-03-15 09:43:16,920 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-15 09:43:16,929 - meio.analysis.sensitivity - INFO -   Testing service_level = 0.95 (2/3)
+2025-03-15 09:43:16,931 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.95
+2025-03-15 09:43:16,932 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-15 09:43:16,936 - meio.analysis.sensitivity - INFO -   Testing service_level = 0.98 (3/3)
+2025-03-15 09:43:16,938 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.98
+2025-03-15 09:43:16,939 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-15 09:43:17,979 - meio.analysis.sensitivity - INFO - Sensitivity analysis completed in 1.07 seconds
+2025-03-15 09:43:17,979 - meio.analysis.sensitivity - INFO - Results saved to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\sensitivity_20250315_094316
+2025-03-15 09:43:17,980 - root - INFO - Sensitivity analysis complete
+2025-03-15 09:43:17,980 - root - INFO - Results saved to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\sensitivity_20250315_094316
+2025-03-15 09:43:17,980 - root - INFO - Key insights from sensitivity analysis:
+2025-03-15 09:43:17,980 - root - INFO -   service_level: LOW sensitivity (elasticity = 0.0000)
+2025-03-15 09:43:17,980 - root - INFO - Detailed report available at: D:\Personal\M8\MEIO_solver\MEIO_Solver\results\sensitivity_20250315_094316\sensitivity_report.txt
