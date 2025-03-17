@@ -357,3 +357,139 @@ Implementation Guidance:
 2025-03-15 14:02:44,262 - root - INFO - 4. Monitor performance and adjust if necessary
 2025-03-15 14:02:44,263 - root - INFO - 
 Branch selection results saved to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\branch_selection
+2025-03-16 12:30:24,933 - root - INFO - Loading network from .\config\supply_chain_network.json
+2025-03-16 12:30:24,934 - meio.io.json_loader - INFO - Loaded JSON from .\config\supply_chain_network.json
+2025-03-16 12:30:24,934 - meio.models.network - INFO - Generated 12 planning periods from 2025-03-16 to 2026-02-09
+2025-03-16 12:30:24,934 - meio.io.json_loader - INFO - Network has 12 periods, with 7 nodes
+2025-03-16 12:30:24,934 - meio.models.network - INFO - Network validation passed
+2025-03-16 12:30:24,934 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=4)
+2025-03-16 12:30:25,148 - root - INFO - Running branch selection with 5 branches using criteria: ['cost', 'service_level', 'robustness']
+2025-03-16 12:30:25,148 - meio.optimization.branch_selection - INFO - Starting branch selection process with 5 branches
+2025-03-16 12:30:25,149 - meio.optimization.branch_selection - INFO - Not enough historical data for confident parameter suggestions
+2025-03-16 12:30:25,149 - meio.optimization.branch_selection - INFO - AI agent suggestion has low confidence, using default parameters
+2025-03-16 12:30:25,149 - meio.optimization.branch_selection - INFO - Generating 5 branches using improved_heuristic method
+2025-03-16 12:30:25,149 - meio.optimization.branch_selection - INFO - Generating branch branch_0 with params: {}
+2025-03-16 12:30:25,153 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.95
+2025-03-16 12:30:25,155 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-16 12:30:25,155 - meio.optimization.branch_selection - INFO - Generating branch branch_1 with params: {'service_level': 0.8999999999999999}
+2025-03-16 12:30:25,157 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.8999999999999999
+2025-03-16 12:30:25,158 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-16 12:30:25,158 - meio.optimization.branch_selection - INFO - Generating branch branch_2 with params: {'service_level': 0.98, 'lead_time_factor': 1.2}
+2025-03-16 12:30:25,160 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.98
+2025-03-16 12:30:25,161 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 383778.33
+2025-03-16 12:30:25,161 - meio.optimization.branch_selection - INFO - Generating branch branch_3 with params: {}
+2025-03-16 12:30:25,163 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.95
+2025-03-16 12:30:25,163 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-16 12:30:25,164 - meio.optimization.branch_selection - INFO - Generating branch branch_4 with params: {'service_level': 0.8999999999999999, 'lead_time_factor': 1.2}
+2025-03-16 12:30:25,165 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.8999999999999999
+2025-03-16 12:30:25,166 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 383778.33
+2025-03-16 12:30:25,166 - meio.optimization.branch_selection - INFO - Evaluating 5 branches against 4 scenarios
+2025-03-16 12:30:25,166 - meio.optimization.branch_selection - INFO - Evaluating against scenario: baseline
+2025-03-16 12:30:25,168 - meio.optimization.branch_selection - INFO - Evaluating against scenario: high_demand
+2025-03-16 12:30:25,169 - meio.optimization.branch_selection - INFO - Evaluating against scenario: supply_disruption
+2025-03-16 12:30:25,171 - meio.optimization.branch_selection - INFO - Evaluating against scenario: combined_stress
+2025-03-16 12:30:25,173 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\branch_selection\branch_parameters.csv
+2025-03-16 12:30:25,173 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\branch_selection\scenario_results.csv
+2025-03-16 12:30:25,174 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\branch_selection\branch_scores.csv
+2025-03-16 12:30:25,174 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\branch_selection\ai_suggested_parameters.csv
+2025-03-16 12:30:25,175 - meio.optimization.branch_selection - INFO - Saved 1 parameter records to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\parameter_evolution.json
+2025-03-16 12:30:25,530 - root - ERROR - Error during branch selection: Unknown format code 'f' for object of type 'str'
+2025-03-16 18:30:23,733 - root - INFO - Loading network from .\config\supply_chain_network.json
+2025-03-16 18:30:23,734 - meio.io.json_loader - INFO - Loaded JSON from .\config\supply_chain_network.json
+2025-03-16 18:30:23,734 - meio.models.network - INFO - Generated 12 planning periods from 2025-03-16 to 2026-02-09
+2025-03-16 18:30:23,734 - meio.io.json_loader - INFO - Network has 12 periods, with 7 nodes
+2025-03-16 18:30:23,735 - meio.models.network - INFO - Network validation passed
+2025-03-16 18:30:23,735 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=4)
+2025-03-16 18:30:23,947 - root - INFO - Running branch selection with 5 branches using criteria: ['cost', 'service_level', 'robustness']
+2025-03-16 18:30:23,948 - meio.optimization.branch_selection - INFO - Loaded 1 historical parameter records
+2025-03-16 18:30:23,948 - meio.optimization.branch_selection - INFO - Starting branch selection process with 5 branches
+2025-03-16 18:30:23,948 - meio.optimization.branch_selection - INFO - Not enough historical data for confident parameter suggestions
+2025-03-16 18:30:23,949 - meio.optimization.branch_selection - INFO - AI agent suggestion has low confidence, using default parameters
+2025-03-16 18:30:23,949 - meio.optimization.branch_selection - INFO - Generating 5 branches using improved_heuristic method
+2025-03-16 18:30:23,950 - meio.optimization.branch_selection - INFO - Generating branch branch_0 with params: {}
+2025-03-16 18:30:23,954 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.95
+2025-03-16 18:30:23,956 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-16 18:30:23,957 - meio.optimization.branch_selection - INFO - Generating branch branch_1 with params: {'service_level': 0.8999999999999999}
+2025-03-16 18:30:23,959 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.8999999999999999
+2025-03-16 18:30:23,960 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-16 18:30:23,960 - meio.optimization.branch_selection - INFO - Generating branch branch_2 with params: {'service_level': 0.98, 'lead_time_factor': 1.2}
+2025-03-16 18:30:23,962 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.98
+2025-03-16 18:30:23,963 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 383778.33
+2025-03-16 18:30:23,963 - meio.optimization.branch_selection - INFO - Generating branch branch_3 with params: {}
+2025-03-16 18:30:23,965 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.95
+2025-03-16 18:30:23,966 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-16 18:30:23,966 - meio.optimization.branch_selection - INFO - Generating branch branch_4 with params: {'service_level': 0.8999999999999999, 'lead_time_factor': 1.2}
+2025-03-16 18:30:23,968 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.8999999999999999
+2025-03-16 18:30:23,968 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 383778.33
+2025-03-16 18:30:23,969 - meio.optimization.branch_selection - INFO - Evaluating 5 branches against 4 scenarios
+2025-03-16 18:30:23,969 - meio.optimization.branch_selection - INFO - Evaluating against scenario: baseline
+2025-03-16 18:30:23,971 - meio.optimization.branch_selection - INFO - Evaluating against scenario: high_demand
+2025-03-16 18:30:23,972 - meio.optimization.branch_selection - INFO - Evaluating against scenario: supply_disruption
+2025-03-16 18:30:23,974 - meio.optimization.branch_selection - INFO - Evaluating against scenario: combined_stress
+2025-03-16 18:30:23,976 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\branch_selection\branch_parameters.csv
+2025-03-16 18:30:23,977 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\branch_selection\scenario_results.csv
+2025-03-16 18:30:23,978 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\branch_selection\branch_scores.csv
+2025-03-16 18:30:23,978 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\branch_selection\ai_suggested_parameters.csv
+2025-03-16 18:30:23,981 - meio.optimization.branch_selection - INFO - Saved 2 parameter records to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\parameter_evolution.json
+2025-03-16 18:30:24,335 - root - ERROR - Error during branch selection: Unknown format code 'f' for object of type 'str'
+2025-03-16 18:42:21,832 - root - INFO - Loading network from .\config\supply_chain_network.json
+2025-03-16 18:42:21,833 - meio.io.json_loader - INFO - Loaded JSON from .\config\supply_chain_network.json
+2025-03-16 18:42:21,833 - meio.models.network - INFO - Generated 12 planning periods from 2025-03-16 to 2026-02-09
+2025-03-16 18:42:21,833 - meio.io.json_loader - INFO - Network has 12 periods, with 7 nodes
+2025-03-16 18:42:21,833 - meio.models.network - INFO - Network validation passed
+2025-03-16 18:42:21,833 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=4)
+2025-03-16 18:42:21,959 - root - INFO - Running branch selection with 5 branches using criteria: ['cost', 'service_level', 'robustness']
+2025-03-16 18:42:21,960 - meio.optimization.branch_selection - INFO - Loaded 2 historical parameter records
+2025-03-16 18:42:21,960 - meio.optimization.branch_selection - INFO - Starting branch selection process with 5 branches
+2025-03-16 18:42:21,961 - meio.optimization.branch_selection - INFO - Not enough historical data for confident parameter suggestions
+2025-03-16 18:42:21,961 - meio.optimization.branch_selection - INFO - AI agent suggestion has low confidence, using default parameters
+2025-03-16 18:42:21,961 - meio.optimization.branch_selection - INFO - Generating 5 branches using improved_heuristic method
+2025-03-16 18:42:21,961 - meio.optimization.branch_selection - INFO - Generating branch branch_0 with params: {}
+2025-03-16 18:42:21,965 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.95
+2025-03-16 18:42:21,967 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-16 18:42:21,967 - meio.optimization.branch_selection - INFO - Generating branch branch_1 with params: {'service_level': 0.8999999999999999}
+2025-03-16 18:42:21,969 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.8999999999999999
+2025-03-16 18:42:21,970 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-16 18:42:21,970 - meio.optimization.branch_selection - INFO - Generating branch branch_2 with params: {'service_level': 0.98, 'lead_time_factor': 1.2}
+2025-03-16 18:42:21,972 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.98
+2025-03-16 18:42:21,973 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 383778.33
+2025-03-16 18:42:21,973 - meio.optimization.branch_selection - INFO - Generating branch branch_3 with params: {}
+2025-03-16 18:42:21,975 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.95
+2025-03-16 18:42:21,975 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 366457.79
+2025-03-16 18:42:21,976 - meio.optimization.branch_selection - INFO - Generating branch branch_4 with params: {'service_level': 0.8999999999999999, 'lead_time_factor': 1.2}
+2025-03-16 18:42:21,977 - meio.optimization.heuristic - INFO - Starting improved heuristic optimization with service level 0.8999999999999999
+2025-03-16 18:42:21,978 - meio.optimization.heuristic - INFO - Improved heuristic optimization complete. Total cost: 383778.33
+2025-03-16 18:42:21,979 - meio.optimization.branch_selection - INFO - Evaluating 5 branches against 4 scenarios
+2025-03-16 18:42:21,979 - meio.optimization.branch_selection - INFO - Evaluating against scenario: baseline
+2025-03-16 18:42:21,981 - meio.optimization.branch_selection - INFO - Evaluating against scenario: high_demand
+2025-03-16 18:42:21,983 - meio.optimization.branch_selection - INFO - Evaluating against scenario: supply_disruption
+2025-03-16 18:42:21,984 - meio.optimization.branch_selection - INFO - Evaluating against scenario: combined_stress
+2025-03-16 18:42:21,987 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\branch_selection\branch_parameters.csv
+2025-03-16 18:42:21,987 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\branch_selection\scenario_results.csv
+2025-03-16 18:42:21,988 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\branch_selection\branch_scores.csv
+2025-03-16 18:42:21,988 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\branch_selection\ai_suggested_parameters.csv
+2025-03-16 18:42:21,989 - meio.optimization.branch_selection - INFO - Saved 3 parameter records to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\parameter_evolution.json
+2025-03-16 18:42:22,613 - meio.visualization.branch_viz - INFO - Branch comparison visualization saved to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\visualizations\branch_comparison.png
+2025-03-16 18:42:23,797 - meio.visualization.branch_viz - INFO - Scenario performance visualization saved to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\visualizations\scenario_performance.png
+2025-03-16 18:42:24,318 - meio.visualization.branch_viz - INFO - Selected branch visualization saved to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\visualizations\selected_branch_branch_4.png
+2025-03-16 18:42:24,402 - root - INFO - 
+Selected Branch: branch_4
+2025-03-16 18:42:24,402 - root - INFO - Selection Criteria: balanced
+2025-03-16 18:42:24,403 - root - INFO - Branch Parameters:
+2025-03-16 18:42:24,403 - root - INFO -   service_level: 0.8999999999999999
+2025-03-16 18:42:24,403 - root - INFO -   lead_time_factor: 1.2
+2025-03-16 18:42:24,403 - root - INFO - Selection Rationale: Branch branch_4 was selected using 'balanced' criteria. It scored 0.02 for cost, 1.00 for service level, and 0.99 for robustness, with an overall score of 0.67.
+2025-03-16 18:42:24,404 - root - INFO - 
+Implementation Guidance:
+2025-03-16 18:42:24,404 - root - INFO - To implement this inventory policy:
+2025-03-16 18:42:24,404 - root - INFO - 1. Apply the service level settings shown above
+2025-03-16 18:42:24,404 - root - INFO - 2. Add a 20% buffer to lead time estimates
+2025-03-16 18:42:24,404 - root - INFO - 4. Monitor performance and adjust if necessary
+2025-03-16 18:42:24,405 - root - INFO - 
+AI Agent Information:
+2025-03-16 18:42:24,405 - root - INFO - Confidence: low
+2025-03-16 18:42:24,405 - root - INFO - Data points: 2
+2025-03-16 18:42:24,405 - root - INFO - Similar networks: 0
+2025-03-16 18:42:24,405 - root - INFO - Rationale: Insufficient historical data for learning
+2025-03-16 18:42:24,405 - root - INFO - 
+Branch selection results saved to D:\Personal\M8\MEIO_solver\MEIO_Solver\results\branch_selection

@@ -1,0 +1,176 @@
+[
+  {
+    "timestamp": "2025-03-16 12:30:25",
+    "network_features": {
+      "node_count": 7,
+      "product_count": 14,
+      "avg_lead_time": 2.414285714285714,
+      "avg_demand": 190.625,
+      "network_depth": 1,
+      "network_type": "medium_multi_tier",
+      "demand_variability": 0.6548381808422409,
+      "hash": "8f243b08337cb105c147b4e16330d02f"
+    },
+    "parameters": {
+      "service_level": 0.8999999999999999,
+      "lead_time_factor": 1.2
+    },
+    "metrics": {
+      "cost_score": 0.023359734486898116,
+      "service_level_score": 0.9952987449708761,
+      "robustness_score": 0.9877913516918966,
+      "overall_score": 0.605021662121489
+    },
+    "branch_id": "branch_4",
+    "scenario_performance": {
+      "baseline": {
+        "total_cost": 383778.32983931754,
+        "stockout_count": 38,
+        "total_demand": 10675.0,
+        "stockout_rate": 0.003559718969555035,
+        "service_level": 0.996440281030445,
+        "robustness_score": 1
+      },
+      "high_demand": {
+        "total_cost": 479076.82545172836,
+        "stockout_count": 82,
+        "total_demand": 13877.5,
+        "stockout_rate": 0.005908845253107548,
+        "service_level": 0.9940911547468925,
+        "robustness_score": 0.9511654067675862
+      },
+      "supply_disruption": {
+        "total_cost": 383778.32983931754,
+        "stockout_count": 38,
+        "total_demand": 10675.0,
+        "stockout_rate": 0.003559718969555035,
+        "service_level": 0.996440281030445,
+        "robustness_score": 1
+      },
+      "combined_stress": {
+        "total_cost": 440404.6794862944,
+        "stockout_count": 74,
+        "total_demand": 12810.0,
+        "stockout_rate": 0.005776736924277908,
+        "service_level": 0.9942232630757221,
+        "robustness_score": 1
+      }
+    }
+  },
+  {
+    "timestamp": "2025-03-16 18:30:23",
+    "network_features": {
+      "node_count": 7,
+      "product_count": 14,
+      "avg_lead_time": 2.414285714285714,
+      "avg_demand": 190.625,
+      "network_depth": 1,
+      "network_type": "medium_multi_tier",
+      "demand_variability": 0.6548381808422409,
+      "hash": "8f243b08337cb105c147b4e16330d02f"
+    },
+    "parameters": {
+      "service_level": 0.98,
+      "lead_time_factor": 1.2
+    },
+    "metrics": {
+      "cost_score": 0.023359734486898116,
+      "service_level_score": 0.9952987449708761,
+      "robustness_score": 0.9877913516918966,
+      "overall_score": 0.605021662121489
+    },
+    "branch_id": "branch_2",
+    "scenario_performance": {
+      "baseline": {
+        "total_cost": 383778.32983931754,
+        "stockout_count": 38,
+        "total_demand": 10675.0,
+        "stockout_rate": 0.003559718969555035,
+        "service_level": 0.996440281030445,
+        "robustness_score": 1
+      },
+      "high_demand": {
+        "total_cost": 479076.82545172836,
+        "stockout_count": 82,
+        "total_demand": 13877.5,
+        "stockout_rate": 0.005908845253107548,
+        "service_level": 0.9940911547468925,
+        "robustness_score": 0.9511654067675862
+      },
+      "supply_disruption": {
+        "total_cost": 383778.32983931754,
+        "stockout_count": 38,
+        "total_demand": 10675.0,
+        "stockout_rate": 0.003559718969555035,
+        "service_level": 0.996440281030445,
+        "robustness_score": 1
+      },
+      "combined_stress": {
+        "total_cost": 440404.6794862944,
+        "stockout_count": 74,
+        "total_demand": 12810.0,
+        "stockout_rate": 0.005776736924277908,
+        "service_level": 0.9942232630757221,
+        "robustness_score": 1
+      }
+    }
+  },
+  {
+    "timestamp": "2025-03-16 18:42:21",
+    "network_features": {
+      "node_count": 7,
+      "product_count": 14,
+      "avg_lead_time": 2.414285714285714,
+      "avg_demand": 190.625,
+      "network_depth": 1,
+      "network_type": "medium_multi_tier",
+      "demand_variability": 0.6548381808422409,
+      "hash": "8f243b08337cb105c147b4e16330d02f"
+    },
+    "parameters": {
+      "service_level": 0.8999999999999999,
+      "lead_time_factor": 1.2
+    },
+    "metrics": {
+      "cost_score": 0.023359734486898116,
+      "service_level_score": 0.9952987449708761,
+      "robustness_score": 0.9877913516918966,
+      "overall_score": 0.605021662121489
+    },
+    "branch_id": "branch_4",
+    "scenario_performance": {
+      "baseline": {
+        "total_cost": 383778.32983931754,
+        "stockout_count": 38,
+        "total_demand": 10675.0,
+        "stockout_rate": 0.003559718969555035,
+        "service_level": 0.996440281030445,
+        "robustness_score": 1
+      },
+      "high_demand": {
+        "total_cost": 479076.82545172836,
+        "stockout_count": 82,
+        "total_demand": 13877.5,
+        "stockout_rate": 0.005908845253107548,
+        "service_level": 0.9940911547468925,
+        "robustness_score": 0.9511654067675862
+      },
+      "supply_disruption": {
+        "total_cost": 383778.32983931754,
+        "stockout_count": 38,
+        "total_demand": 10675.0,
+        "stockout_rate": 0.003559718969555035,
+        "service_level": 0.996440281030445,
+        "robustness_score": 1
+      },
+      "combined_stress": {
+        "total_cost": 440404.6794862944,
+        "stockout_count": 74,
+        "total_demand": 12810.0,
+        "stockout_rate": 0.005776736924277908,
+        "service_level": 0.9942232630757221,
+        "robustness_score": 1
+      }
+    }
+  }
+]

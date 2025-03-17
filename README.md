@@ -41,3 +41,44 @@ The branch selection process produces detailed CSV files with results and visual
 - Selected branch details with implementation guidance
 
 This system helps decision-makers understand trade-offs between competing objectives and select the most appropriate inventory policy for their specific business context.
+
+## Parameter Evolution AI Agent
+
+The MEIO Solver now includes an intelligent AI agent that learns from historical optimization runs and suggests improved parameters for future optimizations.
+
+### Key Features
+
+- **Continuous Learning**: The agent learns from past optimization runs to improve future recommendations
+- **Network Feature Analysis**: Automatically extracts network structure features to find similar historical cases
+- **Parameter Suggestion**: Recommends optimized parameters based on historical results from similar networks
+- **Performance Tracking**: Monitors optimization performance trends over time
+
+### Usage
+
+```bash
+# Use the AI agent with branch selection
+python -m meio.main --json network.json --branch-selection --use-ai-agent
+
+# Import historical data for agent learning
+python -m meio.main --json network.json --branch-selection --use-ai-agent --import-history path/to/history_directory
+
+# Show AI performance trends
+python -m meio.main --json network.json --branch-selection --use-ai-agent --show-ai-trends
+```
+
+### Direct Agent Interaction
+
+For advanced users, a dedicated demo script provides direct interaction with the Parameter Evolution Agent:
+
+```bash
+python demo_ai_agent.py your_network.json --import-dir path/to/history_directory --visualize
+```
+
+### Benefits
+
+- **Better Starting Points**: Begin optimizations with parameters that have historically worked well for similar networks
+- **Knowledge Retention**: Preserve optimization knowledge that would otherwise be lost
+- **Continuous Improvement**: Optimization performance improves over time as the agent learns from more runs
+- **Reduced Iterations**: Find optimal solutions faster by starting with better parameter estimates
+
+See the [AI Agent Documentation](docs/ai_agent.md) for detailed usage instructions and implementation details.

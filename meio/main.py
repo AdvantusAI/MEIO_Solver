@@ -54,6 +54,11 @@ def parse_args():
                       choices=['heuristic', 'improved_heuristic', 'solver'],
                       help='Optimization method to use for branch generation')
     
+    # AI agent options
+    parser.add_argument('--use-ai-agent', action='store_true', help='Use AI Parameter Evolution Agent')
+    parser.add_argument('--import-history', type=str, help='Import historical data for AI agent from file or directory')
+    parser.add_argument('--show-ai-trends', action='store_true', help='Show AI agent performance trends')
+    
     return parser.parse_args()
 
 def calculate_receptions(network, inventory_levels):
@@ -274,8 +279,27 @@ def run_branch_selection(args, network):
     logging.info(f"Running branch selection with {args.num_branches} branches using criteria: {criteria}")
     
     try:
-        # Initialize branch manager
-        branch_manager = BranchManager(output_dir=args.output_dir)
+        # Initialize branch manager with AI agent if requested
+        branch_manager = BranchManager(output_dir=args.output_dir, use_ai_agent=args.use_ai_agent)
+        
+        # Import historical data if provided
+        if args.use_ai_agent and args.import_history:
+            import_result = branch_manager.import_historical_data(args.import_history)
+            logging.info(f"Import result: {import_result.get('message', 'Unknown')}")
+        
+        # Show AI agent trends if requested
+        if args.use_ai_agent and args.show_ai_trends:
+            trend_data = branch_manager.get_ai_agent_trend()
+            if trend_data.get("status") == "success":
+                logging.info("\nAI Agent Performance Trends:")
+                logging.info(f"Data points: {trend_data.get('data_points', 0)}")
+                logging.info(f"Overall trend: {trend_data.get('overall_score_trend', 'unknown')}")
+                logging.info(f"Cost trend: {trend_data.get('cost_score_trend', 'unknown')}")
+                logging.info(f"Service level trend: {trend_data.get('service_score_trend', 'unknown')}")
+                logging.info(f"Robustness trend: {trend_data.get('robustness_score_trend', 'unknown')}")
+                logging.info(f"Latest scores: {trend_data.get('latest_scores', {})}")
+            else:
+                logging.info(f"AI trend data: {trend_data.get('message', 'Insufficient data')}")
         
         # Run branch selection
         results = branch_manager.run_branch_selection(
@@ -284,7 +308,8 @@ def run_branch_selection(args, network):
             criteria=criteria,
             weights=weights,
             selection_criteria=args.selection_criteria,
-            method=args.branch_method
+            method=args.branch_method,
+            base_params=base_params
         )
         
         # Create visualizations if not disabled
@@ -310,10 +335,28 @@ def run_branch_selection(args, network):
             
             params = selected_data['params']
             if 'lead_time_factor' in params:
-                logging.info(f"2. Add a {(params['lead_time_factor']-1)*100:.0f}% buffer to lead time estimates")
+                # Add type checking before formatting as float
+                if isinstance(params['lead_time_factor'], (int, float)):
+                    logging.info(f"2. Add a {(params['lead_time_factor']-1)*100:.0f}% buffer to lead time estimates")
+                else:
+                    logging.info(f"2. Add a buffer to lead time estimates ({params['lead_time_factor']})")
             if 'inflows' in params:
-                logging.info(f"3. Set inflow levels to {params['inflows']:.2f}")
+                # Add type checking before formatting as float
+                if isinstance(params['inflows'], (int, float)):
+                    logging.info(f"3. Set inflow levels to {params['inflows']:.2f}")
+                else:
+                    logging.info(f"3. Set inflow levels to {params['inflows']}")
             logging.info(f"4. Monitor performance and adjust if necessary")
+            
+            # AI agent information
+            if args.use_ai_agent and 'ai_suggestion' in results:
+                ai_suggestion = results['ai_suggestion']
+                if ai_suggestion:
+                    logging.info("\nAI Agent Information:")
+                    logging.info(f"Confidence: {ai_suggestion.get('confidence', 'unknown')}")
+                    logging.info(f"Data points: {ai_suggestion.get('data_points', 0)}")
+                    logging.info(f"Similar networks: {ai_suggestion.get('similar_networks', 0)}")
+                    logging.info(f"Rationale: {ai_suggestion.get('rationale', 'Not available')}")
             
             logging.info(f"\nBranch selection results saved to {results['output_dir']}")
         else:

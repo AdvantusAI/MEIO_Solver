@@ -90,11 +90,30 @@ class BranchVisualizer:
         for i, branch_id in enumerate(branch_ids):
             params = branches[branch_id]['params']
             param_str = f"{branch_id}: "
-            param_str += f"SL={params.get('service_level', 'N/A'):.2f}"
+            
+            # Get service level with type checking
+            service_level = params.get('service_level', 'N/A')
+            if isinstance(service_level, (int, float)):
+                param_str += f"SL={service_level:.2f}"
+            else:
+                param_str += f"SL={service_level}"
+                
+            # Get inflows with type checking
             if 'inflows' in params:
-                param_str += f", Inflows={params['inflows']:.2f}"
+                inflows = params['inflows']
+                if isinstance(inflows, (int, float)):
+                    param_str += f", Inflows={inflows:.2f}"
+                else:
+                    param_str += f", Inflows={inflows}"
+                    
+            # Get lead time factor with type checking
             if 'lead_time_factor' in params:
-                param_str += f", LT×{params['lead_time_factor']:.1f}"
+                lt_factor = params['lead_time_factor']
+                if isinstance(lt_factor, (int, float)):
+                    param_str += f", LT×{lt_factor:.1f}"
+                else:
+                    param_str += f", LT×{lt_factor}"
+                    
             param_text += param_str + '\n'
         
         plt.figtext(0.02, 0.02, param_text, fontsize=9)
@@ -210,7 +229,7 @@ class BranchVisualizer:
         
         # Normalize cost for radar chart (lower is better, so invert)
         max_cost = branch_metrics['cost'].max()
-        branch_metrics['cost_normalized'] = 1 - (branch_metrics['cost'] / max_cost)
+        branch_metrics['cost_normalized'] = 1 - (branch_metrics['cost'] / max_cost) if max_cost > 0 else branch_metrics['cost'].apply(lambda x: 0 if not isinstance(x, (int, float)) or x <= 0 else 1 - (x / max_cost))
         
         # Setup radar chart
         categories = ['Service Level', 'Robustness', 'Cost Efficiency']
@@ -314,74 +333,72 @@ class BranchVisualizer:
         save_path: Optional[str] = None,
         show_plot: bool = False
     ) -> str:
-        """Create a detailed visualization for the selected branch."""
+        """
+        Create a detailed visualization of the selected branch.
+        
+        Args:
+            results: Results from BranchManager.run_branch_selection()
+            branch_data: Data for the selected branch
+            save_path: Path to save the visualization (default: auto-generated)
+            show_plot: Whether to display the plot
+            
+        Returns:
+            str: Path to the saved visualization
+        """
         branch_id = branch_data['branch_id']
         params = branch_data['params']
-        rationale = results['selection_results']['rationale']
         
-        plt.figure(figsize=(10, 8))
+        # Create figure
+        fig = plt.figure(figsize=(12, 8))
         
-        # Create a table-like visualization
-        plt.axis('off')
+        # Create summary text
+        summary = f"Branch: {branch_id}\n\nParameters:\n"
         
-        # Title
-        plt.suptitle(f"Selected Branch: {branch_id}", fontsize=16, y=0.98)
-        
-        # Parameters section
-        plt.figtext(0.1, 0.85, "Parameters:", fontsize=14, weight='bold')
-        
-        param_text = ""
-        for k, v in params.items():
-            if isinstance(v, float):
-                param_text += f"{k}: {v:.3f}\n"
+        for param, value in params.items():
+            # Add type checking for parameter values
+            if isinstance(value, (int, float)):
+                if param == 'service_level':
+                    summary += f"- {param}: {value:.3f}\n"
+                elif abs(value) < 0.01 or abs(value) >= 1000:
+                    summary += f"- {param}: {value:.2e}\n"
+                else:
+                    summary += f"- {param}: {value:.2f}\n"
             else:
-                param_text += f"{k}: {v}\n"
+                summary += f"- {param}: {value}\n"
         
-        plt.figtext(0.1, 0.7, param_text, fontsize=12)
+        inventory_levels = branch_data.get('inventory_levels', {})
+        if inventory_levels:
+            # Add some inventory statistics if available
+            total_inv = sum(level for (_, _, _), level in inventory_levels.items())
+            if isinstance(total_inv, (int, float)):
+                summary += f"\nTotal inventory: {total_inv:.2f}\n"
+            else:
+                summary += f"\nTotal inventory: {total_inv}\n"
+                
+            total_cost = branch_data.get('total_cost', 0)
+            if isinstance(total_cost, (int, float)):
+                summary += f"Total cost: {total_cost:.2f}\n"
+            else:
+                summary += f"Total cost: {total_cost}\n"
         
-        # Selection rationale
-        plt.figtext(0.1, 0.6, "Selection Rationale:", fontsize=14, weight='bold')
-        plt.figtext(0.1, 0.5, rationale, fontsize=12)
+        # Add selection rationale
+        rationale = results['selection_results']['rationale']
+        summary += f"\nSelection Rationale:\n{rationale}\n"
         
-        # Performance metrics
-        plt.figtext(0.1, 0.4, "Performance Metrics:", fontsize=14, weight='bold')
+        # Plot text
+        plt.axis('off')
+        plt.text(0.1, 0.5, summary, fontsize=12, verticalalignment='center', wrap=True)
         
-        # Extract metrics across scenarios
-        scenario_results = results['evaluation_results']['scenario_results']
-        metrics_text = ""
-        
-        for scenario_name, branches in scenario_results.items():
-            if branch_id in branches:
-                metrics = branches[branch_id]
-                metrics_text += f"Scenario: {scenario_name}\n"
-                metrics_text += f"  Service Level: {metrics.get('service_level', 0):.3f}\n"
-                metrics_text += f"  Cost: {metrics.get('total_cost', 0):.2f}\n"
-                metrics_text += f"  Robustness: {metrics.get('robustness_score', 0):.3f}\n"
-                metrics_text += "\n"
-        
-        plt.figtext(0.1, 0.2, metrics_text, fontsize=12)
-        
-        # Implementation guidance
-        plt.figtext(0.1, 0.1, "Implementation Guidance:", fontsize=14, weight='bold')
-        
-        guidance = "To implement this inventory policy:\n"
-        guidance += "1. Apply the service level settings shown above\n"
-        if 'lead_time_factor' in params:
-            guidance += f"2. Add a {(params['lead_time_factor']-1)*100:.0f}% buffer to lead time estimates\n"
-        if 'inflows' in params:
-            guidance += f"3. Set inflow levels to {params['inflows']:.2f}\n"
-        guidance += "4. Monitor performance and adjust if necessary"
-        
-        plt.figtext(0.1, 0.02, guidance, fontsize=12)
+        plt.title(f"Selected Branch: {branch_id}")
+        plt.tight_layout()
         
         # Save figure
         if save_path is None:
-            save_path = paths.get_visualization_path('selected_branch.png')
+            save_path = paths.get_visualization_path(f'selected_branch_{branch_id}.png')
         
         # Ensure directory exists
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         
-        plt.tight_layout(rect=[0, 0, 1, 0.95])
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
         logger.info(f"Selected branch visualization saved to {save_path}")
         
