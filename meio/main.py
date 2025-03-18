@@ -7,7 +7,9 @@ import os
 from datetime import datetime, timedelta
 from meio.utils.path_manager import paths
 from meio.config.settings import config
+from meio.config.database import DatabaseConfig
 from meio.io.json_loader import NetworkJsonLoader
+from meio.io.db_loader import NetworkDBLoader
 from meio.io.csv_exporter import CSVExporter
 from meio.optimization.dilop import DiloptOpSafetyStock
 from meio.optimization.solver import MathematicalSolver
@@ -15,11 +17,22 @@ from meio.optimization.heuristic import HeuristicSolver
 from meio.visualization.network_viz import NetworkVisualizer
 from meio.visualization.charts import ChartVisualizer
 
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler()
+    ]
+)
+
 def parse_args():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(description='Multi-Echelon Inventory Optimization')
     parser.add_argument('--config', type=str, help='Path to configuration file')
-    parser.add_argument('--json', type=str, required=True, help='Path to network JSON file')
+    parser.add_argument('--json', type=str, help='Path to network JSON file')
+    parser.add_argument('--network-id', type=str, help='Network ID to load from database')
+    parser.add_argument('--db-config', type=str, help='Path to database configuration file')
     parser.add_argument('--start-date', type=str, help='Start date (YYYY-MM-DD)')
     parser.add_argument('--end-date', type=str, help='End date (YYYY-MM-DD)')
     parser.add_argument('--date-interval', type=int, default=30, help='Days between periods')
@@ -132,6 +145,15 @@ def main():
     # Parse arguments
     args = parse_args()
     
+    # Validate input source
+    if not args.json and not args.network_id:
+        logging.error("Either --json or --network-id must be specified")
+        return 1
+    
+    if args.json and args.network_id:
+        logging.error("Cannot specify both --json and --network-id")
+        return 1
+    
     # Load configuration if specified
     if args.config:
         config.load_config(args.config)
@@ -167,10 +189,20 @@ def main():
             logging.error(f"Invalid end date: {error}")
             return 1
     
-    # Load network from JSON
+    # Load network from either JSON or database
     try:
-        logging.info(f"Loading network from {args.json}")
-        network = NetworkJsonLoader.load(args.json, start_date, end_date, args.date_interval)
+        if args.json:
+            logging.info(f"Loading network from JSON file: {args.json}")
+            network = NetworkJsonLoader.load(args.json, start_date, end_date, args.date_interval)
+        else:
+            # Load database configuration
+            db_config = DatabaseConfig(args.db_config)
+            supabase_url, supabase_key = db_config.get_credentials()
+            
+            logging.info(f"Loading network from database with ID: {args.network_id}")
+            db_loader = NetworkDBLoader(supabase_url, supabase_key)
+            network = db_loader.load(args.network_id, start_date, end_date, args.date_interval)
+            
         logging.info(f"Loaded network: {network}")
     except Exception as e:
         logging.error(f"Failed to load network: {str(e)}")
@@ -290,33 +322,5 @@ def main():
     
     return 0
 
-# Run heuristic optimization with improved algorithm
-    heuristic_results = {'status': 'skipped', 'inventory_levels': {}, 'total_cost': 0}
-    if not args.no_heuristic:
-        try:
-            inflows = config.get('optimization', 'default_inflow')
-            logging.info(f"Optimizing with improved heuristic (inflows={inflows})...")
-            
-            # Use improved heuristic 
-            from meio.optimization.heuristic import ImprovedHeuristicSolver
-            heuristic_results = ImprovedHeuristicSolver.optimize(network, service_level, inflows)
-            
-            heuristic_opt_id = exporter.save_optimization_results(network, "Improved Heuristic", heuristic_results)
-            
-            logging.info(f"Improved Heuristic Results (Date {network.dates[0].strftime('%Y-%m-%d')}):")
-            for node_id in network.nodes:
-                for prod in network.nodes[node_id].products:
-                    inv = heuristic_results['inventory_levels'].get((node_id, prod, 0), 0)
-                    logging.info(f"{node_id} - {prod}: {inv:.2f}")
-            logging.info(f"Total Cost: {heuristic_results['total_cost']:.2f}")
-            
-            # Analyze stockouts and overstocks
-            heuristic_stockouts, heuristic_overstocks = analyze_stock_alerts(
-                network, heuristic_results['inventory_levels'], method="Improved Heuristic")
-            exporter.save_stock_alerts(heuristic_opt_id, heuristic_stockouts, heuristic_overstocks, "Improved Heuristic")
-        except Exception as e:
-            logging.error(f"Error in heuristic optimization: {str(e)}")
-
 if __name__ == "__main__":
-    import sys
-    sys.exit(main())
+    main()

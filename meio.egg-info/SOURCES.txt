@@ -1,0 +1,7 @@
+README.md
+setup.py
+meio.egg-info/PKG-INFO
+meio.egg-info/SOURCES.txt
+meio.egg-info/dependency_links.txt
+meio.egg-info/requires.txt
+meio.egg-info/top_level.txt

@@ -1,0 +1,6 @@
+numpy
+pandas
+matplotlib
+networkx
+supabase
+python-dotenv
