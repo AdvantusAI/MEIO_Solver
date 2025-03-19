@@ -4,6 +4,7 @@ Network model for the MEIO system.
 import logging
 from datetime import datetime, timedelta
 from ..models.node import Node
+from typing import Dict
 
 logger = logging.getLogger(__name__)
 
@@ -166,3 +167,38 @@ class MultiEchelonNetwork:
             
         return f"MultiEchelonNetwork(periods={self.num_periods}, plants={node_types['plant']}, " \
                f"dcs={node_types['dc']}, stores={node_types['store']})"
+
+    def calculate_statistics(self) -> Dict[str, Dict[str, Dict[str, float]]]:
+        """
+        Calculate network statistics for each node and product.
+        
+        Returns:
+            dict: Dictionary containing statistics for each node and product
+        """
+        statistics = {}
+        
+        for node_id, node in self.nodes.items():
+            statistics[node_id] = {}
+            for prod_id, prod in node.products.items():
+                # Calculate demand statistics
+                demands = [d for d in prod['demand_by_date'].values()]
+                total_demand = sum(demands)
+                avg_demand = total_demand / len(demands)
+                demand_std = (sum((d - avg_demand) ** 2 for d in demands) / len(demands)) ** 0.5
+                
+                # Calculate lead time statistics
+                lead_times = [lt for lt in prod['lead_time_by_date'].values()]
+                avg_lead_time = sum(lead_times) / len(lead_times)
+                lead_time_std = (sum((lt - avg_lead_time) ** 2 for lt in lead_times) / len(lead_times)) ** 0.5
+                
+                statistics[node_id][prod_id] = {
+                    'total_demand': total_demand,
+                    'avg_demand': avg_demand,
+                    'demand_std': demand_std,
+                    'avg_lead_time': avg_lead_time,
+                    'lead_time_std': lead_time_std,
+                    'holding_cost': prod['holding_cost'],
+                    'shortage_cost': prod['shortage_cost']
+                }
+        
+        return statistics

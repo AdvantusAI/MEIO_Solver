@@ -11,6 +11,7 @@ from meio.config.database import DatabaseConfig
 from meio.io.json_loader import NetworkJsonLoader
 from meio.io.db_loader import NetworkDBLoader
 from meio.io.csv_exporter import CSVExporter
+from meio.io.db_exporter import DatabaseExporter
 from meio.optimization.dilop import DiloptOpSafetyStock
 from meio.optimization.solver import MathematicalSolver
 from meio.optimization.heuristic import HeuristicSolver
@@ -19,10 +20,11 @@ from meio.visualization.charts import ChartVisualizer
 
 # Set up logging
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.StreamHandler()
+        logging.StreamHandler(),
+        logging.FileHandler('meio_debug.log')
     ]
 )
 
@@ -220,9 +222,10 @@ def main():
         for prod, details in prods.items():
             logging.info(f"  {prod}: {details['avg_safety_stock']:.2f}")
     
-    # Initialize exporter
-    exporter = CSVExporter()
-    logging.info(f"CSV Output directory: {exporter.output_dir} (exists: {os.path.exists(exporter.output_dir)})")
+    # Initialize exporters
+    csv_exporter = CSVExporter()
+    db_exporter = DatabaseExporter(supabase_url, supabase_key)
+    logging.info(f"CSV Output directory: {csv_exporter.output_dir} (exists: {os.path.exists(csv_exporter.output_dir)})")
     
     # Run solver optimization if requested
     solver_results = {'status': 'skipped', 'inventory_levels': {}, 'total_cost': 0}
@@ -230,9 +233,18 @@ def main():
         try:
             logging.info("Optimizing with mathematical solver...")
             solver_results = MathematicalSolver.optimize(network, service_level)
-            solver_opt_id = exporter.save_optimization_results(network, "SCIP Solver", solver_results)
+            
+            # Save results to database
+            solver_run_id = db_exporter.save_optimization_run(
+                args.network_id, 'SCIP Solver', service_level,
+                start_date, end_date, solver_results['total_cost'],
+                solver_results['status']
+            )
             
             if solver_results['status'] == 'optimal':
+                # Save inventory levels
+                db_exporter.save_inventory_levels(solver_run_id, solver_results['inventory_levels'])
+                
                 logging.info(f"SCIP Solver Results (Date {network.dates[0].strftime('%Y-%m-%d')}):")
                 for node_id in network.nodes:
                     for prod in network.nodes[node_id].products:
@@ -240,10 +252,14 @@ def main():
                         logging.info(f"{node_id} - {prod}: {inv:.2f}")
                 logging.info(f"Total Cost: {solver_results['total_cost']:.2f}")
                 
-                # Analyze stockouts and overstocks
+                # Analyze and save stock alerts
                 solver_stockouts, solver_overstocks = analyze_stock_alerts(
                     network, solver_results['inventory_levels'], method="SCIP Solver")
-                exporter.save_stock_alerts(solver_opt_id, solver_stockouts, solver_overstocks, "SCIP Solver")
+                db_exporter.save_stock_alerts(solver_run_id, solver_stockouts, solver_overstocks)
+                
+                # Save to CSV as well
+                csv_exporter.save_optimization_results(network, "SCIP Solver", solver_results)
+                csv_exporter.save_stock_alerts(solver_run_id, solver_stockouts, solver_overstocks, "SCIP Solver")
             else:
                 logging.warning("SCIP Solver optimization failed or was infeasible.")
         except Exception as e:
@@ -258,7 +274,16 @@ def main():
             inflows = config.get('optimization', 'default_inflow')
             logging.info(f"Optimizing with heuristic (inflows={inflows})...")
             heuristic_results = HeuristicSolver.optimize(network, service_level, inflows)
-            heuristic_opt_id = exporter.save_optimization_results(network, "Heuristic", heuristic_results)
+            
+            # Save results to database
+            heuristic_run_id = db_exporter.save_optimization_run(
+                args.network_id, 'Heuristic', service_level,
+                start_date, end_date, heuristic_results['total_cost'],
+                heuristic_results['status']
+            )
+            
+            # Save inventory levels
+            db_exporter.save_inventory_levels(heuristic_run_id, heuristic_results['inventory_levels'])
             
             logging.info(f"Heuristic Results (Date {network.dates[0].strftime('%Y-%m-%d')}):")
             for node_id in network.nodes:
@@ -267,12 +292,22 @@ def main():
                     logging.info(f"{node_id} - {prod}: {inv:.2f}")
             logging.info(f"Total Cost: {heuristic_results['total_cost']:.2f}")
             
-            # Analyze stockouts and overstocks
+            # Analyze and save stock alerts
             heuristic_stockouts, heuristic_overstocks = analyze_stock_alerts(
                 network, heuristic_results['inventory_levels'], method="Heuristic")
-            exporter.save_stock_alerts(heuristic_opt_id, heuristic_stockouts, heuristic_overstocks, "Heuristic")
+            db_exporter.save_stock_alerts(heuristic_run_id, heuristic_stockouts, heuristic_overstocks)
+            
+            # Save to CSV as well
+            csv_exporter.save_optimization_results(network, "Heuristic", heuristic_results)
+            csv_exporter.save_stock_alerts(heuristic_run_id, heuristic_stockouts, heuristic_overstocks, "Heuristic")
         except Exception as e:
             logging.error(f"Error in heuristic optimization: {str(e)}")
+    
+    # Save safety stock recommendations to database
+    try:
+        db_exporter.save_safety_stock_recommendations(args.network_id, safety_recommendations, service_level)
+    except Exception as e:
+        logging.error(f"Error saving safety stock recommendations: {str(e)}")
     
     # Skip visualizations if requested
     if args.no_viz:
@@ -313,10 +348,12 @@ def main():
     except Exception as e:
         logging.error(f"Error generating visualizations: {str(e)}")
     
-    # Save network statistics to CSV
+    # Save network statistics to CSV and database
     try:
-        logging.info("Saving network statistics to CSV...")
-        exporter.save_network_statistics(network)
+        logging.info("Saving network statistics...")
+        statistics = network.calculate_statistics()
+        csv_exporter.save_network_statistics(network)
+        db_exporter.save_network_statistics(args.network_id, statistics)
     except Exception as e:
         logging.warning(f"Failed to save network statistics: {str(e)}")
     
