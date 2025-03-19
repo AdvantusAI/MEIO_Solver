@@ -177,7 +177,7 @@ class DatabaseExporter:
             logger.error(f"First few records: {data[:5] if data else 'No data'}")
             raise
     
-    def save_safety_stock_recommendations(self, network_id: str, recommendations: Dict[str, Dict[str, float]],
+    def save_safety_stock_recommendations(self, network_id: str, recommendations: Dict[str, Dict[str, Dict[str, float]]],
                                         service_level: float):
         """
         Save safety stock recommendations to the database.
@@ -190,12 +190,16 @@ class DatabaseExporter:
         try:
             data = []
             for node_id, prods in recommendations.items():
-                for product_id, safety_stock in prods.items():
+                for product_id, details in prods.items():
                     data.append({
                         'network_id': network_id,
                         'node_id': node_id,
                         'product_id': product_id,
-                        'safety_stock': safety_stock,
+                        'safety_stock': {
+                            'avg_safety_stock': float(details['avg_safety_stock']),
+                            'min_safety_stock': float(details.get('min_safety_stock', 0)),
+                            'max_safety_stock': float(details.get('max_safety_stock', 0))
+                        },
                         'service_level': service_level
                     })
             

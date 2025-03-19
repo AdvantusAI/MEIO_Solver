@@ -194,9 +194,9 @@ class CSVExporter:
                 'node_id': node_id,
                 'node_type': node.node_type,
                 'num_products': len(node.products),
-                'num_suppliers': len(node.suppliers),
-                'num_customers': len(node.customers),
-                'total_capacity': getattr(node, 'capacity', None),
+                'num_suppliers': 1 if node.parent else 0,  # Each node has at most 1 parent
+                'num_customers': len(node.children),
+                'total_capacity': node.capacity,
                 'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             })
         
@@ -209,16 +209,13 @@ class CSVExporter:
         # Product statistics
         product_stats = []
         for node_id, node in network.nodes.items():
-            for prod in node.products:
-                lead_time = getattr(node, 'lead_time', {}).get(prod, None) 
-                holding_cost = getattr(node, 'holding_cost', {}).get(prod, None)
-                
+            for prod_id, prod_data in node.products.items():
                 product_stats.append({
                     'stats_id': stats_id,
                     'node_id': node_id,
-                    'product_id': prod,
-                    'lead_time': lead_time,
-                    'holding_cost': holding_cost,
+                    'product_id': prod_id,
+                    'lead_time': prod_data['lead_time_mean'],
+                    'holding_cost': prod_data['holding_cost'],
                     'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 })
         
@@ -232,20 +229,20 @@ class CSVExporter:
         try:
             demand_stats = []
             for node_id, node in network.nodes.items():
-                if hasattr(node, 'demand'):
-                    for prod in node.products:
-                        for t in range(network.num_periods):
-                            demand_val = node.demand.get((prod, t), 0)
-                            if demand_val > 0:
-                                demand_stats.append({
-                                    'stats_id': stats_id,
-                                    'node_id': node_id,
-                                    'product_id': prod,
-                                    'period': t,
-                                    'date': network.dates[t].strftime('%Y-%m-%d'),
-                                    'demand': demand_val,
-                                    'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                                })
+                for prod_id, prod_data in node.products.items():
+                    demands = prod_data['demand_by_date']
+                    for t in range(network.num_periods):
+                        demand_val = demands[t]
+                        if demand_val > 0:
+                            demand_stats.append({
+                                'stats_id': stats_id,
+                                'node_id': node_id,
+                                'product_id': prod_id,
+                                'period': t,
+                                'date': network.dates[t].strftime('%Y-%m-%d'),
+                                'demand': demand_val,
+                                'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                            })
             
             if demand_stats:
                 self.save_to_csv(

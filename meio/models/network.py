@@ -179,26 +179,26 @@ class MultiEchelonNetwork:
         
         for node_id, node in self.nodes.items():
             statistics[node_id] = {}
-            for prod_id, prod in node.products.items():
+            for prod_id, prod_data in node.products.items():
                 # Calculate demand statistics
-                demands = [d for d in prod['demand_by_date'].values()]
+                demands = prod_data['demand_by_date']
+                
                 total_demand = sum(demands)
                 avg_demand = total_demand / len(demands)
                 demand_std = (sum((d - avg_demand) ** 2 for d in demands) / len(demands)) ** 0.5
                 
-                # Calculate lead time statistics
-                lead_times = [lt for lt in prod['lead_time_by_date'].values()]
-                avg_lead_time = sum(lead_times) / len(lead_times)
-                lead_time_std = (sum((lt - avg_lead_time) ** 2 for lt in lead_times) / len(lead_times)) ** 0.5
+                # Use scalar lead time values
+                avg_lead_time = float(prod_data['lead_time_mean'])
+                lead_time_std = float(prod_data['lead_time_std'])
                 
                 statistics[node_id][prod_id] = {
-                    'total_demand': total_demand,
-                    'avg_demand': avg_demand,
-                    'demand_std': demand_std,
+                    'total_demand': float(total_demand),
+                    'avg_demand': float(avg_demand),
+                    'demand_std': float(demand_std),
                     'avg_lead_time': avg_lead_time,
                     'lead_time_std': lead_time_std,
-                    'holding_cost': prod['holding_cost'],
-                    'shortage_cost': prod['shortage_cost']
+                    'holding_cost': float(prod_data['holding_cost']),
+                    'shortage_cost': float(prod_data['shortage_cost'])
                 }
         
         return statistics

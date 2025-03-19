@@ -308,3 +308,1128 @@ S3:
 2025-03-18 13:59:20,814 - meio.visualization.charts - INFO - Node metrics chart for S3 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S3.png
 2025-03-18 13:59:26,292 - root - INFO - Saving network statistics...
 2025-03-18 13:59:26,293 - root - WARNING - Failed to save network statistics: 'list' object has no attribute 'values'
+2025-03-18 22:38:37,095 - root - INFO - Loading network from database with ID: network_001
+2025-03-18 22:38:37,536 - meio.models.network - INFO - Generated 12 planning periods from 2024-03-18 to 2025-02-11
+2025-03-18 22:38:39,383 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plants?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-18 22:38:40,130 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plant_products?select=%2A&node_id=eq.P1 "HTTP/2 200 OK"
+2025-03-18 22:38:40,860 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/distribution_centers?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-18 22:38:41,597 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC1 "HTTP/2 200 OK"
+2025-03-18 22:38:42,374 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC2 "HTTP/2 200 OK"
+2025-03-18 22:38:43,101 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/stores?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-18 22:38:43,867 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S1 "HTTP/2 200 OK"
+2025-03-18 22:38:44,629 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S2 "HTTP/2 200 OK"
+2025-03-18 22:38:45,380 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S3 "HTTP/2 200 OK"
+2025-03-18 22:38:46,147 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/connections?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-18 22:38:46,149 - meio.models.network - INFO - Network validation passed
+2025-03-18 22:38:46,150 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=3)
+2025-03-18 22:38:46,151 - root - INFO - Calculating safety stock with service level 0.95
+2025-03-18 22:38:46,210 - root - INFO - DILOP Safety Stock Recommendations (Average across dates):
+2025-03-18 22:38:46,212 - root - INFO - 
+P1:
+2025-03-18 22:38:46,213 - root - INFO -   WATER003: 0.00
+2025-03-18 22:38:46,213 - root - INFO - 
+DC1:
+2025-03-18 22:38:46,214 - root - INFO -   WATER003: 0.19
+2025-03-18 22:38:46,214 - root - INFO - 
+DC2:
+2025-03-18 22:38:46,215 - root - INFO -   WATER003: 0.28
+2025-03-18 22:38:46,215 - root - INFO - 
+S1:
+2025-03-18 22:38:46,224 - root - INFO -   WATER003: 836.93
+2025-03-18 22:38:46,225 - root - INFO - 
+S2:
+2025-03-18 22:38:46,225 - root - INFO -   WATER003: 836.93
+2025-03-18 22:38:46,225 - root - INFO - 
+S3:
+2025-03-18 22:38:46,225 - root - INFO -   WATER003: 836.93
+2025-03-18 22:38:46,666 - root - INFO - CSV Output directory: D:\Personal\Code\MEIO\results\optimization (exists: True)
+2025-03-18 22:38:46,667 - root - INFO - Optimizing with mathematical solver...
+2025-03-18 22:38:46,669 - meio.optimization.solver - INFO - Starting mathematical optimization with service level 0.95
+2025-03-18 22:38:46,700 - meio.optimization.solver - INFO - Starting solver...
+2025-03-18 22:38:46,711 - meio.optimization.solver - INFO - Solver finished with status: optimal
+2025-03-18 22:38:48,658 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 404 Not Found"
+2025-03-18 22:38:48,659 - meio.io.db_exporter - ERROR - Error saving optimization run: {}
+2025-03-18 22:38:48,659 - meio.io.db_exporter - ERROR - Data: {'network_id': 'network_001', 'method': 'SCIP Solver', 'service_level': 0.95, 'start_date': '2024-03-18', 'end_date': '2025-03-18', 'total_cost': 30229.99786526575, 'status': 'optimal'}
+2025-03-18 22:38:48,659 - root - ERROR - Error in solver optimization: {}
+2025-03-18 22:38:48,659 - root - INFO - Optimizing with heuristic (inflows=1000)...
+2025-03-18 22:38:48,662 - meio.optimization.heuristic - INFO - Starting heuristic optimization with service level 0.95
+2025-03-18 22:38:48,662 - meio.optimization.heuristic - INFO - Heuristic optimization complete. Total cost: 40519.11
+2025-03-18 22:38:49,429 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 404 Not Found"
+2025-03-18 22:38:49,430 - meio.io.db_exporter - ERROR - Error saving optimization run: {}
+2025-03-18 22:38:49,430 - meio.io.db_exporter - ERROR - Data: {'network_id': 'network_001', 'method': 'Heuristic', 'service_level': 0.95, 'start_date': '2024-03-18', 'end_date': '2025-03-18', 'total_cost': np.float64(40519.10752989524), 'status': 'heuristic'}
+2025-03-18 22:38:49,431 - root - ERROR - Error in heuristic optimization: {}
+2025-03-18 22:38:50,162 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/safety_stock_recommendations?columns=%22service_level%22%2C%22network_id%22%2C%22safety_stock%22%2C%22node_id%22%2C%22product_id%22 "HTTP/2 404 Not Found"
+2025-03-18 22:38:50,163 - meio.io.db_exporter - ERROR - Error saving safety stock recommendations: {}
+2025-03-18 22:38:50,163 - meio.io.db_exporter - ERROR - First few records: [{'network_id': 'network_001', 'node_id': 'P1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'avg_safety_stock': np.float64(0.0)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'DC1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263)], 'avg_safety_stock': np.float64(0.1875867324179126)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'DC2', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689)], 'avg_safety_stock': np.float64(0.2813800986268689)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'S1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(128.7648414813063), np.float64(257.52002638409505), np.float64(386.27735713361477), np.float64(515.0352243657724), np.float64(643.7933061930504), np.float64(772.5514953183134), np.float64(901.3097457568355), np.float64(1030.06803451619), np.float64(1158.8263488227858), np.float64(1287.5846810124592), np.float64(1416.3430262080124), np.float64(1545.1013811579774)], 'avg_safety_stock': np.float64(836.9312890292011)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'S2', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(128.77288822777123), np.float64(257.5240500024826), np.float64(386.28003957614266), np.float64(515.0372362056141), np.float64(643.794915667866), np.float64(772.5528365486585), np.float64(901.310895383534), np.float64(1030.0690404399422), np.float64(1158.8272429774704), np.float64(1287.5854857518286), np.float64(1416.34375778936), np.float64(1545.102051774285)], 'avg_safety_stock': np.float64(836.9333700287463)}, 'service_level': 0.95}]
+2025-03-18 22:38:50,177 - root - ERROR - Error saving safety stock recommendations: {}
+2025-03-18 22:38:50,177 - root - INFO - Generating network visualization...
+2025-03-18 22:38:50,765 - meio.visualization.network_viz - INFO - Network visualization saved to D:\Personal\Code\MEIO\results\visualizations\network_visualization.png
+2025-03-18 22:38:52,260 - root - INFO - Generating comparison chart...
+2025-03-18 22:38:52,740 - meio.visualization.charts - INFO - Comparison chart saved to D:\Personal\Code\MEIO\results\visualizations\comparison_chart.png
+2025-03-18 22:38:54,050 - root - INFO - Generating node metrics charts...
+2025-03-18 22:38:54,686 - meio.visualization.charts - INFO - Node metrics chart for P1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_P1.png
+2025-03-18 22:38:55,276 - meio.visualization.charts - INFO - Node metrics chart for DC1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC1.png
+2025-03-18 22:38:55,862 - meio.visualization.charts - INFO - Node metrics chart for DC2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC2.png
+2025-03-18 22:38:56,477 - meio.visualization.charts - INFO - Node metrics chart for S1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S1.png
+2025-03-18 22:38:57,055 - meio.visualization.charts - INFO - Node metrics chart for S2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S2.png
+2025-03-18 22:38:57,673 - meio.visualization.charts - INFO - Node metrics chart for S3 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S3.png
+2025-03-18 22:39:03,395 - root - INFO - Saving network statistics...
+2025-03-18 22:39:03,397 - root - WARNING - Failed to save network statistics: 'list' object has no attribute 'values'
+2025-03-18 22:39:47,893 - root - INFO - Loading network from database with ID: network_001
+2025-03-18 22:39:48,301 - meio.models.network - INFO - Generated 12 planning periods from 2024-03-18 to 2025-02-11
+2025-03-18 22:39:50,257 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plants?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-18 22:39:51,017 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plant_products?select=%2A&node_id=eq.P1 "HTTP/2 200 OK"
+2025-03-18 22:39:51,753 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/distribution_centers?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-18 22:39:52,501 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC1 "HTTP/2 200 OK"
+2025-03-18 22:39:53,236 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC2 "HTTP/2 200 OK"
+2025-03-18 22:40:00,379 - root - INFO - Loading network from database with ID: network_001
+2025-03-18 22:40:00,838 - meio.models.network - INFO - Generated 12 planning periods from 2024-03-18 to 2025-02-11
+2025-03-18 22:40:02,689 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plants?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-18 22:40:03,426 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plant_products?select=%2A&node_id=eq.P1 "HTTP/2 200 OK"
+2025-03-18 22:40:04,145 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/distribution_centers?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-18 22:40:04,882 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC1 "HTTP/2 200 OK"
+2025-03-18 22:40:05,635 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC2 "HTTP/2 200 OK"
+2025-03-18 22:40:06,448 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/stores?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-18 22:40:07,191 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S1 "HTTP/2 200 OK"
+2025-03-18 22:40:07,941 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S2 "HTTP/2 200 OK"
+2025-03-18 22:40:08,661 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S3 "HTTP/2 200 OK"
+2025-03-18 22:40:09,385 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/connections?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-18 22:40:09,386 - meio.models.network - INFO - Network validation passed
+2025-03-18 22:40:09,386 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=3)
+2025-03-18 22:40:09,386 - root - INFO - Calculating safety stock with service level 0.95
+2025-03-18 22:40:09,389 - root - INFO - DILOP Safety Stock Recommendations (Average across dates):
+2025-03-18 22:40:09,389 - root - INFO - 
+P1:
+2025-03-18 22:40:09,389 - root - INFO -   WATER003: 0.00
+2025-03-18 22:40:09,389 - root - INFO - 
+DC1:
+2025-03-18 22:40:09,389 - root - INFO -   WATER003: 0.19
+2025-03-18 22:40:09,389 - root - INFO - 
+DC2:
+2025-03-18 22:40:09,389 - root - INFO -   WATER003: 0.28
+2025-03-18 22:40:09,389 - root - INFO - 
+S1:
+2025-03-18 22:40:09,390 - root - INFO -   WATER003: 836.93
+2025-03-18 22:40:09,390 - root - INFO - 
+S2:
+2025-03-18 22:40:09,390 - root - INFO -   WATER003: 836.93
+2025-03-18 22:40:09,390 - root - INFO - 
+S3:
+2025-03-18 22:40:09,390 - root - INFO -   WATER003: 836.93
+2025-03-18 22:40:09,827 - root - INFO - CSV Output directory: D:\Personal\Code\MEIO\results\optimization (exists: True)
+2025-03-18 22:40:09,828 - root - INFO - Optimizing with mathematical solver...
+2025-03-18 22:40:09,830 - meio.optimization.solver - INFO - Starting mathematical optimization with service level 0.95
+2025-03-18 22:40:09,839 - meio.optimization.solver - INFO - Starting solver...
+2025-03-18 22:40:09,845 - meio.optimization.solver - INFO - Solver finished with status: optimal
+2025-03-18 22:40:11,634 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 404 Not Found"
+2025-03-18 22:40:11,636 - meio.io.db_exporter - ERROR - Error saving optimization run: {}
+2025-03-18 22:40:11,644 - meio.io.db_exporter - ERROR - Data: {'network_id': 'network_001', 'method': 'SCIP Solver', 'service_level': 0.95, 'start_date': '2024-03-18', 'end_date': '2025-03-18', 'total_cost': 30229.99786526575, 'status': 'optimal'}
+2025-03-18 22:40:11,645 - root - ERROR - Error in solver optimization: {}
+2025-03-18 22:40:11,645 - root - INFO - Optimizing with heuristic (inflows=1000)...
+2025-03-18 22:40:11,647 - meio.optimization.heuristic - INFO - Starting heuristic optimization with service level 0.95
+2025-03-18 22:40:11,648 - meio.optimization.heuristic - INFO - Heuristic optimization complete. Total cost: 40519.11
+2025-03-18 22:40:12,405 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 404 Not Found"
+2025-03-18 22:40:12,406 - meio.io.db_exporter - ERROR - Error saving optimization run: {}
+2025-03-18 22:40:12,407 - meio.io.db_exporter - ERROR - Data: {'network_id': 'network_001', 'method': 'Heuristic', 'service_level': 0.95, 'start_date': '2024-03-18', 'end_date': '2025-03-18', 'total_cost': np.float64(40519.10752989524), 'status': 'heuristic'}
+2025-03-18 22:40:12,407 - root - ERROR - Error in heuristic optimization: {}
+2025-03-18 22:40:13,135 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/safety_stock_recommendations?columns=%22service_level%22%2C%22product_id%22%2C%22safety_stock%22%2C%22node_id%22%2C%22network_id%22 "HTTP/2 404 Not Found"
+2025-03-18 22:40:13,136 - meio.io.db_exporter - ERROR - Error saving safety stock recommendations: {}
+2025-03-18 22:40:13,136 - meio.io.db_exporter - ERROR - First few records: [{'network_id': 'network_001', 'node_id': 'P1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'avg_safety_stock': np.float64(0.0)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'DC1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263)], 'avg_safety_stock': np.float64(0.1875867324179126)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'DC2', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689)], 'avg_safety_stock': np.float64(0.2813800986268689)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'S1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(128.7648414813063), np.float64(257.52002638409505), np.float64(386.27735713361477), np.float64(515.0352243657724), np.float64(643.7933061930504), np.float64(772.5514953183134), np.float64(901.3097457568355), np.float64(1030.06803451619), np.float64(1158.8263488227858), np.float64(1287.5846810124592), np.float64(1416.3430262080124), np.float64(1545.1013811579774)], 'avg_safety_stock': np.float64(836.9312890292011)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'S2', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(128.77288822777123), np.float64(257.5240500024826), np.float64(386.28003957614266), np.float64(515.0372362056141), np.float64(643.794915667866), np.float64(772.5528365486585), np.float64(901.310895383534), np.float64(1030.0690404399422), np.float64(1158.8272429774704), np.float64(1287.5854857518286), np.float64(1416.34375778936), np.float64(1545.102051774285)], 'avg_safety_stock': np.float64(836.9333700287463)}, 'service_level': 0.95}]
+2025-03-18 22:40:13,137 - root - ERROR - Error saving safety stock recommendations: {}
+2025-03-18 22:40:13,137 - root - INFO - Generating network visualization...
+2025-03-18 22:40:13,649 - meio.visualization.network_viz - INFO - Network visualization saved to D:\Personal\Code\MEIO\results\visualizations\network_visualization.png
+2025-03-18 22:40:15,734 - root - INFO - Generating comparison chart...
+2025-03-18 22:40:16,170 - meio.visualization.charts - INFO - Comparison chart saved to D:\Personal\Code\MEIO\results\visualizations\comparison_chart.png
+2025-03-18 22:40:17,631 - root - INFO - Generating node metrics charts...
+2025-03-18 22:40:18,206 - meio.visualization.charts - INFO - Node metrics chart for P1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_P1.png
+2025-03-18 22:40:18,771 - meio.visualization.charts - INFO - Node metrics chart for DC1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC1.png
+2025-03-18 22:40:19,331 - meio.visualization.charts - INFO - Node metrics chart for DC2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC2.png
+2025-03-18 22:40:19,917 - meio.visualization.charts - INFO - Node metrics chart for S1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S1.png
+2025-03-18 22:40:20,506 - meio.visualization.charts - INFO - Node metrics chart for S2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S2.png
+2025-03-18 22:40:21,057 - meio.visualization.charts - INFO - Node metrics chart for S3 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S3.png
+2025-03-18 22:40:27,979 - root - INFO - Saving network statistics...
+2025-03-18 22:40:27,981 - root - WARNING - Failed to save network statistics: 'list' object has no attribute 'values'
+2025-03-18 22:41:55,813 - root - INFO - Loading network from database with ID: network_001
+2025-03-18 22:41:56,277 - meio.models.network - INFO - Generated 12 planning periods from 2024-03-18 to 2025-02-11
+2025-03-18 22:41:58,997 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plants?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-18 22:41:59,748 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plant_products?select=%2A&node_id=eq.P1 "HTTP/2 200 OK"
+2025-03-18 22:42:00,492 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/distribution_centers?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-18 22:42:01,239 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC1 "HTTP/2 200 OK"
+2025-03-18 22:42:01,963 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC2 "HTTP/2 200 OK"
+2025-03-18 22:42:02,872 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/stores?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-18 22:42:03,605 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S1 "HTTP/2 200 OK"
+2025-03-18 22:42:04,326 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S2 "HTTP/2 200 OK"
+2025-03-18 22:42:05,058 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S3 "HTTP/2 200 OK"
+2025-03-18 22:42:05,798 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/connections?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-18 22:42:05,800 - meio.models.network - INFO - Network validation passed
+2025-03-18 22:42:05,800 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=3)
+2025-03-18 22:42:05,800 - root - INFO - Calculating safety stock with service level 0.95
+2025-03-18 22:42:05,804 - root - INFO - DILOP Safety Stock Recommendations (Average across dates):
+2025-03-18 22:42:05,814 - root - INFO - 
+P1:
+2025-03-18 22:42:05,815 - root - INFO -   WATER003: 0.00
+2025-03-18 22:42:05,815 - root - INFO - 
+DC1:
+2025-03-18 22:42:05,815 - root - INFO -   WATER003: 0.19
+2025-03-18 22:42:05,815 - root - INFO - 
+DC2:
+2025-03-18 22:42:05,815 - root - INFO -   WATER003: 0.28
+2025-03-18 22:42:05,815 - root - INFO - 
+S1:
+2025-03-18 22:42:05,815 - root - INFO -   WATER003: 836.93
+2025-03-18 22:42:05,815 - root - INFO - 
+S2:
+2025-03-18 22:42:05,815 - root - INFO -   WATER003: 836.93
+2025-03-18 22:42:05,815 - root - INFO - 
+S3:
+2025-03-18 22:42:05,816 - root - INFO -   WATER003: 836.93
+2025-03-18 22:42:06,206 - root - INFO - CSV Output directory: D:\Personal\Code\MEIO\results\optimization (exists: True)
+2025-03-18 22:42:06,207 - root - INFO - Optimizing with mathematical solver...
+2025-03-18 22:42:06,208 - meio.optimization.solver - INFO - Starting mathematical optimization with service level 0.95
+2025-03-18 22:42:06,219 - meio.optimization.solver - INFO - Starting solver...
+2025-03-18 22:42:06,226 - meio.optimization.solver - INFO - Solver finished with status: optimal
+2025-03-18 22:42:08,049 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 404 Not Found"
+2025-03-18 22:42:08,050 - meio.io.db_exporter - ERROR - Error saving optimization run: {}
+2025-03-18 22:42:08,051 - meio.io.db_exporter - ERROR - Data: {'network_id': 'network_001', 'method': 'SCIP Solver', 'service_level': 0.95, 'start_date': '2024-03-18', 'end_date': '2025-03-18', 'total_cost': 30229.99786526575, 'status': 'optimal'}
+2025-03-18 22:42:08,051 - root - ERROR - Error in solver optimization: {}
+2025-03-18 22:42:08,051 - root - INFO - Optimizing with heuristic (inflows=1000)...
+2025-03-18 22:42:08,055 - meio.optimization.heuristic - INFO - Starting heuristic optimization with service level 0.95
+2025-03-18 22:42:08,056 - meio.optimization.heuristic - INFO - Heuristic optimization complete. Total cost: 40519.11
+2025-03-18 22:42:08,852 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 404 Not Found"
+2025-03-18 22:42:08,856 - meio.io.db_exporter - ERROR - Error saving optimization run: {}
+2025-03-18 22:42:08,857 - meio.io.db_exporter - ERROR - Data: {'network_id': 'network_001', 'method': 'Heuristic', 'service_level': 0.95, 'start_date': '2024-03-18', 'end_date': '2025-03-18', 'total_cost': np.float64(40519.10752989524), 'status': 'heuristic'}
+2025-03-18 22:42:08,857 - root - ERROR - Error in heuristic optimization: {}
+2025-03-18 22:42:09,573 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/safety_stock_recommendations?columns=%22product_id%22%2C%22node_id%22%2C%22network_id%22%2C%22service_level%22%2C%22safety_stock%22 "HTTP/2 404 Not Found"
+2025-03-18 22:42:09,574 - meio.io.db_exporter - ERROR - Error saving safety stock recommendations: {}
+2025-03-18 22:42:09,575 - meio.io.db_exporter - ERROR - First few records: [{'network_id': 'network_001', 'node_id': 'P1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'avg_safety_stock': np.float64(0.0)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'DC1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263)], 'avg_safety_stock': np.float64(0.1875867324179126)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'DC2', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689)], 'avg_safety_stock': np.float64(0.2813800986268689)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'S1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(128.7648414813063), np.float64(257.52002638409505), np.float64(386.27735713361477), np.float64(515.0352243657724), np.float64(643.7933061930504), np.float64(772.5514953183134), np.float64(901.3097457568355), np.float64(1030.06803451619), np.float64(1158.8263488227858), np.float64(1287.5846810124592), np.float64(1416.3430262080124), np.float64(1545.1013811579774)], 'avg_safety_stock': np.float64(836.9312890292011)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'S2', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(128.77288822777123), np.float64(257.5240500024826), np.float64(386.28003957614266), np.float64(515.0372362056141), np.float64(643.794915667866), np.float64(772.5528365486585), np.float64(901.310895383534), np.float64(1030.0690404399422), np.float64(1158.8272429774704), np.float64(1287.5854857518286), np.float64(1416.34375778936), np.float64(1545.102051774285)], 'avg_safety_stock': np.float64(836.9333700287463)}, 'service_level': 0.95}]
+2025-03-18 22:42:09,575 - root - ERROR - Error saving safety stock recommendations: {}
+2025-03-18 22:42:09,576 - root - INFO - Generating network visualization...
+2025-03-18 22:42:10,102 - meio.visualization.network_viz - INFO - Network visualization saved to D:\Personal\Code\MEIO\results\visualizations\network_visualization.png
+2025-03-19 10:00:07,354 - root - INFO - Loading network from database with ID: network_001
+2025-03-19 10:00:07,946 - meio.models.network - INFO - Generated 12 planning periods from 2024-03-18 to 2025-02-11
+2025-03-19 10:00:09,248 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plants?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:00:09,860 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plant_products?select=%2A&node_id=eq.P1 "HTTP/2 200 OK"
+2025-03-19 10:00:10,225 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/distribution_centers?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:00:10,417 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC1 "HTTP/2 200 OK"
+2025-03-19 10:00:10,763 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC2 "HTTP/2 200 OK"
+2025-03-19 10:00:11,134 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/stores?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:00:11,366 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S1 "HTTP/2 200 OK"
+2025-03-19 10:00:11,600 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S2 "HTTP/2 200 OK"
+2025-03-19 10:00:12,024 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S3 "HTTP/2 200 OK"
+2025-03-19 10:00:12,486 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/connections?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:00:12,488 - meio.models.network - INFO - Network validation passed
+2025-03-19 10:00:12,488 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=3)
+2025-03-19 10:00:12,488 - root - INFO - Calculating safety stock with service level 0.95
+2025-03-19 10:00:12,491 - root - INFO - DILOP Safety Stock Recommendations (Average across dates):
+2025-03-19 10:00:12,492 - root - INFO - 
+P1:
+2025-03-19 10:00:12,492 - root - INFO -   WATER003: 0.00
+2025-03-19 10:00:12,492 - root - INFO - 
+DC1:
+2025-03-19 10:00:12,493 - root - INFO -   WATER003: 0.19
+2025-03-19 10:00:12,493 - root - INFO - 
+DC2:
+2025-03-19 10:00:12,493 - root - INFO -   WATER003: 0.28
+2025-03-19 10:00:12,493 - root - INFO - 
+S1:
+2025-03-19 10:00:12,493 - root - INFO -   WATER003: 836.93
+2025-03-19 10:00:12,493 - root - INFO - 
+S2:
+2025-03-19 10:00:12,493 - root - INFO -   WATER003: 836.93
+2025-03-19 10:00:12,494 - root - INFO - 
+S3:
+2025-03-19 10:00:12,494 - root - INFO -   WATER003: 836.93
+2025-03-19 10:00:12,786 - root - INFO - CSV Output directory: D:\Personal\Code\MEIO\results\optimization (exists: True)
+2025-03-19 10:00:12,786 - root - INFO - Optimizing with mathematical solver...
+2025-03-19 10:00:12,788 - meio.optimization.solver - INFO - Starting mathematical optimization with service level 0.95
+2025-03-19 10:00:12,808 - meio.optimization.solver - INFO - Starting solver...
+2025-03-19 10:00:12,818 - meio.optimization.solver - INFO - Solver finished with status: optimal
+2025-03-19 10:00:13,907 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 10:00:14,377 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22inventory_level%22%2C%22optimization_run_id%22%2C%22period%22%2C%22product_id%22%2C%22node_id%22 "HTTP/2 201 Created"
+2025-03-19 10:00:14,380 - root - INFO - SCIP Solver Results (Date 2024-03-18):
+2025-03-19 10:00:14,381 - root - INFO - P1 - WATER003: 128.77
+2025-03-19 10:00:14,381 - root - INFO - DC1 - WATER003: 128.76
+2025-03-19 10:00:14,381 - root - INFO - DC2 - WATER003: 128.77
+2025-03-19 10:00:14,381 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 10:00:14,381 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 10:00:14,381 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 10:00:14,382 - root - INFO - Total Cost: 30230.00
+2025-03-19 10:00:14,382 - root - INFO - 
+SCIP Solver Stock Alerts:
+2025-03-19 10:00:14,382 - root - INFO - Potential Stockouts:
+2025-03-19 10:00:14,382 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 10:00:14,383 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 10:00:14,385 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 10:00:14,385 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization dd6f1e3a-5df4-4d75-862b-ffd508d908d4
+2025-03-19 10:00:14,386 - root - INFO - Optimizing with heuristic (inflows=1000)...
+2025-03-19 10:00:14,387 - meio.optimization.heuristic - INFO - Starting heuristic optimization with service level 0.95
+2025-03-19 10:00:14,387 - meio.optimization.heuristic - INFO - Heuristic optimization complete. Total cost: 40519.11
+2025-03-19 10:00:14,677 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 10:00:15,260 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22inventory_level%22%2C%22optimization_run_id%22%2C%22period%22%2C%22product_id%22%2C%22node_id%22 "HTTP/2 201 Created"
+2025-03-19 10:00:15,269 - root - INFO - Heuristic Results (Date 2024-03-18):
+2025-03-19 10:00:15,269 - root - INFO - P1 - WATER003: 2000.00
+2025-03-19 10:00:15,270 - root - INFO - DC1 - WATER003: 257.54
+2025-03-19 10:00:15,270 - root - INFO - DC2 - WATER003: 257.54
+2025-03-19 10:00:15,270 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 10:00:15,270 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 10:00:15,270 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 10:00:15,271 - root - INFO - Total Cost: 40519.11
+2025-03-19 10:00:15,271 - root - INFO - 
+Heuristic Stock Alerts:
+2025-03-19 10:00:15,271 - root - INFO - Potential Stockouts:
+2025-03-19 10:00:15,272 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 10:00:15,286 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 10:00:15,287 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 10:00:15,287 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization 82c69e6e-cf11-4722-ae69-1230a208b03f
+2025-03-19 10:00:15,709 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/safety_stock_recommendations?columns=%22safety_stock%22%2C%22product_id%22%2C%22network_id%22%2C%22service_level%22%2C%22node_id%22 "HTTP/2 400 Bad Request"
+2025-03-19 10:00:15,710 - meio.io.db_exporter - ERROR - Error saving safety stock recommendations: {'code': '22P02', 'details': None, 'hint': None, 'message': 'invalid input syntax for type numeric: "{"safety_stock_by_date":[0,0,0,0,0,0,0,0,0,0,0,0],"avg_safety_stock":0.0}"'}
+2025-03-19 10:00:15,711 - meio.io.db_exporter - ERROR - First few records: [{'network_id': 'network_001', 'node_id': 'P1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'avg_safety_stock': np.float64(0.0)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'DC1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263)], 'avg_safety_stock': np.float64(0.1875867324179126)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'DC2', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689)], 'avg_safety_stock': np.float64(0.2813800986268689)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'S1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(128.7648414813063), np.float64(257.52002638409505), np.float64(386.27735713361477), np.float64(515.0352243657724), np.float64(643.7933061930504), np.float64(772.5514953183134), np.float64(901.3097457568355), np.float64(1030.06803451619), np.float64(1158.8263488227858), np.float64(1287.5846810124592), np.float64(1416.3430262080124), np.float64(1545.1013811579774)], 'avg_safety_stock': np.float64(836.9312890292011)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'S2', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(128.77288822777123), np.float64(257.5240500024826), np.float64(386.28003957614266), np.float64(515.0372362056141), np.float64(643.794915667866), np.float64(772.5528365486585), np.float64(901.310895383534), np.float64(1030.0690404399422), np.float64(1158.8272429774704), np.float64(1287.5854857518286), np.float64(1416.34375778936), np.float64(1545.102051774285)], 'avg_safety_stock': np.float64(836.9333700287463)}, 'service_level': 0.95}]
+2025-03-19 10:00:15,711 - root - ERROR - Error saving safety stock recommendations: {'code': '22P02', 'details': None, 'hint': None, 'message': 'invalid input syntax for type numeric: "{"safety_stock_by_date":[0,0,0,0,0,0,0,0,0,0,0,0],"avg_safety_stock":0.0}"'}
+2025-03-19 10:00:15,711 - root - INFO - Generating network visualization...
+2025-03-19 10:00:16,354 - meio.visualization.network_viz - INFO - Network visualization saved to D:\Personal\Code\MEIO\results\visualizations\network_visualization.png
+2025-03-19 10:00:18,483 - root - INFO - Generating comparison chart...
+2025-03-19 10:00:18,860 - meio.visualization.charts - INFO - Comparison chart saved to D:\Personal\Code\MEIO\results\visualizations\comparison_chart.png
+2025-03-19 10:00:20,027 - root - INFO - Generating node metrics charts...
+2025-03-19 10:00:20,519 - meio.visualization.charts - INFO - Node metrics chart for P1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_P1.png
+2025-03-19 10:00:20,978 - meio.visualization.charts - INFO - Node metrics chart for DC1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC1.png
+2025-03-19 10:00:21,425 - meio.visualization.charts - INFO - Node metrics chart for DC2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC2.png
+2025-03-19 10:00:21,897 - meio.visualization.charts - INFO - Node metrics chart for S1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S1.png
+2025-03-19 10:00:22,390 - meio.visualization.charts - INFO - Node metrics chart for S2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S2.png
+2025-03-19 10:00:22,946 - meio.visualization.charts - INFO - Node metrics chart for S3 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S3.png
+2025-03-19 10:00:29,191 - root - INFO - Saving network statistics...
+2025-03-19 10:00:29,192 - root - WARNING - Failed to save network statistics: 'list' object has no attribute 'values'
+2025-03-19 10:01:25,901 - root - INFO - Loading network from database with ID: network_001
+2025-03-19 10:01:26,270 - meio.models.network - INFO - Generated 12 planning periods from 2024-03-18 to 2025-02-11
+2025-03-19 10:01:27,878 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plants?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:01:28,421 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plant_products?select=%2A&node_id=eq.P1 "HTTP/2 200 OK"
+2025-03-19 10:01:28,878 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/distribution_centers?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:01:29,557 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC1 "HTTP/2 200 OK"
+2025-03-19 10:01:30,541 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC2 "HTTP/2 200 OK"
+2025-03-19 10:01:31,364 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/stores?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:01:31,918 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S1 "HTTP/2 200 OK"
+2025-03-19 10:01:32,207 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S2 "HTTP/2 200 OK"
+2025-03-19 10:01:32,499 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S3 "HTTP/2 200 OK"
+2025-03-19 10:01:32,758 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/connections?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:01:32,760 - meio.models.network - INFO - Network validation passed
+2025-03-19 10:01:32,760 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=3)
+2025-03-19 10:01:32,761 - root - INFO - Calculating safety stock with service level 0.95
+2025-03-19 10:01:32,763 - root - INFO - DILOP Safety Stock Recommendations (Average across dates):
+2025-03-19 10:01:32,763 - root - INFO - 
+P1:
+2025-03-19 10:01:32,764 - root - INFO -   WATER003: 0.00
+2025-03-19 10:01:32,764 - root - INFO - 
+DC1:
+2025-03-19 10:01:32,764 - root - INFO -   WATER003: 0.19
+2025-03-19 10:01:32,764 - root - INFO - 
+DC2:
+2025-03-19 10:01:32,764 - root - INFO -   WATER003: 0.28
+2025-03-19 10:01:32,764 - root - INFO - 
+S1:
+2025-03-19 10:01:32,765 - root - INFO -   WATER003: 836.93
+2025-03-19 10:01:32,765 - root - INFO - 
+S2:
+2025-03-19 10:01:32,765 - root - INFO -   WATER003: 836.93
+2025-03-19 10:01:32,765 - root - INFO - 
+S3:
+2025-03-19 10:01:32,765 - root - INFO -   WATER003: 836.93
+2025-03-19 10:01:33,099 - root - INFO - CSV Output directory: D:\Personal\Code\MEIO\results\optimization (exists: True)
+2025-03-19 10:01:33,100 - root - INFO - Optimizing with mathematical solver...
+2025-03-19 10:01:33,102 - meio.optimization.solver - INFO - Starting mathematical optimization with service level 0.95
+2025-03-19 10:01:33,109 - meio.optimization.solver - INFO - Starting solver...
+2025-03-19 10:01:33,114 - meio.optimization.solver - INFO - Solver finished with status: optimal
+2025-03-19 10:01:33,936 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 10:01:34,303 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22inventory_level%22%2C%22period%22%2C%22optimization_run_id%22%2C%22node_id%22%2C%22product_id%22 "HTTP/2 201 Created"
+2025-03-19 10:01:34,306 - root - INFO - SCIP Solver Results (Date 2024-03-18):
+2025-03-19 10:01:34,306 - root - INFO - P1 - WATER003: 128.77
+2025-03-19 10:01:34,307 - root - INFO - DC1 - WATER003: 128.76
+2025-03-19 10:01:34,307 - root - INFO - DC2 - WATER003: 128.77
+2025-03-19 10:01:34,307 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 10:01:34,307 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 10:01:34,308 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 10:01:34,309 - root - INFO - Total Cost: 30230.00
+2025-03-19 10:01:34,309 - root - INFO - 
+SCIP Solver Stock Alerts:
+2025-03-19 10:01:34,309 - root - INFO - Potential Stockouts:
+2025-03-19 10:01:34,309 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 10:01:34,310 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 10:01:34,311 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 10:01:34,311 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization 2e03a73b-7e40-472a-b5e8-267b5d7fb535
+2025-03-19 10:01:34,312 - root - INFO - Optimizing with heuristic (inflows=1000)...
+2025-03-19 10:01:34,313 - meio.optimization.heuristic - INFO - Starting heuristic optimization with service level 0.95
+2025-03-19 10:01:34,313 - meio.optimization.heuristic - INFO - Heuristic optimization complete. Total cost: 40519.11
+2025-03-19 10:01:34,555 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 10:01:34,815 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22inventory_level%22%2C%22period%22%2C%22optimization_run_id%22%2C%22node_id%22%2C%22product_id%22 "HTTP/2 201 Created"
+2025-03-19 10:01:34,829 - root - INFO - Heuristic Results (Date 2024-03-18):
+2025-03-19 10:01:34,829 - root - INFO - P1 - WATER003: 2000.00
+2025-03-19 10:01:34,830 - root - INFO - DC1 - WATER003: 257.54
+2025-03-19 10:01:34,830 - root - INFO - DC2 - WATER003: 257.54
+2025-03-19 10:01:34,830 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 10:01:34,830 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 10:01:34,830 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 10:01:34,830 - root - INFO - Total Cost: 40519.11
+2025-03-19 10:01:34,831 - root - INFO - 
+Heuristic Stock Alerts:
+2025-03-19 10:01:34,831 - root - INFO - Potential Stockouts:
+2025-03-19 10:01:34,831 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 10:01:34,832 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 10:01:34,833 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 10:01:34,833 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization 26f07a6f-d2ee-4f50-a7ba-9ffa38727328
+2025-03-19 10:01:35,038 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/safety_stock_recommendations?columns=%22service_level%22%2C%22network_id%22%2C%22safety_stock%22%2C%22node_id%22%2C%22product_id%22 "HTTP/2 400 Bad Request"
+2025-03-19 10:01:35,039 - meio.io.db_exporter - ERROR - Error saving safety stock recommendations: {'code': '22P02', 'details': None, 'hint': None, 'message': 'invalid input syntax for type numeric: "{"safety_stock_by_date":[0,0,0,0,0,0,0,0,0,0,0,0],"avg_safety_stock":0.0}"'}
+2025-03-19 10:01:35,039 - meio.io.db_exporter - ERROR - First few records: [{'network_id': 'network_001', 'node_id': 'P1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'avg_safety_stock': np.float64(0.0)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'DC1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263), np.float64(0.18758673241791263)], 'avg_safety_stock': np.float64(0.1875867324179126)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'DC2', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689), np.float64(0.2813800986268689)], 'avg_safety_stock': np.float64(0.2813800986268689)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'S1', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(128.7648414813063), np.float64(257.52002638409505), np.float64(386.27735713361477), np.float64(515.0352243657724), np.float64(643.7933061930504), np.float64(772.5514953183134), np.float64(901.3097457568355), np.float64(1030.06803451619), np.float64(1158.8263488227858), np.float64(1287.5846810124592), np.float64(1416.3430262080124), np.float64(1545.1013811579774)], 'avg_safety_stock': np.float64(836.9312890292011)}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'S2', 'product_id': 'WATER003', 'safety_stock': {'safety_stock_by_date': [np.float64(128.77288822777123), np.float64(257.5240500024826), np.float64(386.28003957614266), np.float64(515.0372362056141), np.float64(643.794915667866), np.float64(772.5528365486585), np.float64(901.310895383534), np.float64(1030.0690404399422), np.float64(1158.8272429774704), np.float64(1287.5854857518286), np.float64(1416.34375778936), np.float64(1545.102051774285)], 'avg_safety_stock': np.float64(836.9333700287463)}, 'service_level': 0.95}]
+2025-03-19 10:01:35,040 - root - ERROR - Error saving safety stock recommendations: {'code': '22P02', 'details': None, 'hint': None, 'message': 'invalid input syntax for type numeric: "{"safety_stock_by_date":[0,0,0,0,0,0,0,0,0,0,0,0],"avg_safety_stock":0.0}"'}
+2025-03-19 10:01:35,040 - root - INFO - Generating network visualization...
+2025-03-19 10:01:35,440 - meio.visualization.network_viz - INFO - Network visualization saved to D:\Personal\Code\MEIO\results\visualizations\network_visualization.png
+2025-03-19 10:01:43,659 - root - INFO - Generating comparison chart...
+2025-03-19 10:01:44,041 - meio.visualization.charts - INFO - Comparison chart saved to D:\Personal\Code\MEIO\results\visualizations\comparison_chart.png
+2025-03-19 10:01:45,044 - root - INFO - Generating node metrics charts...
+2025-03-19 10:01:45,582 - meio.visualization.charts - INFO - Node metrics chart for P1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_P1.png
+2025-03-19 10:01:46,161 - meio.visualization.charts - INFO - Node metrics chart for DC1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC1.png
+2025-03-19 10:01:46,651 - meio.visualization.charts - INFO - Node metrics chart for DC2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC2.png
+2025-03-19 10:01:47,119 - meio.visualization.charts - INFO - Node metrics chart for S1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S1.png
+2025-03-19 10:01:47,591 - meio.visualization.charts - INFO - Node metrics chart for S2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S2.png
+2025-03-19 10:01:48,096 - meio.visualization.charts - INFO - Node metrics chart for S3 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S3.png
+2025-03-19 10:01:52,550 - root - INFO - Saving network statistics...
+2025-03-19 10:01:52,551 - root - WARNING - Failed to save network statistics: list indices must be integers or slices, not datetime.datetime
+2025-03-19 10:02:16,787 - root - INFO - Loading network from database with ID: network_001
+2025-03-19 10:02:17,168 - meio.models.network - INFO - Generated 12 planning periods from 2024-03-18 to 2025-02-11
+2025-03-19 10:02:18,081 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plants?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:02:18,254 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plant_products?select=%2A&node_id=eq.P1 "HTTP/2 200 OK"
+2025-03-19 10:02:18,586 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/distribution_centers?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:02:18,908 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC1 "HTTP/2 200 OK"
+2025-03-19 10:02:19,247 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC2 "HTTP/2 200 OK"
+2025-03-19 10:02:19,429 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/stores?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:02:19,741 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S1 "HTTP/2 200 OK"
+2025-03-19 10:02:19,915 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S2 "HTTP/2 200 OK"
+2025-03-19 10:02:20,231 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S3 "HTTP/2 200 OK"
+2025-03-19 10:02:20,557 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/connections?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:02:20,558 - meio.models.network - INFO - Network validation passed
+2025-03-19 10:02:20,559 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=3)
+2025-03-19 10:02:20,559 - root - INFO - Calculating safety stock with service level 0.95
+2025-03-19 10:02:20,560 - root - INFO - DILOP Safety Stock Recommendations (Average across dates):
+2025-03-19 10:02:20,561 - root - INFO - 
+P1:
+2025-03-19 10:02:20,561 - root - INFO -   WATER003: 0.00
+2025-03-19 10:02:20,561 - root - INFO - 
+DC1:
+2025-03-19 10:02:20,561 - root - INFO -   WATER003: 0.19
+2025-03-19 10:02:20,561 - root - INFO - 
+DC2:
+2025-03-19 10:02:20,561 - root - INFO -   WATER003: 0.28
+2025-03-19 10:02:20,561 - root - INFO - 
+S1:
+2025-03-19 10:02:20,562 - root - INFO -   WATER003: 836.93
+2025-03-19 10:02:20,562 - root - INFO - 
+S2:
+2025-03-19 10:02:20,562 - root - INFO -   WATER003: 836.93
+2025-03-19 10:02:20,562 - root - INFO - 
+S3:
+2025-03-19 10:02:20,562 - root - INFO -   WATER003: 836.93
+2025-03-19 10:02:20,880 - root - INFO - CSV Output directory: D:\Personal\Code\MEIO\results\optimization (exists: True)
+2025-03-19 10:02:20,881 - root - INFO - Optimizing with mathematical solver...
+2025-03-19 10:02:20,882 - meio.optimization.solver - INFO - Starting mathematical optimization with service level 0.95
+2025-03-19 10:02:20,889 - meio.optimization.solver - INFO - Starting solver...
+2025-03-19 10:02:20,894 - meio.optimization.solver - INFO - Solver finished with status: optimal
+2025-03-19 10:02:21,594 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 10:02:21,841 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22period%22%2C%22optimization_run_id%22%2C%22node_id%22%2C%22inventory_level%22%2C%22product_id%22 "HTTP/2 201 Created"
+2025-03-19 10:02:21,850 - root - INFO - SCIP Solver Results (Date 2024-03-18):
+2025-03-19 10:02:21,850 - root - INFO - P1 - WATER003: 128.77
+2025-03-19 10:02:21,851 - root - INFO - DC1 - WATER003: 128.76
+2025-03-19 10:02:21,851 - root - INFO - DC2 - WATER003: 128.77
+2025-03-19 10:02:21,851 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 10:02:21,851 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 10:02:21,852 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 10:02:21,852 - root - INFO - Total Cost: 30230.00
+2025-03-19 10:02:21,852 - root - INFO - 
+SCIP Solver Stock Alerts:
+2025-03-19 10:02:21,852 - root - INFO - Potential Stockouts:
+2025-03-19 10:02:21,852 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 10:02:21,853 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 10:02:21,854 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 10:02:21,854 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization a5a0cd12-7770-4703-b53c-879c571a94fb
+2025-03-19 10:02:21,854 - root - INFO - Optimizing with heuristic (inflows=1000)...
+2025-03-19 10:02:21,856 - meio.optimization.heuristic - INFO - Starting heuristic optimization with service level 0.95
+2025-03-19 10:02:21,856 - meio.optimization.heuristic - INFO - Heuristic optimization complete. Total cost: 40519.11
+2025-03-19 10:02:22,024 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 10:02:22,208 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22period%22%2C%22optimization_run_id%22%2C%22node_id%22%2C%22inventory_level%22%2C%22product_id%22 "HTTP/2 201 Created"
+2025-03-19 10:02:22,211 - root - INFO - Heuristic Results (Date 2024-03-18):
+2025-03-19 10:02:22,211 - root - INFO - P1 - WATER003: 2000.00
+2025-03-19 10:02:22,211 - root - INFO - DC1 - WATER003: 257.54
+2025-03-19 10:02:22,211 - root - INFO - DC2 - WATER003: 257.54
+2025-03-19 10:02:22,212 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 10:02:22,212 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 10:02:22,212 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 10:02:22,212 - root - INFO - Total Cost: 40519.11
+2025-03-19 10:02:22,213 - root - INFO - 
+Heuristic Stock Alerts:
+2025-03-19 10:02:22,213 - root - INFO - Potential Stockouts:
+2025-03-19 10:02:22,213 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 10:02:22,227 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 10:02:22,228 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 10:02:22,229 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization 5c78b4c9-6f4e-4a96-9083-002cdc337c24
+2025-03-19 10:02:22,408 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/safety_stock_recommendations?columns=%22node_id%22%2C%22network_id%22%2C%22safety_stock%22%2C%22service_level%22%2C%22product_id%22 "HTTP/2 201 Created"
+2025-03-19 10:02:22,410 - root - INFO - Generating network visualization...
+2025-03-19 10:02:22,836 - meio.visualization.network_viz - INFO - Network visualization saved to D:\Personal\Code\MEIO\results\visualizations\network_visualization.png
+2025-03-19 10:02:24,220 - root - INFO - Generating comparison chart...
+2025-03-19 10:02:24,635 - meio.visualization.charts - INFO - Comparison chart saved to D:\Personal\Code\MEIO\results\visualizations\comparison_chart.png
+2025-03-19 10:02:25,916 - root - INFO - Generating node metrics charts...
+2025-03-19 10:02:26,400 - meio.visualization.charts - INFO - Node metrics chart for P1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_P1.png
+2025-03-19 10:02:26,889 - meio.visualization.charts - INFO - Node metrics chart for DC1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC1.png
+2025-03-19 10:02:27,358 - meio.visualization.charts - INFO - Node metrics chart for DC2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC2.png
+2025-03-19 10:02:27,844 - meio.visualization.charts - INFO - Node metrics chart for S1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S1.png
+2025-03-19 10:02:28,319 - meio.visualization.charts - INFO - Node metrics chart for S2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S2.png
+2025-03-19 10:02:28,807 - meio.visualization.charts - INFO - Node metrics chart for S3 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S3.png
+2025-03-19 10:02:35,962 - root - INFO - Saving network statistics...
+2025-03-19 10:02:35,963 - root - WARNING - Failed to save network statistics: list indices must be integers or slices, not str
+2025-03-19 10:03:14,068 - root - INFO - Loading network from database with ID: network_001
+2025-03-19 10:03:14,413 - meio.models.network - INFO - Generated 12 planning periods from 2024-03-18 to 2025-02-11
+2025-03-19 10:03:15,199 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plants?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:03:15,541 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plant_products?select=%2A&node_id=eq.P1 "HTTP/2 200 OK"
+2025-03-19 10:03:15,866 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/distribution_centers?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:03:16,201 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC1 "HTTP/2 200 OK"
+2025-03-19 10:03:16,527 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC2 "HTTP/2 200 OK"
+2025-03-19 10:03:16,858 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/stores?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:03:17,191 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S1 "HTTP/2 200 OK"
+2025-03-19 10:03:17,513 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S2 "HTTP/2 200 OK"
+2025-03-19 10:03:17,836 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S3 "HTTP/2 200 OK"
+2025-03-19 10:03:18,173 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/connections?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:03:18,174 - meio.models.network - INFO - Network validation passed
+2025-03-19 10:03:18,174 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=3)
+2025-03-19 10:03:18,174 - root - INFO - Calculating safety stock with service level 0.95
+2025-03-19 10:03:18,177 - root - INFO - DILOP Safety Stock Recommendations (Average across dates):
+2025-03-19 10:03:18,177 - root - INFO - 
+P1:
+2025-03-19 10:03:18,178 - root - INFO -   WATER003: 0.00
+2025-03-19 10:03:18,178 - root - INFO - 
+DC1:
+2025-03-19 10:03:18,178 - root - INFO -   WATER003: 0.19
+2025-03-19 10:03:18,178 - root - INFO - 
+DC2:
+2025-03-19 10:03:18,178 - root - INFO -   WATER003: 0.28
+2025-03-19 10:03:18,178 - root - INFO - 
+S1:
+2025-03-19 10:03:18,178 - root - INFO -   WATER003: 836.93
+2025-03-19 10:03:18,178 - root - INFO - 
+S2:
+2025-03-19 10:03:18,178 - root - INFO -   WATER003: 836.93
+2025-03-19 10:03:18,178 - root - INFO - 
+S3:
+2025-03-19 10:03:18,179 - root - INFO -   WATER003: 836.93
+2025-03-19 10:03:18,641 - root - INFO - CSV Output directory: D:\Personal\Code\MEIO\results\optimization (exists: True)
+2025-03-19 10:03:18,641 - root - INFO - Optimizing with mathematical solver...
+2025-03-19 10:03:18,643 - meio.optimization.solver - INFO - Starting mathematical optimization with service level 0.95
+2025-03-19 10:03:18,654 - meio.optimization.solver - INFO - Starting solver...
+2025-03-19 10:03:18,660 - meio.optimization.solver - INFO - Solver finished with status: optimal
+2025-03-19 10:03:19,475 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 10:03:19,664 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22product_id%22%2C%22node_id%22%2C%22optimization_run_id%22%2C%22inventory_level%22%2C%22period%22 "HTTP/2 201 Created"
+2025-03-19 10:03:19,668 - root - INFO - SCIP Solver Results (Date 2024-03-18):
+2025-03-19 10:03:19,669 - root - INFO - P1 - WATER003: 128.77
+2025-03-19 10:03:19,669 - root - INFO - DC1 - WATER003: 128.76
+2025-03-19 10:03:19,669 - root - INFO - DC2 - WATER003: 128.77
+2025-03-19 10:03:19,670 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 10:03:19,670 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 10:03:19,670 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 10:03:19,670 - root - INFO - Total Cost: 30230.00
+2025-03-19 10:03:19,671 - root - INFO - 
+SCIP Solver Stock Alerts:
+2025-03-19 10:03:19,671 - root - INFO - Potential Stockouts:
+2025-03-19 10:03:19,671 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 10:03:19,672 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 10:03:19,673 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 10:03:19,673 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization 2ba010cb-d85b-473c-aa3c-cda1541346f3
+2025-03-19 10:03:19,674 - root - INFO - Optimizing with heuristic (inflows=1000)...
+2025-03-19 10:03:19,676 - meio.optimization.heuristic - INFO - Starting heuristic optimization with service level 0.95
+2025-03-19 10:03:19,676 - meio.optimization.heuristic - INFO - Heuristic optimization complete. Total cost: 40519.11
+2025-03-19 10:03:19,997 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 10:03:20,351 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22product_id%22%2C%22node_id%22%2C%22optimization_run_id%22%2C%22inventory_level%22%2C%22period%22 "HTTP/2 201 Created"
+2025-03-19 10:03:20,352 - root - INFO - Heuristic Results (Date 2024-03-18):
+2025-03-19 10:03:20,353 - root - INFO - P1 - WATER003: 2000.00
+2025-03-19 10:03:20,353 - root - INFO - DC1 - WATER003: 257.54
+2025-03-19 10:03:20,353 - root - INFO - DC2 - WATER003: 257.54
+2025-03-19 10:03:20,353 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 10:03:20,354 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 10:03:20,354 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 10:03:20,354 - root - INFO - Total Cost: 40519.11
+2025-03-19 10:03:20,355 - root - INFO - 
+Heuristic Stock Alerts:
+2025-03-19 10:03:20,355 - root - INFO - Potential Stockouts:
+2025-03-19 10:03:20,355 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 10:03:20,356 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 10:03:20,357 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 10:03:20,357 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization 34c8c9d1-015b-4fc6-b625-1e2a8796f3b7
+2025-03-19 10:03:20,520 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/safety_stock_recommendations?columns=%22product_id%22%2C%22network_id%22%2C%22node_id%22%2C%22service_level%22%2C%22safety_stock%22 "HTTP/2 201 Created"
+2025-03-19 10:03:20,522 - root - INFO - Generating network visualization...
+2025-03-19 10:03:21,110 - meio.visualization.network_viz - INFO - Network visualization saved to D:\Personal\Code\MEIO\results\visualizations\network_visualization.png
+2025-03-19 10:03:22,642 - root - INFO - Generating comparison chart...
+2025-03-19 10:03:23,063 - meio.visualization.charts - INFO - Comparison chart saved to D:\Personal\Code\MEIO\results\visualizations\comparison_chart.png
+2025-03-19 10:03:24,511 - root - INFO - Generating node metrics charts...
+2025-03-19 10:03:25,046 - meio.visualization.charts - INFO - Node metrics chart for P1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_P1.png
+2025-03-19 10:03:25,608 - meio.visualization.charts - INFO - Node metrics chart for DC1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC1.png
+2025-03-19 10:03:26,183 - meio.visualization.charts - INFO - Node metrics chart for DC2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC2.png
+2025-03-19 10:03:26,747 - meio.visualization.charts - INFO - Node metrics chart for S1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S1.png
+2025-03-19 10:03:27,286 - meio.visualization.charts - INFO - Node metrics chart for S2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S2.png
+2025-03-19 10:03:27,860 - meio.visualization.charts - INFO - Node metrics chart for S3 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S3.png
+2025-03-19 10:03:34,032 - root - INFO - Saving network statistics...
+2025-03-19 10:03:34,033 - root - WARNING - Failed to save network statistics: 'list' object has no attribute 'get'
+2025-03-19 10:04:10,722 - root - INFO - Loading network from database with ID: network_001
+2025-03-19 10:04:11,149 - meio.models.network - INFO - Generated 12 planning periods from 2024-03-18 to 2025-02-11
+2025-03-19 10:04:12,389 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plants?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:04:12,756 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plant_products?select=%2A&node_id=eq.P1 "HTTP/2 200 OK"
+2025-03-19 10:04:13,285 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/distribution_centers?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:04:13,822 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC1 "HTTP/2 200 OK"
+2025-03-19 10:04:14,331 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC2 "HTTP/2 200 OK"
+2025-03-19 10:04:14,748 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/stores?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:04:15,009 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S1 "HTTP/2 200 OK"
+2025-03-19 10:04:15,295 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S2 "HTTP/2 200 OK"
+2025-03-19 10:04:15,478 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S3 "HTTP/2 200 OK"
+2025-03-19 10:04:15,658 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/connections?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:04:15,659 - meio.models.network - INFO - Network validation passed
+2025-03-19 10:04:15,659 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=3)
+2025-03-19 10:04:15,659 - root - INFO - Calculating safety stock with service level 0.95
+2025-03-19 10:04:15,661 - root - INFO - DILOP Safety Stock Recommendations (Average across dates):
+2025-03-19 10:04:15,662 - root - INFO - 
+P1:
+2025-03-19 10:04:15,662 - root - INFO -   WATER003: 0.00
+2025-03-19 10:04:15,662 - root - INFO - 
+DC1:
+2025-03-19 10:04:15,662 - root - INFO -   WATER003: 0.19
+2025-03-19 10:04:15,662 - root - INFO - 
+DC2:
+2025-03-19 10:04:15,662 - root - INFO -   WATER003: 0.28
+2025-03-19 10:04:15,662 - root - INFO - 
+S1:
+2025-03-19 10:04:15,662 - root - INFO -   WATER003: 836.93
+2025-03-19 10:04:15,663 - root - INFO - 
+S2:
+2025-03-19 10:04:15,663 - root - INFO -   WATER003: 836.93
+2025-03-19 10:04:15,663 - root - INFO - 
+S3:
+2025-03-19 10:04:15,663 - root - INFO -   WATER003: 836.93
+2025-03-19 10:04:16,035 - root - INFO - CSV Output directory: D:\Personal\Code\MEIO\results\optimization (exists: True)
+2025-03-19 10:04:16,035 - root - INFO - Optimizing with mathematical solver...
+2025-03-19 10:04:16,037 - meio.optimization.solver - INFO - Starting mathematical optimization with service level 0.95
+2025-03-19 10:04:16,047 - meio.optimization.solver - INFO - Starting solver...
+2025-03-19 10:04:16,054 - meio.optimization.solver - INFO - Solver finished with status: optimal
+2025-03-19 10:04:17,000 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 10:04:17,417 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22period%22%2C%22inventory_level%22%2C%22product_id%22%2C%22node_id%22%2C%22optimization_run_id%22 "HTTP/2 201 Created"
+2025-03-19 10:04:17,424 - root - INFO - SCIP Solver Results (Date 2024-03-18):
+2025-03-19 10:04:17,425 - root - INFO - P1 - WATER003: 128.77
+2025-03-19 10:04:17,425 - root - INFO - DC1 - WATER003: 128.76
+2025-03-19 10:04:17,425 - root - INFO - DC2 - WATER003: 128.77
+2025-03-19 10:04:17,425 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 10:04:17,425 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 10:04:17,426 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 10:04:17,426 - root - INFO - Total Cost: 30230.00
+2025-03-19 10:04:17,427 - root - INFO - 
+SCIP Solver Stock Alerts:
+2025-03-19 10:04:17,427 - root - INFO - Potential Stockouts:
+2025-03-19 10:04:17,427 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 10:04:17,428 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 10:04:17,429 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 10:04:17,429 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization 65220ea0-3ded-4ba3-a90f-5c0800018375
+2025-03-19 10:04:17,429 - root - INFO - Optimizing with heuristic (inflows=1000)...
+2025-03-19 10:04:17,433 - meio.optimization.heuristic - INFO - Starting heuristic optimization with service level 0.95
+2025-03-19 10:04:17,433 - meio.optimization.heuristic - INFO - Heuristic optimization complete. Total cost: 40519.11
+2025-03-19 10:04:17,606 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 10:04:17,952 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22period%22%2C%22inventory_level%22%2C%22product_id%22%2C%22node_id%22%2C%22optimization_run_id%22 "HTTP/2 201 Created"
+2025-03-19 10:04:17,956 - root - INFO - Heuristic Results (Date 2024-03-18):
+2025-03-19 10:04:17,956 - root - INFO - P1 - WATER003: 2000.00
+2025-03-19 10:04:17,956 - root - INFO - DC1 - WATER003: 257.54
+2025-03-19 10:04:17,957 - root - INFO - DC2 - WATER003: 257.54
+2025-03-19 10:04:17,957 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 10:04:17,957 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 10:04:17,957 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 10:04:17,958 - root - INFO - Total Cost: 40519.11
+2025-03-19 10:04:17,959 - root - INFO - 
+Heuristic Stock Alerts:
+2025-03-19 10:04:17,959 - root - INFO - Potential Stockouts:
+2025-03-19 10:04:17,959 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 10:04:17,960 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 10:04:17,961 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 10:04:17,961 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization 8bdab405-c763-4bac-8218-a041b92618e5
+2025-03-19 10:04:18,279 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/safety_stock_recommendations?columns=%22safety_stock%22%2C%22network_id%22%2C%22service_level%22%2C%22product_id%22%2C%22node_id%22 "HTTP/2 201 Created"
+2025-03-19 10:04:18,280 - root - INFO - Generating network visualization...
+2025-03-19 10:04:18,818 - meio.visualization.network_viz - INFO - Network visualization saved to D:\Personal\Code\MEIO\results\visualizations\network_visualization.png
+2025-03-19 10:04:20,165 - root - INFO - Generating comparison chart...
+2025-03-19 10:04:20,610 - meio.visualization.charts - INFO - Comparison chart saved to D:\Personal\Code\MEIO\results\visualizations\comparison_chart.png
+2025-03-19 10:04:22,069 - root - INFO - Generating node metrics charts...
+2025-03-19 10:04:22,654 - meio.visualization.charts - INFO - Node metrics chart for P1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_P1.png
+2025-03-19 10:04:23,252 - meio.visualization.charts - INFO - Node metrics chart for DC1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC1.png
+2025-03-19 10:04:23,825 - meio.visualization.charts - INFO - Node metrics chart for DC2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC2.png
+2025-03-19 10:04:24,338 - meio.visualization.charts - INFO - Node metrics chart for S1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S1.png
+2025-03-19 10:04:24,841 - meio.visualization.charts - INFO - Node metrics chart for S2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S2.png
+2025-03-19 10:04:25,343 - meio.visualization.charts - INFO - Node metrics chart for S3 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S3.png
+2025-03-19 10:04:30,506 - root - INFO - Saving network statistics...
+2025-03-19 10:04:30,521 - root - WARNING - Failed to save network statistics: 'lead_time_by_date'
+2025-03-19 10:05:12,826 - root - INFO - Loading network from database with ID: network_001
+2025-03-19 10:05:13,200 - meio.models.network - INFO - Generated 12 planning periods from 2024-03-18 to 2025-02-11
+2025-03-19 10:05:13,984 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plants?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:05:14,160 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plant_products?select=%2A&node_id=eq.P1 "HTTP/2 200 OK"
+2025-03-19 10:05:14,350 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/distribution_centers?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:05:14,534 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC1 "HTTP/2 200 OK"
+2025-03-19 10:05:14,711 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC2 "HTTP/2 200 OK"
+2025-03-19 10:05:14,918 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/stores?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:05:15,091 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S1 "HTTP/2 200 OK"
+2025-03-19 10:05:15,255 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S2 "HTTP/2 200 OK"
+2025-03-19 10:05:15,416 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S3 "HTTP/2 200 OK"
+2025-03-19 10:05:15,589 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/connections?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:05:15,592 - meio.models.network - INFO - Network validation passed
+2025-03-19 10:05:15,592 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=3)
+2025-03-19 10:05:15,592 - root - INFO - Calculating safety stock with service level 0.95
+2025-03-19 10:05:15,594 - root - INFO - DILOP Safety Stock Recommendations (Average across dates):
+2025-03-19 10:05:15,594 - root - INFO - 
+P1:
+2025-03-19 10:05:15,594 - root - INFO -   WATER003: 0.00
+2025-03-19 10:05:15,595 - root - INFO - 
+DC1:
+2025-03-19 10:05:15,595 - root - INFO -   WATER003: 0.19
+2025-03-19 10:05:15,595 - root - INFO - 
+DC2:
+2025-03-19 10:05:15,595 - root - INFO -   WATER003: 0.28
+2025-03-19 10:05:15,595 - root - INFO - 
+S1:
+2025-03-19 10:05:15,595 - root - INFO -   WATER003: 836.93
+2025-03-19 10:05:15,595 - root - INFO - 
+S2:
+2025-03-19 10:05:15,596 - root - INFO -   WATER003: 836.93
+2025-03-19 10:05:15,596 - root - INFO - 
+S3:
+2025-03-19 10:05:15,596 - root - INFO -   WATER003: 836.93
+2025-03-19 10:05:15,930 - root - INFO - CSV Output directory: D:\Personal\Code\MEIO\results\optimization (exists: True)
+2025-03-19 10:05:15,931 - root - INFO - Optimizing with mathematical solver...
+2025-03-19 10:05:15,934 - meio.optimization.solver - INFO - Starting mathematical optimization with service level 0.95
+2025-03-19 10:05:15,943 - meio.optimization.solver - INFO - Starting solver...
+2025-03-19 10:05:15,947 - meio.optimization.solver - INFO - Solver finished with status: optimal
+2025-03-19 10:05:16,630 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 10:05:16,862 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22product_id%22%2C%22optimization_run_id%22%2C%22period%22%2C%22node_id%22%2C%22inventory_level%22 "HTTP/2 201 Created"
+2025-03-19 10:05:16,866 - root - INFO - SCIP Solver Results (Date 2024-03-18):
+2025-03-19 10:05:16,866 - root - INFO - P1 - WATER003: 128.77
+2025-03-19 10:05:16,866 - root - INFO - DC1 - WATER003: 128.76
+2025-03-19 10:05:16,866 - root - INFO - DC2 - WATER003: 128.77
+2025-03-19 10:05:16,867 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 10:05:16,867 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 10:05:16,867 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 10:05:16,867 - root - INFO - Total Cost: 30230.00
+2025-03-19 10:05:16,867 - root - INFO - 
+SCIP Solver Stock Alerts:
+2025-03-19 10:05:16,867 - root - INFO - Potential Stockouts:
+2025-03-19 10:05:16,868 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 10:05:16,868 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 10:05:16,869 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 10:05:16,869 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization 2b061beb-279a-4dfe-ba6d-9b5dd7bfc3d8
+2025-03-19 10:05:16,869 - root - INFO - Optimizing with heuristic (inflows=1000)...
+2025-03-19 10:05:16,871 - meio.optimization.heuristic - INFO - Starting heuristic optimization with service level 0.95
+2025-03-19 10:05:16,871 - meio.optimization.heuristic - INFO - Heuristic optimization complete. Total cost: 40519.11
+2025-03-19 10:05:17,045 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 10:05:17,248 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22product_id%22%2C%22optimization_run_id%22%2C%22period%22%2C%22node_id%22%2C%22inventory_level%22 "HTTP/2 201 Created"
+2025-03-19 10:05:17,250 - root - INFO - Heuristic Results (Date 2024-03-18):
+2025-03-19 10:05:17,251 - root - INFO - P1 - WATER003: 2000.00
+2025-03-19 10:05:17,251 - root - INFO - DC1 - WATER003: 257.54
+2025-03-19 10:05:17,251 - root - INFO - DC2 - WATER003: 257.54
+2025-03-19 10:05:17,251 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 10:05:17,251 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 10:05:17,252 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 10:05:17,252 - root - INFO - Total Cost: 40519.11
+2025-03-19 10:05:17,252 - root - INFO - 
+Heuristic Stock Alerts:
+2025-03-19 10:05:17,252 - root - INFO - Potential Stockouts:
+2025-03-19 10:05:17,252 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 10:05:17,253 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 10:05:17,254 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 10:05:17,254 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization 35e88615-6382-4743-9168-b516dc272db7
+2025-03-19 10:05:17,427 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/safety_stock_recommendations?columns=%22product_id%22%2C%22service_level%22%2C%22network_id%22%2C%22node_id%22%2C%22safety_stock%22 "HTTP/2 201 Created"
+2025-03-19 10:05:17,428 - root - INFO - Generating network visualization...
+2025-03-19 10:05:17,952 - meio.visualization.network_viz - INFO - Network visualization saved to D:\Personal\Code\MEIO\results\visualizations\network_visualization.png
+2025-03-19 10:05:19,154 - root - INFO - Generating comparison chart...
+2025-03-19 10:05:19,585 - meio.visualization.charts - INFO - Comparison chart saved to D:\Personal\Code\MEIO\results\visualizations\comparison_chart.png
+2025-03-19 10:05:20,875 - root - INFO - Generating node metrics charts...
+2025-03-19 10:05:21,475 - meio.visualization.charts - INFO - Node metrics chart for P1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_P1.png
+2025-03-19 10:05:22,046 - meio.visualization.charts - INFO - Node metrics chart for DC1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC1.png
+2025-03-19 10:05:22,578 - meio.visualization.charts - INFO - Node metrics chart for DC2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC2.png
+2025-03-19 10:05:23,118 - meio.visualization.charts - INFO - Node metrics chart for S1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S1.png
+2025-03-19 10:05:23,654 - meio.visualization.charts - INFO - Node metrics chart for S2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S2.png
+2025-03-19 10:05:24,189 - meio.visualization.charts - INFO - Node metrics chart for S3 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S3.png
+2025-03-19 10:05:28,733 - root - INFO - Saving network statistics...
+2025-03-19 10:05:28,747 - root - WARNING - Failed to save network statistics: 'Node' object has no attribute 'suppliers'
+2025-03-19 10:06:19,931 - root - INFO - Loading network from database with ID: network_001
+2025-03-19 10:06:20,318 - meio.models.network - INFO - Generated 12 planning periods from 2024-03-18 to 2025-02-11
+2025-03-19 10:06:21,264 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plants?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:06:21,635 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plant_products?select=%2A&node_id=eq.P1 "HTTP/2 200 OK"
+2025-03-19 10:06:21,975 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/distribution_centers?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:06:22,313 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC1 "HTTP/2 200 OK"
+2025-03-19 10:06:22,488 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC2 "HTTP/2 200 OK"
+2025-03-19 10:06:22,801 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/stores?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:06:23,151 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S1 "HTTP/2 200 OK"
+2025-03-19 10:06:23,672 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S2 "HTTP/2 200 OK"
+2025-03-19 10:06:24,218 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S3 "HTTP/2 200 OK"
+2025-03-19 10:06:24,547 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/connections?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 10:06:24,548 - meio.models.network - INFO - Network validation passed
+2025-03-19 10:06:24,548 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=3)
+2025-03-19 10:06:24,548 - root - INFO - Calculating safety stock with service level 0.95
+2025-03-19 10:06:24,551 - root - INFO - DILOP Safety Stock Recommendations (Average across dates):
+2025-03-19 10:06:24,551 - root - INFO - 
+P1:
+2025-03-19 10:06:24,551 - root - INFO -   WATER003: 0.00
+2025-03-19 10:06:24,551 - root - INFO - 
+DC1:
+2025-03-19 10:06:24,552 - root - INFO -   WATER003: 0.19
+2025-03-19 10:06:24,552 - root - INFO - 
+DC2:
+2025-03-19 10:06:24,552 - root - INFO -   WATER003: 0.28
+2025-03-19 10:06:24,552 - root - INFO - 
+S1:
+2025-03-19 10:06:24,552 - root - INFO -   WATER003: 836.93
+2025-03-19 10:06:24,552 - root - INFO - 
+S2:
+2025-03-19 10:06:24,552 - root - INFO -   WATER003: 836.93
+2025-03-19 10:06:24,552 - root - INFO - 
+S3:
+2025-03-19 10:06:24,553 - root - INFO -   WATER003: 836.93
+2025-03-19 10:06:24,894 - root - INFO - CSV Output directory: D:\Personal\Code\MEIO\results\optimization (exists: True)
+2025-03-19 10:06:24,895 - root - INFO - Optimizing with mathematical solver...
+2025-03-19 10:06:24,897 - meio.optimization.solver - INFO - Starting mathematical optimization with service level 0.95
+2025-03-19 10:06:24,904 - meio.optimization.solver - INFO - Starting solver...
+2025-03-19 10:06:24,909 - meio.optimization.solver - INFO - Solver finished with status: optimal
+2025-03-19 10:06:25,630 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 10:06:25,872 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22node_id%22%2C%22optimization_run_id%22%2C%22period%22%2C%22inventory_level%22%2C%22product_id%22 "HTTP/2 201 Created"
+2025-03-19 10:06:25,878 - root - INFO - SCIP Solver Results (Date 2024-03-18):
+2025-03-19 10:06:25,879 - root - INFO - P1 - WATER003: 128.77
+2025-03-19 10:06:25,879 - root - INFO - DC1 - WATER003: 128.76
+2025-03-19 10:06:25,879 - root - INFO - DC2 - WATER003: 128.77
+2025-03-19 10:06:25,879 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 10:06:25,880 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 10:06:25,880 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 10:06:25,880 - root - INFO - Total Cost: 30230.00
+2025-03-19 10:06:25,880 - root - INFO - 
+SCIP Solver Stock Alerts:
+2025-03-19 10:06:25,881 - root - INFO - Potential Stockouts:
+2025-03-19 10:06:25,881 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 10:06:25,881 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 10:06:25,882 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 10:06:25,883 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization 5d5c2f2d-8db5-40eb-bec0-96ee021ad29b
+2025-03-19 10:06:25,883 - root - INFO - Optimizing with heuristic (inflows=1000)...
+2025-03-19 10:06:25,884 - meio.optimization.heuristic - INFO - Starting heuristic optimization with service level 0.95
+2025-03-19 10:06:25,885 - meio.optimization.heuristic - INFO - Heuristic optimization complete. Total cost: 40519.11
+2025-03-19 10:06:26,059 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 10:06:26,250 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22node_id%22%2C%22optimization_run_id%22%2C%22period%22%2C%22inventory_level%22%2C%22product_id%22 "HTTP/2 201 Created"
+2025-03-19 10:06:26,252 - root - INFO - Heuristic Results (Date 2024-03-18):
+2025-03-19 10:06:26,252 - root - INFO - P1 - WATER003: 2000.00
+2025-03-19 10:06:26,252 - root - INFO - DC1 - WATER003: 257.54
+2025-03-19 10:06:26,252 - root - INFO - DC2 - WATER003: 257.54
+2025-03-19 10:06:26,253 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 10:06:26,253 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 10:06:26,253 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 10:06:26,253 - root - INFO - Total Cost: 40519.11
+2025-03-19 10:06:26,254 - root - INFO - 
+Heuristic Stock Alerts:
+2025-03-19 10:06:26,254 - root - INFO - Potential Stockouts:
+2025-03-19 10:06:26,254 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 10:06:26,255 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 10:06:26,255 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 10:06:26,255 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization 1fbff6e9-a8ab-41c6-a420-7a78a784fa37
+2025-03-19 10:06:26,435 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/safety_stock_recommendations?columns=%22service_level%22%2C%22node_id%22%2C%22safety_stock%22%2C%22product_id%22%2C%22network_id%22 "HTTP/2 201 Created"
+2025-03-19 10:06:26,436 - root - INFO - Generating network visualization...
+2025-03-19 10:06:26,886 - meio.visualization.network_viz - INFO - Network visualization saved to D:\Personal\Code\MEIO\results\visualizations\network_visualization.png
+2025-03-19 10:06:28,646 - root - INFO - Generating comparison chart...
+2025-03-19 10:06:29,020 - meio.visualization.charts - INFO - Comparison chart saved to D:\Personal\Code\MEIO\results\visualizations\comparison_chart.png
+2025-03-19 10:06:30,114 - root - INFO - Generating node metrics charts...
+2025-03-19 10:06:30,625 - meio.visualization.charts - INFO - Node metrics chart for P1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_P1.png
+2025-03-19 10:06:31,113 - meio.visualization.charts - INFO - Node metrics chart for DC1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC1.png
+2025-03-19 10:06:31,603 - meio.visualization.charts - INFO - Node metrics chart for DC2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC2.png
+2025-03-19 10:06:32,077 - meio.visualization.charts - INFO - Node metrics chart for S1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S1.png
+2025-03-19 10:06:32,573 - meio.visualization.charts - INFO - Node metrics chart for S2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S2.png
+2025-03-19 10:06:33,067 - meio.visualization.charts - INFO - Node metrics chart for S3 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S3.png
+2025-03-19 10:06:57,409 - root - INFO - Saving network statistics...
+2025-03-19 10:06:57,412 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\node_statistics.csv
+2025-03-19 10:06:57,413 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\product_statistics.csv
+2025-03-19 10:06:57,415 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\demand_statistics.csv
+2025-03-19 10:06:57,415 - meio.io.csv_exporter - INFO - Network statistics saved to CSV files in D:\Personal\Code\MEIO\results\optimization
+2025-03-19 10:06:57,801 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/network_statistics?columns=%22product_id%22%2C%22holding_cost%22%2C%22node_id%22%2C%22total_demand%22%2C%22demand_std%22%2C%22shortage_cost%22%2C%22avg_lead_time%22%2C%22lead_time_std%22%2C%22avg_demand%22%2C%22network_id%22 "HTTP/2 201 Created"
+2025-03-19 11:04:43,361 - root - INFO - Loading network from database with ID: network_001
+2025-03-19 11:04:43,848 - meio.models.network - INFO - Generated 12 planning periods from 2024-03-18 to 2025-02-11
+2025-03-19 11:04:44,844 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plants?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 11:04:45,192 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plant_products?select=%2A&node_id=eq.P1 "HTTP/2 200 OK"
+2025-03-19 11:04:45,539 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/distribution_centers?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 11:04:45,879 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC1 "HTTP/2 200 OK"
+2025-03-19 11:04:46,058 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC2 "HTTP/2 200 OK"
+2025-03-19 11:04:46,222 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/stores?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 11:04:46,428 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S1 "HTTP/2 200 OK"
+2025-03-19 11:04:46,596 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S2 "HTTP/2 200 OK"
+2025-03-19 11:04:46,776 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S3 "HTTP/2 200 OK"
+2025-03-19 11:04:46,960 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/connections?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 11:04:46,961 - meio.models.network - INFO - Network validation passed
+2025-03-19 11:04:46,961 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=3)
+2025-03-19 11:04:46,961 - root - INFO - Calculating safety stock with service level 0.95
+2025-03-19 11:04:46,979 - root - INFO - DILOP Safety Stock Recommendations (Average across dates):
+2025-03-19 11:04:46,980 - root - INFO - 
+P1:
+2025-03-19 11:04:46,980 - root - INFO -   WATER003: 0.00
+2025-03-19 11:04:46,980 - root - INFO - 
+DC1:
+2025-03-19 11:04:46,980 - root - INFO -   WATER003: 0.19
+2025-03-19 11:04:46,981 - root - INFO - 
+DC2:
+2025-03-19 11:04:46,981 - root - INFO -   WATER003: 0.28
+2025-03-19 11:04:46,981 - root - INFO - 
+S1:
+2025-03-19 11:04:46,981 - root - INFO -   WATER003: 836.93
+2025-03-19 11:04:46,981 - root - INFO - 
+S2:
+2025-03-19 11:04:46,981 - root - INFO -   WATER003: 836.93
+2025-03-19 11:04:46,981 - root - INFO - 
+S3:
+2025-03-19 11:04:46,982 - root - INFO -   WATER003: 836.93
+2025-03-19 11:04:47,280 - root - INFO - CSV Output directory: D:\Personal\Code\MEIO\results\optimization (exists: True)
+2025-03-19 11:04:47,281 - root - INFO - Optimizing with mathematical solver...
+2025-03-19 11:04:47,283 - meio.optimization.solver - INFO - Starting mathematical optimization with service level 0.95
+2025-03-19 11:04:47,314 - meio.optimization.solver - INFO - Starting solver...
+2025-03-19 11:04:47,321 - meio.optimization.solver - INFO - Solver finished with status: optimal
+2025-03-19 11:04:48,049 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 11:04:48,334 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22optimization_run_id%22%2C%22period%22%2C%22node_id%22%2C%22inventory_level%22%2C%22product_id%22 "HTTP/2 201 Created"
+2025-03-19 11:04:48,354 - root - INFO - SCIP Solver Results (Date 2024-03-18):
+2025-03-19 11:04:48,355 - root - INFO - P1 - WATER003: 128.77
+2025-03-19 11:04:48,355 - root - INFO - DC1 - WATER003: 128.76
+2025-03-19 11:04:48,355 - root - INFO - DC2 - WATER003: 128.77
+2025-03-19 11:04:48,355 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 11:04:48,355 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 11:04:48,356 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 11:04:48,356 - root - INFO - Total Cost: 30230.00
+2025-03-19 11:04:48,356 - root - INFO - 
+SCIP Solver Stock Alerts:
+2025-03-19 11:04:48,356 - root - INFO - Potential Stockouts:
+2025-03-19 11:04:48,356 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 11:04:48,358 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 11:04:48,359 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 11:04:48,360 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization a0f98b83-ed69-49d6-9966-900271332d6a
+2025-03-19 11:04:48,360 - root - INFO - Optimizing with heuristic (inflows=1000)...
+2025-03-19 11:04:48,362 - meio.optimization.heuristic - INFO - Starting heuristic optimization with service level 0.95
+2025-03-19 11:04:48,362 - meio.optimization.heuristic - INFO - Heuristic optimization complete. Total cost: 40519.11
+2025-03-19 11:04:48,635 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 11:04:48,855 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22optimization_run_id%22%2C%22period%22%2C%22node_id%22%2C%22inventory_level%22%2C%22product_id%22 "HTTP/2 201 Created"
+2025-03-19 11:04:48,857 - root - INFO - Heuristic Results (Date 2024-03-18):
+2025-03-19 11:04:48,857 - root - INFO - P1 - WATER003: 2000.00
+2025-03-19 11:04:48,857 - root - INFO - DC1 - WATER003: 257.54
+2025-03-19 11:04:48,857 - root - INFO - DC2 - WATER003: 257.54
+2025-03-19 11:04:48,858 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 11:04:48,858 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 11:04:48,858 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 11:04:48,858 - root - INFO - Total Cost: 40519.11
+2025-03-19 11:04:48,859 - root - INFO - 
+Heuristic Stock Alerts:
+2025-03-19 11:04:48,859 - root - INFO - Potential Stockouts:
+2025-03-19 11:04:48,859 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 11:04:48,860 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 11:04:48,861 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 11:04:48,861 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization b69d88e4-915f-4723-bddc-ebc0ebcebb97
+2025-03-19 11:04:49,028 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/safety_stock_recommendations?columns=%22node_id%22%2C%22service_level%22%2C%22network_id%22%2C%22safety_stock%22%2C%22product_id%22 "HTTP/2 400 Bad Request"
+2025-03-19 11:04:49,029 - meio.io.db_exporter - ERROR - Error saving safety stock recommendations: {'code': '22P02', 'details': None, 'hint': None, 'message': 'invalid input syntax for type numeric: "{"avg_safety_stock":0.0,"min_safety_stock":0.0,"max_safety_stock":0.0}"'}
+2025-03-19 11:04:49,030 - meio.io.db_exporter - ERROR - First few records: [{'network_id': 'network_001', 'node_id': 'P1', 'product_id': 'WATER003', 'safety_stock': {'avg_safety_stock': 0.0, 'min_safety_stock': 0.0, 'max_safety_stock': 0.0}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'DC1', 'product_id': 'WATER003', 'safety_stock': {'avg_safety_stock': 0.1875867324179126, 'min_safety_stock': 0.0, 'max_safety_stock': 0.0}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'DC2', 'product_id': 'WATER003', 'safety_stock': {'avg_safety_stock': 0.2813800986268689, 'min_safety_stock': 0.0, 'max_safety_stock': 0.0}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'S1', 'product_id': 'WATER003', 'safety_stock': {'avg_safety_stock': 836.9312890292011, 'min_safety_stock': 0.0, 'max_safety_stock': 0.0}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'S2', 'product_id': 'WATER003', 'safety_stock': {'avg_safety_stock': 836.9333700287463, 'min_safety_stock': 0.0, 'max_safety_stock': 0.0}, 'service_level': 0.95}]
+2025-03-19 11:04:49,030 - root - ERROR - Error saving safety stock recommendations: {'code': '22P02', 'details': None, 'hint': None, 'message': 'invalid input syntax for type numeric: "{"avg_safety_stock":0.0,"min_safety_stock":0.0,"max_safety_stock":0.0}"'}
+2025-03-19 11:04:49,030 - root - INFO - Generating network visualization...
+2025-03-19 11:04:49,780 - meio.visualization.network_viz - INFO - Network visualization saved to D:\Personal\Code\MEIO\results\visualizations\network_visualization.png
+2025-03-19 11:04:51,330 - root - INFO - Generating comparison chart...
+2025-03-19 11:04:51,764 - meio.visualization.charts - INFO - Comparison chart saved to D:\Personal\Code\MEIO\results\visualizations\comparison_chart.png
+2025-03-19 11:05:00,576 - root - INFO - Generating node metrics charts...
+2025-03-19 11:05:01,089 - meio.visualization.charts - INFO - Node metrics chart for P1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_P1.png
+2025-03-19 11:05:01,588 - meio.visualization.charts - INFO - Node metrics chart for DC1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC1.png
+2025-03-19 11:05:02,124 - meio.visualization.charts - INFO - Node metrics chart for DC2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC2.png
+2025-03-19 11:05:02,661 - meio.visualization.charts - INFO - Node metrics chart for S1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S1.png
+2025-03-19 11:05:03,147 - meio.visualization.charts - INFO - Node metrics chart for S2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S2.png
+2025-03-19 11:05:03,630 - meio.visualization.charts - INFO - Node metrics chart for S3 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S3.png
+2025-03-19 11:05:08,843 - root - INFO - Saving network statistics...
+2025-03-19 11:05:08,853 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\node_statistics.csv
+2025-03-19 11:05:08,855 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\product_statistics.csv
+2025-03-19 11:05:08,856 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\demand_statistics.csv
+2025-03-19 11:05:08,857 - meio.io.csv_exporter - INFO - Network statistics saved to CSV files in D:\Personal\Code\MEIO\results\optimization
+2025-03-19 11:05:09,424 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/network_statistics?columns=%22holding_cost%22%2C%22avg_lead_time%22%2C%22demand_std%22%2C%22node_id%22%2C%22shortage_cost%22%2C%22avg_demand%22%2C%22network_id%22%2C%22lead_time_std%22%2C%22total_demand%22%2C%22product_id%22 "HTTP/2 201 Created"
+2025-03-19 11:15:09,332 - root - INFO - Loading network from database with ID: network_001
+2025-03-19 11:15:09,696 - meio.models.network - INFO - Generated 12 planning periods from 2024-03-18 to 2025-02-11
+2025-03-19 11:15:10,571 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plants?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 11:15:10,764 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plant_products?select=%2A&node_id=eq.P1 "HTTP/2 200 OK"
+2025-03-19 11:15:10,964 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/distribution_centers?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 11:15:11,150 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC1 "HTTP/2 200 OK"
+2025-03-19 11:15:11,332 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC2 "HTTP/2 200 OK"
+2025-03-19 11:15:11,502 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/stores?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 11:15:11,680 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S1 "HTTP/2 200 OK"
+2025-03-19 11:15:11,869 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S2 "HTTP/2 200 OK"
+2025-03-19 11:15:12,073 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S3 "HTTP/2 200 OK"
+2025-03-19 11:15:12,240 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/connections?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 11:15:12,241 - meio.models.network - INFO - Network validation passed
+2025-03-19 11:15:12,241 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=3)
+2025-03-19 11:15:12,241 - root - INFO - Calculating safety stock with service level 0.95
+2025-03-19 11:15:12,243 - root - INFO - DILOP Safety Stock Recommendations (Average across dates):
+2025-03-19 11:15:12,243 - root - INFO - 
+P1:
+2025-03-19 11:15:12,243 - root - INFO -   WATER003: 0.00
+2025-03-19 11:15:12,243 - root - INFO - 
+DC1:
+2025-03-19 11:15:12,243 - root - INFO -   WATER003: 0.19
+2025-03-19 11:15:12,243 - root - INFO - 
+DC2:
+2025-03-19 11:15:12,244 - root - INFO -   WATER003: 0.28
+2025-03-19 11:15:12,244 - root - INFO - 
+S1:
+2025-03-19 11:15:12,244 - root - INFO -   WATER003: 836.93
+2025-03-19 11:15:12,244 - root - INFO - 
+S2:
+2025-03-19 11:15:12,244 - root - INFO -   WATER003: 836.93
+2025-03-19 11:15:12,244 - root - INFO - 
+S3:
+2025-03-19 11:15:12,245 - root - INFO -   WATER003: 836.93
+2025-03-19 11:15:12,535 - root - INFO - CSV Output directory: D:\Personal\Code\MEIO\results\optimization (exists: True)
+2025-03-19 11:15:12,535 - root - INFO - Optimizing with mathematical solver...
+2025-03-19 11:15:12,537 - meio.optimization.solver - INFO - Starting mathematical optimization with service level 0.95
+2025-03-19 11:15:12,543 - meio.optimization.solver - INFO - Starting solver...
+2025-03-19 11:15:12,549 - meio.optimization.solver - INFO - Solver finished with status: optimal
+2025-03-19 11:15:13,467 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 11:15:13,848 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22inventory_level%22%2C%22product_id%22%2C%22optimization_run_id%22%2C%22node_id%22%2C%22period%22 "HTTP/2 201 Created"
+2025-03-19 11:15:13,855 - root - INFO - SCIP Solver Results (Date 2024-03-18):
+2025-03-19 11:15:13,855 - root - INFO - P1 - WATER003: 128.77
+2025-03-19 11:15:13,856 - root - INFO - DC1 - WATER003: 128.76
+2025-03-19 11:15:13,856 - root - INFO - DC2 - WATER003: 128.77
+2025-03-19 11:15:13,856 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 11:15:13,856 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 11:15:13,856 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 11:15:13,857 - root - INFO - Total Cost: 30230.00
+2025-03-19 11:15:13,857 - root - INFO - 
+SCIP Solver Stock Alerts:
+2025-03-19 11:15:13,857 - root - INFO - Potential Stockouts:
+2025-03-19 11:15:13,857 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 11:15:13,858 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 11:15:13,859 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 11:15:13,860 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization f1cf6576-77ab-4e4e-a3cb-9460aa348f61
+2025-03-19 11:15:13,860 - root - INFO - Optimizing with heuristic (inflows=1000)...
+2025-03-19 11:15:13,861 - meio.optimization.heuristic - INFO - Starting heuristic optimization with service level 0.95
+2025-03-19 11:15:13,862 - meio.optimization.heuristic - INFO - Heuristic optimization complete. Total cost: 40519.11
+2025-03-19 11:15:14,211 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 11:15:14,560 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22inventory_level%22%2C%22product_id%22%2C%22optimization_run_id%22%2C%22node_id%22%2C%22period%22 "HTTP/2 201 Created"
+2025-03-19 11:15:14,563 - root - INFO - Heuristic Results (Date 2024-03-18):
+2025-03-19 11:15:14,563 - root - INFO - P1 - WATER003: 2000.00
+2025-03-19 11:15:14,563 - root - INFO - DC1 - WATER003: 257.54
+2025-03-19 11:15:14,563 - root - INFO - DC2 - WATER003: 257.54
+2025-03-19 11:15:14,563 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 11:15:14,563 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 11:15:14,564 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 11:15:14,564 - root - INFO - Total Cost: 40519.11
+2025-03-19 11:15:14,564 - root - INFO - 
+Heuristic Stock Alerts:
+2025-03-19 11:15:14,564 - root - INFO - Potential Stockouts:
+2025-03-19 11:15:14,565 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 11:15:14,565 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 11:15:14,566 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 11:15:14,566 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization d74dd8a5-f1d4-472a-9f4f-ae98938134fa
+2025-03-19 11:15:14,921 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/safety_stock_recommendations?columns=%22safety_stock%22%2C%22service_level%22%2C%22network_id%22%2C%22product_id%22%2C%22node_id%22 "HTTP/2 400 Bad Request"
+2025-03-19 11:15:14,928 - meio.io.db_exporter - ERROR - Error saving safety stock recommendations: {'code': '22P02', 'details': None, 'hint': None, 'message': 'invalid input syntax for type numeric: "{"avg_safety_stock":0.0,"min_safety_stock":0.0,"max_safety_stock":0.0}"'}
+2025-03-19 11:15:14,928 - meio.io.db_exporter - ERROR - First few records: [{'network_id': 'network_001', 'node_id': 'P1', 'product_id': 'WATER003', 'safety_stock': {'avg_safety_stock': 0.0, 'min_safety_stock': 0.0, 'max_safety_stock': 0.0}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'DC1', 'product_id': 'WATER003', 'safety_stock': {'avg_safety_stock': 0.1875867324179126, 'min_safety_stock': 0.0, 'max_safety_stock': 0.0}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'DC2', 'product_id': 'WATER003', 'safety_stock': {'avg_safety_stock': 0.2813800986268689, 'min_safety_stock': 0.0, 'max_safety_stock': 0.0}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'S1', 'product_id': 'WATER003', 'safety_stock': {'avg_safety_stock': 836.9312890292011, 'min_safety_stock': 0.0, 'max_safety_stock': 0.0}, 'service_level': 0.95}, {'network_id': 'network_001', 'node_id': 'S2', 'product_id': 'WATER003', 'safety_stock': {'avg_safety_stock': 836.9333700287463, 'min_safety_stock': 0.0, 'max_safety_stock': 0.0}, 'service_level': 0.95}]
+2025-03-19 11:15:14,929 - root - ERROR - Error saving safety stock recommendations: {'code': '22P02', 'details': None, 'hint': None, 'message': 'invalid input syntax for type numeric: "{"avg_safety_stock":0.0,"min_safety_stock":0.0,"max_safety_stock":0.0}"'}
+2025-03-19 11:15:14,929 - root - INFO - Generating network visualization...
+2025-03-19 11:15:15,331 - meio.visualization.network_viz - INFO - Network visualization saved to D:\Personal\Code\MEIO\results\visualizations\network_visualization.png
+2025-03-19 11:15:18,556 - root - INFO - Generating comparison chart...
+2025-03-19 11:15:18,911 - meio.visualization.charts - INFO - Comparison chart saved to D:\Personal\Code\MEIO\results\visualizations\comparison_chart.png
+2025-03-19 11:15:20,520 - root - INFO - Generating node metrics charts...
+2025-03-19 11:15:20,963 - meio.visualization.charts - INFO - Node metrics chart for P1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_P1.png
+2025-03-19 11:15:21,426 - meio.visualization.charts - INFO - Node metrics chart for DC1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC1.png
+2025-03-19 11:15:21,860 - meio.visualization.charts - INFO - Node metrics chart for DC2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC2.png
+2025-03-19 11:15:22,289 - meio.visualization.charts - INFO - Node metrics chart for S1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S1.png
+2025-03-19 11:15:22,751 - meio.visualization.charts - INFO - Node metrics chart for S2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S2.png
+2025-03-19 11:15:23,181 - meio.visualization.charts - INFO - Node metrics chart for S3 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S3.png
+2025-03-19 11:15:27,042 - root - INFO - Saving network statistics...
+2025-03-19 11:15:27,044 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\node_statistics.csv
+2025-03-19 11:15:27,045 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\product_statistics.csv
+2025-03-19 11:15:27,046 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\demand_statistics.csv
+2025-03-19 11:15:27,046 - meio.io.csv_exporter - INFO - Network statistics saved to CSV files in D:\Personal\Code\MEIO\results\optimization
+2025-03-19 11:15:27,402 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/network_statistics?columns=%22lead_time_std%22%2C%22avg_lead_time%22%2C%22network_id%22%2C%22total_demand%22%2C%22demand_std%22%2C%22product_id%22%2C%22shortage_cost%22%2C%22avg_demand%22%2C%22holding_cost%22%2C%22node_id%22 "HTTP/2 201 Created"
+2025-03-19 11:29:32,565 - root - INFO - Loading network from database with ID: network_001
+2025-03-19 11:29:33,024 - meio.models.network - INFO - Generated 12 planning periods from 2024-03-18 to 2025-02-11
+2025-03-19 11:29:33,914 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plants?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 11:29:34,153 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/plant_products?select=%2A&node_id=eq.P1 "HTTP/2 200 OK"
+2025-03-19 11:29:34,331 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/distribution_centers?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 11:29:34,516 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC1 "HTTP/2 200 OK"
+2025-03-19 11:29:34,687 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/dc_products?select=%2A&node_id=eq.DC2 "HTTP/2 200 OK"
+2025-03-19 11:29:34,866 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/stores?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 11:29:35,052 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S1 "HTTP/2 200 OK"
+2025-03-19 11:29:35,241 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S2 "HTTP/2 200 OK"
+2025-03-19 11:29:35,421 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/store_products?select=%2A&node_id=eq.S3 "HTTP/2 200 OK"
+2025-03-19 11:29:35,598 - httpx - INFO - HTTP Request: GET https://avmnttljluptvsgiuptz.supabase.co/rest/v1/connections?select=%2A&network_id=eq.network_001 "HTTP/2 200 OK"
+2025-03-19 11:29:35,599 - meio.models.network - INFO - Network validation passed
+2025-03-19 11:29:35,599 - root - INFO - Loaded network: MultiEchelonNetwork(periods=12, plants=1, dcs=2, stores=3)
+2025-03-19 11:29:35,600 - root - INFO - Calculating safety stock with service level 0.95
+2025-03-19 11:29:35,603 - root - INFO - DILOP Safety Stock Recommendations (Average across dates):
+2025-03-19 11:29:35,603 - root - INFO - 
+P1:
+2025-03-19 11:29:35,603 - root - INFO -   WATER003: 0.00
+2025-03-19 11:29:35,604 - root - INFO - 
+DC1:
+2025-03-19 11:29:35,604 - root - INFO -   WATER003: 0.19
+2025-03-19 11:29:35,604 - root - INFO - 
+DC2:
+2025-03-19 11:29:35,604 - root - INFO -   WATER003: 0.28
+2025-03-19 11:29:35,604 - root - INFO - 
+S1:
+2025-03-19 11:29:35,604 - root - INFO -   WATER003: 836.93
+2025-03-19 11:29:35,605 - root - INFO - 
+S2:
+2025-03-19 11:29:35,605 - root - INFO -   WATER003: 836.93
+2025-03-19 11:29:35,605 - root - INFO - 
+S3:
+2025-03-19 11:29:35,605 - root - INFO -   WATER003: 836.93
+2025-03-19 11:29:36,010 - root - INFO - CSV Output directory: D:\Personal\Code\MEIO\results\optimization (exists: True)
+2025-03-19 11:29:36,011 - root - INFO - Optimizing with mathematical solver...
+2025-03-19 11:29:36,015 - meio.optimization.solver - INFO - Starting mathematical optimization with service level 0.95
+2025-03-19 11:29:36,024 - meio.optimization.solver - INFO - Starting solver...
+2025-03-19 11:29:36,033 - meio.optimization.solver - INFO - Solver finished with status: optimal
+2025-03-19 11:29:37,050 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 11:29:37,502 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22node_id%22%2C%22inventory_level%22%2C%22product_id%22%2C%22period%22%2C%22optimization_run_id%22 "HTTP/2 201 Created"
+2025-03-19 11:29:37,511 - root - INFO - SCIP Solver Results (Date 2024-03-18):
+2025-03-19 11:29:37,512 - root - INFO - P1 - WATER003: 128.77
+2025-03-19 11:29:37,512 - root - INFO - DC1 - WATER003: 128.76
+2025-03-19 11:29:37,513 - root - INFO - DC2 - WATER003: 128.77
+2025-03-19 11:29:37,514 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 11:29:37,515 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 11:29:37,516 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 11:29:37,516 - root - INFO - Total Cost: 30230.00
+2025-03-19 11:29:37,517 - root - INFO - 
+SCIP Solver Stock Alerts:
+2025-03-19 11:29:37,517 - root - INFO - Potential Stockouts:
+2025-03-19 11:29:37,518 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 11:29:37,519 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 11:29:37,522 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 11:29:37,522 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization 8a255598-5a12-4f97-a78c-8d7c626a17e1
+2025-03-19 11:29:37,523 - root - INFO - Optimizing with heuristic (inflows=1000)...
+2025-03-19 11:29:37,527 - meio.optimization.heuristic - INFO - Starting heuristic optimization with service level 0.95
+2025-03-19 11:29:37,527 - meio.optimization.heuristic - INFO - Heuristic optimization complete. Total cost: 40519.11
+2025-03-19 11:29:37,851 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/optimization_runs "HTTP/2 201 Created"
+2025-03-19 11:29:38,212 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/inventory_levels?columns=%22node_id%22%2C%22inventory_level%22%2C%22product_id%22%2C%22period%22%2C%22optimization_run_id%22 "HTTP/2 201 Created"
+2025-03-19 11:29:38,217 - root - INFO - Heuristic Results (Date 2024-03-18):
+2025-03-19 11:29:38,219 - root - INFO - P1 - WATER003: 2000.00
+2025-03-19 11:29:38,219 - root - INFO - DC1 - WATER003: 257.54
+2025-03-19 11:29:38,220 - root - INFO - DC2 - WATER003: 257.54
+2025-03-19 11:29:38,221 - root - INFO - S1 - WATER003: 128.76
+2025-03-19 11:29:38,221 - root - INFO - S2 - WATER003: 128.77
+2025-03-19 11:29:38,222 - root - INFO - S3 - WATER003: 128.77
+2025-03-19 11:29:38,222 - root - INFO - Total Cost: 40519.11
+2025-03-19 11:29:38,224 - root - INFO - 
+Heuristic Stock Alerts:
+2025-03-19 11:29:38,225 - root - INFO - Potential Stockouts:
+2025-03-19 11:29:38,225 - root - INFO - Potential Overstocks (above 90% capacity):
+2025-03-19 11:29:38,227 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\optimization_results.csv
+2025-03-19 11:29:38,232 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\inventory_levels.csv
+2025-03-19 11:29:38,232 - meio.io.csv_exporter - INFO - No stock alerts to save for optimization 20489ca4-f590-4e42-a8e7-76b2d0537182
+2025-03-19 11:29:38,571 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/safety_stock_recommendations?columns=%22service_level%22%2C%22node_id%22%2C%22safety_stock%22%2C%22product_id%22%2C%22network_id%22 "HTTP/2 201 Created"
+2025-03-19 11:29:38,576 - root - INFO - Generating network visualization...
+2025-03-19 11:29:39,124 - meio.visualization.network_viz - INFO - Network visualization saved to D:\Personal\Code\MEIO\results\visualizations\network_visualization.png
+2025-03-19 11:29:45,852 - root - INFO - Generating comparison chart...
+2025-03-19 11:29:46,312 - meio.visualization.charts - INFO - Comparison chart saved to D:\Personal\Code\MEIO\results\visualizations\comparison_chart.png
+2025-03-19 11:29:50,537 - root - INFO - Generating node metrics charts...
+2025-03-19 11:29:51,157 - meio.visualization.charts - INFO - Node metrics chart for P1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_P1.png
+2025-03-19 11:29:51,766 - meio.visualization.charts - INFO - Node metrics chart for DC1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC1.png
+2025-03-19 11:29:52,357 - meio.visualization.charts - INFO - Node metrics chart for DC2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_DC2.png
+2025-03-19 11:29:53,019 - meio.visualization.charts - INFO - Node metrics chart for S1 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S1.png
+2025-03-19 11:29:53,677 - meio.visualization.charts - INFO - Node metrics chart for S2 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S2.png
+2025-03-19 11:29:54,314 - meio.visualization.charts - INFO - Node metrics chart for S3 saved to D:\Personal\Code\MEIO\results\visualizations\node_metrics_S3.png
+2025-03-19 11:30:04,637 - root - INFO - Saving network statistics...
+2025-03-19 11:30:04,644 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\node_statistics.csv
+2025-03-19 11:30:04,644 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\product_statistics.csv
+2025-03-19 11:30:04,645 - meio.io.csv_exporter - INFO - CSV data written to D:\Personal\Code\MEIO\results\optimization\demand_statistics.csv
+2025-03-19 11:30:04,650 - meio.io.csv_exporter - INFO - Network statistics saved to CSV files in D:\Personal\Code\MEIO\results\optimization
+2025-03-19 11:30:05,250 - httpx - INFO - HTTP Request: POST https://avmnttljluptvsgiuptz.supabase.co/rest/v1/network_statistics?columns=%22network_id%22%2C%22avg_lead_time%22%2C%22node_id%22%2C%22total_demand%22%2C%22demand_std%22%2C%22product_id%22%2C%22shortage_cost%22%2C%22avg_demand%22%2C%22holding_cost%22%2C%22lead_time_std%22 "HTTP/2 201 Created"
