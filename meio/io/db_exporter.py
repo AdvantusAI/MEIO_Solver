@@ -211,4 +211,33 @@ class DatabaseExporter:
         except Exception as e:
             logger.error(f"Error saving safety stock recommendations: {str(e)}")
             logger.error(f"First few records: {data[:5] if data else 'No data'}")
+            raise
+    
+    def save_ai_recommendations(self, network_id: str, recommendations: List[Dict[str, Any]]):
+        """
+        Save AI recommendations to the database.
+        
+        Args:
+            network_id (str): ID of the network
+            recommendations (list): List of recommendation dictionaries
+        """
+        try:
+            data = []
+            for rec in recommendations:
+                data.append({
+                    'network_id': network_id,
+                    'node_id': rec['node_id'],
+                    'product_id': rec['product_id'],
+                    'analysis': rec['analysis'],
+                    'recommendations': rec['recommendations']
+                })
+            
+            if data:
+                response = self.supabase.table('ai_recommendations').insert(data).execute()
+                if not response.data:
+                    raise Exception("No data returned from insert operation")
+                
+        except Exception as e:
+            logger.error(f"Error saving AI recommendations: {str(e)}")
+            logger.error(f"First few records: {data[:5] if data else 'No data'}")
             raise 

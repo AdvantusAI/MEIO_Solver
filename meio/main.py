@@ -17,6 +17,7 @@ from meio.optimization.solver import MathematicalSolver
 from meio.optimization.heuristic import HeuristicSolver
 from meio.visualization.network_viz import NetworkVisualizer
 from meio.visualization.charts import ChartVisualizer
+from meio.agents.ai_agent import AIAgent
 
 # Set up logging
 logging.basicConfig(
@@ -356,6 +357,43 @@ def main():
         db_exporter.save_network_statistics(args.network_id, statistics)
     except Exception as e:
         logging.warning(f"Failed to save network statistics: {str(e)}")
+    
+    # Generate AI recommendations
+    logging.info("Generating AI recommendations...")
+    ai_agent = AIAgent()  # Create an instance of AIAgent
+    ai_recommendations = []
+    for node_id, node in network.nodes.items():
+        for product_id, product_data in node.products.items():
+            # Get inventory levels for this node and product
+            inventory_levels = {
+                period: results_to_use['inventory_levels'].get((node_id, product_id, period), 0)
+                for period in range(network.num_periods)
+            }
+            
+            # Get safety stock for this node and product
+            safety_stock_data = safety_recommendations.get(node_id, {}).get(product_id, {})
+            
+            # Get network statistics for this node and product
+            node_stats = statistics.get(node_id, {}).get(product_id, {})
+            
+            # Generate analysis and recommendations
+            analysis_result = ai_agent.analyze_results(  # Use the instance method
+                args.network_id, node_id, product_id,
+                inventory_levels, safety_stock_data, node_stats
+            )
+            
+            ai_recommendations.append({
+                'node_id': node_id,
+                'product_id': product_id,
+                'analysis': analysis_result['analysis'],
+                'recommendations': analysis_result['recommendations']
+            })
+    
+    # Save AI recommendations
+    try:
+        db_exporter.save_ai_recommendations(args.network_id, ai_recommendations)
+    except Exception as e:
+        logging.error(f"Error saving AI recommendations: {str(e)}")
     
     return 0
 

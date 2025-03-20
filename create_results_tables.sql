@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS public.network_statistics;
 DROP TABLE IF EXISTS public.stock_alerts;
 DROP TABLE IF EXISTS public.inventory_levels;
 DROP TABLE IF EXISTS public.optimization_runs;
+DROP TABLE IF EXISTS public.ai_recommendations;
 
 -- Table for optimization runs
 CREATE TABLE public.optimization_runs (
@@ -75,12 +76,24 @@ CREATE TABLE public.safety_stock_recommendations (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Table for AI recommendations
+CREATE TABLE public.ai_recommendations (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    network_id TEXT NOT NULL,
+    node_id TEXT NOT NULL,
+    product_id TEXT NOT NULL,
+    analysis TEXT NOT NULL,
+    recommendations JSONB NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- Create indexes for better query performance
 CREATE INDEX idx_optimization_runs_network_id ON public.optimization_runs(network_id);
 CREATE INDEX idx_inventory_levels_run_id ON public.inventory_levels(optimization_run_id);
 CREATE INDEX idx_stock_alerts_run_id ON public.stock_alerts(optimization_run_id);
 CREATE INDEX idx_network_statistics_network_id ON public.network_statistics(network_id);
 CREATE INDEX idx_safety_stock_network_id ON public.safety_stock_recommendations(network_id);
+CREATE INDEX idx_ai_recommendations_network_id ON public.ai_recommendations(network_id);
 
 -- Enable RLS but allow all operations
 ALTER TABLE public.optimization_runs ENABLE ROW LEVEL SECURITY;
@@ -88,6 +101,7 @@ ALTER TABLE public.inventory_levels ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.stock_alerts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.network_statistics ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.safety_stock_recommendations ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.ai_recommendations ENABLE ROW LEVEL SECURITY;
 
 -- Drop existing policies
 DROP POLICY IF EXISTS "Enable read access for all users" ON public.optimization_runs;
@@ -100,6 +114,8 @@ DROP POLICY IF EXISTS "Enable read access for all users" ON public.network_stati
 DROP POLICY IF EXISTS "Enable insert access for all users" ON public.network_statistics;
 DROP POLICY IF EXISTS "Enable read access for all users" ON public.safety_stock_recommendations;
 DROP POLICY IF EXISTS "Enable insert access for all users" ON public.safety_stock_recommendations;
+DROP POLICY IF EXISTS "Enable read access for all users" ON public.ai_recommendations;
+DROP POLICY IF EXISTS "Enable insert access for all users" ON public.ai_recommendations;
 
 -- Create policies to allow read and insert operations
 CREATE POLICY "Enable read access for all users" ON public.optimization_runs FOR SELECT USING (true);
@@ -115,4 +131,7 @@ CREATE POLICY "Enable read access for all users" ON public.network_statistics FO
 CREATE POLICY "Enable insert access for all users" ON public.network_statistics FOR INSERT WITH CHECK (true);
 
 CREATE POLICY "Enable read access for all users" ON public.safety_stock_recommendations FOR SELECT USING (true);
-CREATE POLICY "Enable insert access for all users" ON public.safety_stock_recommendations FOR INSERT WITH CHECK (true); 
+CREATE POLICY "Enable insert access for all users" ON public.safety_stock_recommendations FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Enable read access for all users" ON public.ai_recommendations FOR SELECT USING (true);
+CREATE POLICY "Enable insert access for all users" ON public.ai_recommendations FOR INSERT WITH CHECK (true); 
